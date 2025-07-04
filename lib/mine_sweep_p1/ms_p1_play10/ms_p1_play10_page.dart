@@ -1,0 +1,98 @@
+import 'package:c103_mine_sweep/mine_sweep_base/ms_base_page.dart';
+import 'package:c103_mine_sweep/mine_sweep_p1/ms_p1_play10/ms_p1_play10_con.dart';
+import 'package:c103_mine_sweep/mine_sweep_p1/ms_p1_widget/ms_p1_base_play.dart';
+import 'package:c103_mine_sweep/mine_sweep_p1/ms_p1_widget/ms_p1_card_item_widget.dart';
+import 'package:c103_mine_sweep/mine_sweep_widget/ms_click.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+
+class MsP1Play10Page extends MsBasePage<MsP1Play10Con>{
+  @override
+  MsP1Play10Con initMsCon() => MsP1Play10Con();
+
+  @override
+  Widget buildMsWidget() => MsP1BasePlay(
+    p1playUtils: msCon.p1playUtils,
+    clickHome: (){
+      msCon.clickHome();
+    },
+    clickResume: (){
+      msCon.clickResume();
+    },
+    child: _listWidget(),
+  );
+
+  _listWidget()=>GetBuilder<MsP1Play10Con>(
+    id: "list",
+    builder: (_){
+      if(msCon.p1playUtils.cardList.isEmpty){
+        return Container();
+      }
+      return Stack(
+        alignment: Alignment.center,
+        children: [
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  _cardWidget(0,0),
+                  _cardWidget(0,1).marginOnly(left: 12.w),
+                  _cardWidget(0,2).marginOnly(left: 27.w),
+                  _cardWidget(0,3).marginOnly(left: 12.w),
+                ],
+              ),
+              SizedBox(height: 16.h,),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  _cardWidget(0,4),
+                  _cardWidget(0,5).marginOnly(left: 12.w),
+                  _cardWidget(0,6).marginOnly(left: 27.w),
+                  _cardWidget(0,7).marginOnly(left: 12.w),
+                ],
+              ),
+              SizedBox(height: 16.h,),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  _cardWidget(0,8),
+                  _cardWidget(0,9).marginOnly(left: 12.w),
+                ],
+              ),
+            ],
+          ),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  _cardWidget(1,0),
+                  _cardWidget(1,1).marginOnly(left: 94.w),
+                ],
+              ),
+              SizedBox(height: 16.h,),
+              _cardWidget(1,2),
+            ],
+          )
+        ],
+      );
+    },
+  );
+
+  Widget _cardWidget(int fatherIndex,int childIndex){
+    var bean = msCon.p1playUtils.cardList[fatherIndex][childIndex];
+    return MsClick(
+      onTap: (){
+        msCon.clickCard(bean);
+      },
+      child: SizedBox(
+        key: bean.globalKey,
+        child: MsP1CardItemWidget(cardBean: bean),
+      ),
+    );
+  }
+}
