@@ -41,7 +41,7 @@ class MsP1WildDialog extends MsBaseDialog<MsP1WildCon>{
         shakeAnimationController: msCon.shakeAnimationController,
         shakeAnimationType: ShakeAnimationType.LeftRightShake,
         child: MsBtnWidget(
-          btnText: "2000",
+          btnText: "1000",
           btnBg: "btn_green",
           width: 160.w,
           height: 58.h,

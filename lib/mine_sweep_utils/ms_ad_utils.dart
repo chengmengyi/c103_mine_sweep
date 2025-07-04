@@ -13,12 +13,12 @@ class MsAdUtils{
   static MsAdUtils get instance => _utils;
 
   initAd()async{
-    // try{
-    //   var json = _getAdJson();
-    //   var data = _getConfigAdData(json);
-    //   FlutterIosAdHep.instance.initMax(maxKey: MsLocalInfo.maxKeyBase64.base64(), data: data);
-    // }catch(e){
-    // }
+    try{
+      var json = _getAdJson();
+      var data = _getConfigAdData(json);
+      FlutterIosAdHep.instance.initMax(maxKey: MsLocalInfo.maxKeyBase64.base64(), data: data);
+    }catch(e){
+    }
   }
 
   //显示A包的广告

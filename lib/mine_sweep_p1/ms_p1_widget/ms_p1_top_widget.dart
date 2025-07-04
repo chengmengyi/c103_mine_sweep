@@ -89,9 +89,9 @@ class MsP1TopWidgetState extends MsBaseStatefulState<MsP1TopWidget> with SingleT
             SizedBox(height: 4.h,),
             Row(
               children: [
-                _diamondWidget(),
-                SizedBox(width: 4.w,),
                 _coinsWidget(),
+                SizedBox(width: 4.w,),
+                _diamondWidget(),
                 SizedBox(width: 40.w,),
               ],
             )

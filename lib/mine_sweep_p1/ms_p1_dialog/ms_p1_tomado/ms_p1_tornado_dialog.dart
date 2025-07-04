@@ -46,7 +46,7 @@ class MsP1TornadoDialog extends MsBaseDialog<MsP1TornadoCon>{
           width: 160.w,
           height: 58.h,
           leftIcon: "icon_coins",
-          textColor: p1CoinsNum.getData()>=1000?"#FFFFFF":"#C62828",
+          textColor: p1CoinsNum.getData()>=2000?"#FFFFFF":"#C62828",
           onTap: (){
             msCon.clickCoins(getWildCallback);
           },

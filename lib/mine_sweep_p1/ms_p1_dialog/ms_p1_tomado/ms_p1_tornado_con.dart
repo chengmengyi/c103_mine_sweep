@@ -26,11 +26,11 @@ class MsP1TornadoCon extends MsBaseCon with GetSingleTickerProviderStateMixin{
   }
 
   clickCoins(Function() getWildCallback){
-    if(p1CoinsNum.getData()<1000){
+    if(p1CoinsNum.getData()<2000){
       shakeAnimationController.start();
       return;
     }
-    P1UserInfoUtils.instance.updateCoinsNum(-1000);
+    P1UserInfoUtils.instance.updateCoinsNum(-2000);
     MsRouterUtils.instance.back();
     getWildCallback.call();
   }

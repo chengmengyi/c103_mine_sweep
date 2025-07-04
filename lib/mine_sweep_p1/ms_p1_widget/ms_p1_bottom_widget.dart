@@ -278,7 +278,7 @@ class MsP1BottomWidgetState extends MsBaseStatefulState<MsP1BottomWidget> with T
       child: MsP1TornadoDialog(
         getWildCallback: (){
           var result = widget.p1playUtils.cardList.expand((row) => row).where((card) => card.canShow&&!card.isCoveredCard).toList();
-          MsEventUtils.instance.sendMsg(code: MsP1EventCode.startTornadoAnimator,anyValue: result);
+          MsEventUtils.instance.sendMsg(code: MsP1EventCode.startBaozhaLottie,anyValue: result);
         },
       ),
     );

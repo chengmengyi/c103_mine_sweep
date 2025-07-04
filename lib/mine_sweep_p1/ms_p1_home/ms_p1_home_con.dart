@@ -8,6 +8,7 @@ import 'package:c103_mine_sweep/mine_sweep_p1/ms_p1_utils/p1_user_info_utils.dar
 import 'package:c103_mine_sweep/mine_sweep_routers/ms_routers_name.dart';
 import 'package:c103_mine_sweep/mine_sweep_routers/ms_routers_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_storage/p1/p1_storage.dart';
+import 'package:c103_mine_sweep/mine_sweep_utils/ms_ad_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_event/ms_event_bean.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_voice_utils.dart';
 import 'package:flutter/foundation.dart';
@@ -67,6 +68,7 @@ class MsP1HomeCon extends MsBaseCon{
     // p1LevelNum.saveData(1);
     // P1UserInfoUtils.instance.updateDiamond(20);
     // MsVoiceUtils.instance.playMusic(MusicType.feng1);
-    P1UserInfoUtils.instance.updateDiamond(-60);
+    // P1UserInfoUtils.instance.updateDiamond(-60);
+    MsAdUtils.instance.initAd();
   }
 }

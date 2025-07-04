@@ -23,4 +23,6 @@ class MsP1EventCode{
   static const updateDiamond=11;
   //开始初始化手牌
   static const startInitHandsCard=12;
+  //开始爆炸的lottie动画
+  static const startBaozhaLottie=13;
 }

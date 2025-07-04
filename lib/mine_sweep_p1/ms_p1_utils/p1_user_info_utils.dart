@@ -64,6 +64,6 @@ class P1UserInfoUtils{
     if(add==0){
       return;
     }
-    MsEventUtils.instance.sendMsg(code: MsP1EventCode.updateCoins);
+    MsEventUtils.instance.sendMsg(code: MsP1EventCode.updateCoins,intValue: add);
   }
 }
