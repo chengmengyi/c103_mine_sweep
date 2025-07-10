@@ -1,5 +1,6 @@
 import 'package:c103_mine_sweep/mine_sweep_routers/ms_common_pages.dart';
 import 'package:c103_mine_sweep/mine_sweep_routers/ms_p1_pages.dart';
+import 'package:c103_mine_sweep/mine_sweep_routers/ms_p2_pages.dart';
 import 'package:c103_mine_sweep/mine_sweep_routers/ms_routers_name.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_ad_utils.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +44,7 @@ class MyApp extends StatelessWidget {
     var size = const Size(375, 812);
     var title="MineSweep Solitaire";
     var initialRoute = MsCommonRoutersName.launch;
-    var pages = MsP1Pages.list+MsCommonPages.list;
+    var pages = MsP1Pages.list+MsCommonPages.list+MsP2Pages.list;
     return ScreenUtilInit(
       designSize: size,
       builder: (c,child)=>GetMaterialApp(

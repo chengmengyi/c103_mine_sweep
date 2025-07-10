@@ -32,7 +32,7 @@ class MsLaunchCon extends MsBaseCon with GetSingleTickerProviderStateMixin{
 
   toHome(){
     launchShowBtnCommon.saveData(false);
-    MsRouterUtils.instance.offNamed(routersName: MsP1RoutersName.home);
+    MsRouterUtils.instance.offNamed(routersName: MsP2RoutersName.home);
   }
 
   @override
