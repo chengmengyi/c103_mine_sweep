@@ -2,8 +2,6 @@ import 'package:c103_mine_sweep/mine_sweep_base/ms_base_page.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_home/ms_p2_home_con.dart';
 import 'package:c103_mine_sweep/mine_sweep_widget/ms_click.dart';
 import 'package:c103_mine_sweep/mine_sweep_widget/ms_images.dart';
-import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_widget/ms_p2_top_widget.dart';
-import 'package:c103_mine_sweep/mine_sweep_widget/ms_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -14,77 +12,46 @@ class MsP2HomePage extends MsBasePage<MsP2HomeCon>{
   MsP2HomeCon initMsCon() => MsP2HomeCon();
 
   @override
-  Widget buildMsWidget() => Stack(
-    children: [
-      MsImages(imagesName: "home1",width: double.infinity,height: double.infinity,),
-      Column(
-        children: [
-          MsP2TopWidget(showLevel: false,),
-          _levelListWidget(),
-          _btnWidget(),
-        ],
-      )
-    ],
-  );
-
-  _levelListWidget()=>Expanded(
-    child: GetBuilder<MsP2HomeCon>(
-      id: "level",
-      builder: (_)=>Stack(
-        children: [
-          Positioned(
-            right: 120.w,
-            bottom: 32.h,
-            child: MsClick(
-              onTap: (){
-                msCon.test();
-              },
-              child: _itemWidget(82.w,70.h,0),
-            ),
-          ),
-          Positioned(
-            left: 106.w,
-            bottom: 126.h,
-            child: _itemWidget(74.w,68.h,1),
-          ),
-          Positioned(
-            left: 88.w,
-            bottom: 226.h,
-            child: _itemWidget(58.w,52.h,2),
-          ),
-          Positioned(
-            left: 149.w,
-            bottom: 293.h,
-            child: _itemWidget(53.w,45.h,3),
-          ),
-          Positioned(
-            left: 106.w,
-            bottom: 366.h,
-            child: _itemWidget(46.w,42.h,4),
-          ),
-        ],
-      ),
+  Widget buildMsWidget() => GetBuilder<MsP2HomeCon>(
+    id: "page",
+    builder: (_)=>Stack(
+      alignment: Alignment.bottomCenter,
+      children: [
+        IndexedStack(
+          index: msCon.chooseIndex,
+          children: msCon.childList,
+        ),
+        _btnWidget(),
+      ],
     ),
   );
 
-  _itemWidget(double width,double height,int index){
-    var lock = msCon.checkLock(index);
-    if(lock){
-      return MsImages(imagesName: "home9",width: width,height: height,);
-    }
-    return Stack(
-      alignment: Alignment.topCenter,
-      children: [
-        MsImages(imagesName: "home7",width: width,height: height,),
-        MsText(text: "LV${msCon.getLevel(index)}", size: 13.sp, color: "#FFFFFF",outLineColor: "#4F0000",).marginOnly(top: msCon.getMarginTop(index))
-      ],
-    );
-  }
+  _btnWidget()=>Stack(
+    alignment: Alignment.topCenter,
+    children: [
+      MsImages(imagesName: "home20",width: 274.w,height: 62.h,),
+      Row(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          _btnItemWidget(0),
+          SizedBox(width: 30.w,),
+          _btnItemWidget(1),
+          SizedBox(width: 30.w,),
+          _btnItemWidget(2),
+        ],
+      ),
+    ],
+  ).marginOnly(bottom: 20.h);
 
-  _btnWidget()=>MsClick(
+  _btnItemWidget(index)=>MsClick(
     onTap: (){
-      msCon.toPlay();
+      msCon.clickItem(index);
     },
-    child: MsImages(imagesName: "home8",width: 211.w,height: 82.h,),
-  ).marginOnly(bottom: 72.h);
+    child: MsImages(
+      imagesName: index==0?"home17":index==1?"home18":"home19",
+      width: msCon.chooseIndex==index?60.w:49.w,
+      height: msCon.chooseIndex==index?56.h:46.h,
+    ),
+  );
 }

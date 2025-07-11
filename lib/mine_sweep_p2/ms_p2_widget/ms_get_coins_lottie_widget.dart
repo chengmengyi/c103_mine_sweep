@@ -45,7 +45,7 @@ class MsGetCoinsLottieWidgetState extends MsBaseStatefulState<MsGetCoinsLottieWi
   handleEventMessage(MsEventBean event) {
     switch(event.code){
       case MsP2EventCode.updateCoins:
-        if((event.intValue??0)<=0){
+        if((event.anyValue??0)<=0){
           return;
         }
         show=true;

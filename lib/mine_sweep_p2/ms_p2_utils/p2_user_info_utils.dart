@@ -2,10 +2,25 @@ import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_event_code.dart'
 import 'package:c103_mine_sweep/mine_sweep_routers/ms_routers_name.dart';
 import 'package:c103_mine_sweep/mine_sweep_storage/p2/p2_storage.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_event/ms_event_utils.dart';
+import 'package:decimal/decimal.dart';
+import 'package:flutter/material.dart';
 
 class P2UserInfoUtils{
   static final P2UserInfoUtils _utils = P2UserInfoUtils();
   static P2UserInfoUtils get instance => _utils;
+
+  updateWheelPro(){
+    p2WheelPro.saveData(p2WheelPro.getData()+1);
+    MsEventUtils.instance.sendMsg(code: MsP2EventCode.updateWheelPro);
+
+  }
+
+  Widget? checkShowWheelDialog(){
+    if(p2WheelPro.getData()>=5){
+
+    }
+    return null;
+  }
 
   int getCurrentLevelNum(){
     var level = p2LevelNum.getData();
@@ -59,11 +74,13 @@ class P2UserInfoUtils{
     return "";
   }
 
-  updateCoinsNum(int add){
-    p2CoinsNum.saveData(p2CoinsNum.getData()+add);
+  updateCoinsNum(add){
     if(add==0){
       return;
     }
-    MsEventUtils.instance.sendMsg(code: MsP2EventCode.updateCoins,intValue: add);
+    var current = p2CoinsNum.getData();
+    var result = (Decimal.parse("$current")+Decimal.parse("$add")).toDouble();
+    p2CoinsNum.saveData(result+add);
+    MsEventUtils.instance.sendMsg(code: MsP2EventCode.updateCoins,anyValue: add);
   }
 }

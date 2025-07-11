@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MsP2PlayWinDialog extends MsBaseDialog<MsP2PlayWinCon>{
-  int rewards;
+  double rewards;
   Function() clickNext;
   Function() clickHome;
   MsP2PlayWinDialog({

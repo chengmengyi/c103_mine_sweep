@@ -1,0 +1,84 @@
+import 'package:c103_mine_sweep/mine_sweep_base/ms_base_dialog.dart';
+import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/get_coins/get_coins_controller.dart';
+import 'package:c103_mine_sweep/mine_sweep_widget/ms_btn_widget.dart';
+import 'package:c103_mine_sweep/mine_sweep_widget/ms_click.dart';
+import 'package:c103_mine_sweep/mine_sweep_widget/ms_images.dart';
+import 'package:c103_mine_sweep/mine_sweep_widget/ms_text.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+
+class GetCoinsDialog extends MsBaseDialog<GetCoinsController>{
+  double addNum;
+  Function() success;
+  GetCoinsDialog({
+    required this.addNum,
+    required this.success,
+});
+
+  @override
+  GetCoinsController initMsCon() => GetCoinsController();
+
+  @override
+  Widget buildMsWidget() => Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      _titleWidget(),
+      _contentWidget(),
+      SizedBox(height: 12.h,),
+      _btnWidget(),
+    ],
+  );
+
+  _titleWidget()=>Stack(
+    alignment: Alignment.topCenter,
+    children: [
+      MsImages(imagesName: "diamond2",height: 65.h,boxFit: BoxFit.fitHeight,),
+      MsText(text: "Congratulations", size: 25.sp, color: "#FFFFFF").marginOnly(top: 6.h),
+    ],
+  );
+
+  _contentWidget()=>SizedBox(
+    width: 246.w,
+    height: 246.w,
+    child: Stack(
+      children: [
+        MsImages(imagesName: "wild1",width: 246.w,height: 246.w,),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: MsText(text: "+\$$addNum", size: 26.sp, color: "#11FF04",),
+        )
+      ],
+    ),
+  );
+
+  _btnWidget()=>Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      MsBtnWidget(
+        btnText: "Double",
+        btnBg: "btn_green",
+        width: 160.w,
+        height: 58.h,
+        topRightIcon: "icon_video",
+        onTap: (){
+          msCon.clickDouble(addNum,success);
+        },
+      ),
+      SizedBox(height: 16.h,),
+      MsClick(
+        onTap: (){
+          msCon.clickSingle(addNum, success);
+        },
+        child: MsText(
+          text: "Collect",
+          size: 14.sp,
+          color: "#AAAAAA",
+          withOpacity: 0.8,
+          decoration: TextDecoration.underline,
+          decorationColor: "#AAAAAA",
+        ),
+      )
+    ],
+  );
+}

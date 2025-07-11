@@ -9,6 +9,7 @@ class MsP2CardBean {
   bool canShow;
   CardTypeEnum cardType;
   GlobalKey globalKey;
+  bool isMoneyCard;
 
   MsP2CardBean({
     required this.tag,
@@ -18,6 +19,7 @@ class MsP2CardBean {
     required this.canShow,
     required this.cardType,
     required this.globalKey,
+    this.isMoneyCard=false,
   });
 
   @override

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 import 'package:c103_mine_sweep/mine_sweep_p1/ms_p1_utils/ms_p1_play_utils.dart';
+import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -40,3 +41,5 @@ String getCardIcon({
 extension StringBase64 on String{
   String base64()=>const Utf8Decoder().convert(base64Decode(this));
 }
+
+double valuex2(value)=>(Decimal.parse("$value")*Decimal.fromInt(2)).toDouble();

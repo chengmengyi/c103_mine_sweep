@@ -2,24 +2,14 @@ import 'package:c103_mine_sweep/mine_sweep_base/ms_base_con.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-abstract class MsBaseDialog<C extends MsBaseCon> extends StatelessWidget{
+abstract class MsBaseChild<C extends MsBaseCon> extends StatelessWidget{
   bool _initView=true;
   late C msCon;
 
   @override
   Widget build(BuildContext context) {
     _initVVVV(context);
-    return WillPopScope(
-      child: Material(
-        type: MaterialType.transparency,
-        child: Center(
-          child: buildMsWidget(),
-        ),
-      ),
-      onWillPop: ()async{
-        return false;
-      },
-    );
+    return buildMsWidget();
   }
 
   init(){}

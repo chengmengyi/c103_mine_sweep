@@ -25,4 +25,6 @@ class MsP2EventCode{
   static const startInitHandsCard=112;
   //开始爆炸的lottie动画
   static const startBaozhaLottie=113;
+  //更新转盘进度
+  static const updateWheelPro=114;
 }

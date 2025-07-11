@@ -277,7 +277,7 @@ class MsP2BottomWidgetState extends MsBaseStatefulState<MsP2BottomWidget> with T
     MsRouterUtils.instance.showDialog(
       child: MsP2TornadoDialog(
         getWildCallback: (){
-          var result = widget.p1playUtils.cardList.expand((row) => row).where((card) => card.canShow&&!card.isCoveredCard).toList();
+          var result = widget.p1playUtils.cardList.expand((row) => row).where((card) => card.canShow&&!card.isCoveredCard&&!card.isMoneyCard).toList();
           MsEventUtils.instance.sendMsg(code: MsP2EventCode.startBaozhaLottie,anyValue: result);
         },
       ),

@@ -36,7 +36,7 @@ class MsP2WildCon extends MsBaseCon with GetSingleTickerProviderStateMixin{
   }
 
   clickVideo(Function() getWildCallback){
-    MsAdUtils.instance.showP111111Ad(
+    MsAdUtils.instance.showP2222Ad(
       adType: AdType.reward,
       close: (){
         MsRouterUtils.instance.back();

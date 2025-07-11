@@ -11,6 +11,9 @@ class MsText extends StatelessWidget{
   String? decorationColor;
   TextDecoration? decoration;
   double? withOpacity;
+  bool? useFontFamily;
+  FontWeight? fontWeight;
+
   MsText({
     required this.text,
     required this.size,
@@ -19,6 +22,8 @@ class MsText extends StatelessWidget{
     this.decoration,
     this.decorationColor,
     this.withOpacity,
+    this.useFontFamily=true,
+    this.fontWeight,
 });
 
   @override
@@ -28,8 +33,9 @@ class MsText extends StatelessWidget{
       style: TextStyle(
         fontSize: size,
         color: null==withOpacity?color.toColor():color.toColor().withOpacity(withOpacity!),
-        fontFamily: "baloo",
+        fontFamily: useFontFamily==true?"baloo":null,
         decoration: decoration,
+        fontWeight: fontWeight,
         decorationColor: null==withOpacity?decorationColor?.toColor():decorationColor?.toColor().withOpacity(withOpacity!),
       ),
     ),

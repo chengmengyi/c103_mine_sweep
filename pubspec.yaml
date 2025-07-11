@@ -48,6 +48,7 @@ dependencies:
   outlined_text: 1.0.1
   shake_animation_widget: 3.0.4
   spine_flutter: 4.2.36
+  decimal: 3.2.4
 
 
 dev_dependencies:

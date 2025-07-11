@@ -38,6 +38,27 @@ class MsAdUtils{
     );
   }
 
+  //显示B包广告
+  showP2222Ad({
+    required AdType adType,
+    required Function() close,
+  }){
+    close.call();
+    return;
+
+
+    var resultData = FlutterIosAdHep.instance.getCacheResultData(adType);
+    if(null==resultData){
+      showToast("Advertisement display failed, please try again later");
+      FlutterIosAdHep.instance.loadAd(adType);
+      return;
+    }
+    FlutterIosAdHep.instance.showAd(
+      adType: adType,
+      iosAdCallback: _initIosAdCallback(close),
+    );
+  }
+
   _getAdJson()=>jsonDecode(MsLocalInfo.adLocalJsonBase64.base64());
 
   _getMaxShowNum(json)=>json["xdsaiozl"];

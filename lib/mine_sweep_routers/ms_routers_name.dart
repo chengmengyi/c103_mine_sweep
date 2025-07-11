@@ -12,4 +12,5 @@ class MsP2RoutersName{
   static const home="/p2/home";
   static const play10="/p2/play10";
   static const play20="/p2/play20";
+  static const inputAccount="/p2/inputAccount";
 }

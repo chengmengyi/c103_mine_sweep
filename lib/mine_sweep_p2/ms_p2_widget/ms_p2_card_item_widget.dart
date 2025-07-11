@@ -34,6 +34,9 @@ class MsP2CardItemWidgetState extends MsBaseStatefulState<MsP2CardItemWidget> wi
     if(!widget.cardBean.canShow){
       return SizedBox(width: 53.w,height: 79.h,);
     }
+    if(widget.cardBean.isMoneyCard){
+      return Container(width: 53.w,height: 79.h,color: Colors.red,);
+    }
     return AnimatedBuilder(
       animation: _cardItemController,
       builder: (context, child) {
@@ -79,6 +82,9 @@ class MsP2CardItemWidgetState extends MsBaseStatefulState<MsP2CardItemWidget> wi
   handleEventMessage(MsEventBean event) {
     switch(event.code){
       case MsP2EventCode.turnOverCard:
+        if(widget.cardBean.isMoneyCard){
+          return;
+        }
         if((event.anyValue as List<MsP2CardBean>).indexWhere((value)=>value.tag==widget.cardBean.tag)>=0){
           if(!_showFront){
             _cardItemController.reverse();

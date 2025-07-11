@@ -2,10 +2,12 @@ import 'dart:math';
 import 'package:c103_mine_sweep/mine_sweep_p1/ms_p1_utils/ms_p1_play_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_bean/ms_p2_card_bean.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_bean/ms_p2_point_bean.dart';
+import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/get_coins/get_coins_dialog.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/ms_p2_play_fail/ms_p2_play_fail_has_money/ms_p2_play_fail_has_money_dialog.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/ms_p2_play_fail/ms_p2_play_fail_no_money/ms_p2_play_fail_no_money_dialog.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/ms_p2_play_win/ms_p2_play_win_dialog.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_event_code.dart';
+import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_value_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/p2_user_info_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_routers/ms_routers_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_storage/p2/p2_storage.dart';
@@ -27,6 +29,7 @@ class MsP2PlayUtils {
   initCardList(List<List<MsP2CardBean>> list){
     cardList.clear();
     cardList.addAll(list);
+    setRandomMoneyCards(cardList);
   }
 
   //初始化顶部的卡牌数值和其他卡牌是否被覆盖
@@ -54,7 +57,7 @@ class MsP2PlayUtils {
     var cardsNum=0;
     for (var value in cardList) {
       for (var value1 in value) {
-        if(!value1.isCoveredCard&&value1.canShow){
+        if(!value1.isCoveredCard&&value1.canShow&&!value1.isMoneyCard){
           cardsNum++;
           value1.canShow=false;
         }
@@ -62,7 +65,7 @@ class MsP2PlayUtils {
     }
     refreshCallback.call();
     await Future.delayed(Duration(milliseconds: 500));
-    P2UserInfoUtils.instance.updateCoinsNum(cardsNum*100);
+    P2UserInfoUtils.instance.updateCoinsNum(cardsNum*MsP2ValueUtils.instance.getRemoveCardReward());
     //全部完了
     if(_checkAllPlayFinish()){
       _allPlayFinish(refreshCallback: refreshCallback,resetPlayGame: resetPlayGame);
@@ -82,6 +85,30 @@ class MsP2PlayUtils {
     required Function() resetPlay,
   }){
     if(!canClick||bean.isCoveredCard||!bean.canShow||null==_pointCardGlobalKey){
+      return;
+    }
+    if(bean.isMoneyCard){
+      bean.canShow=false;
+      refreshCallback.call();
+      MsRouterUtils.instance.showDialog(
+        child: GetCoinsDialog(
+          addNum: MsP2ValueUtils.instance.getMoneyCardReward(),
+          success: (){
+            P2UserInfoUtils.instance.updateWheelPro();
+            var dialog = P2UserInfoUtils.instance.checkShowWheelDialog();
+            if(null!=dialog){
+
+            }else{
+              //全部完了
+              if(_checkAllPlayFinish()){
+                _allPlayFinish(refreshCallback: refreshCallback,resetPlayGame: resetPlay);
+              }else{  //还有牌可以玩
+                _hasCardCanPlay(bean: bean, refreshCallback: refreshCallback);
+              }
+            }
+          },
+        ),
+      );
       return;
     }
     if(_checkPlayFail()){
@@ -111,8 +138,9 @@ class MsP2PlayUtils {
     canClick=false;
     bean.canShow=false;
     refreshCallback.call();
-    _startCardMoveAnimator(bean);
-    P2UserInfoUtils.instance.updateCoinsNum(100);
+    await _startCardMoveAnimator(bean);
+    P2UserInfoUtils.instance.updateCoinsNum(MsP2ValueUtils.instance.getRemoveCardReward());
+    P2UserInfoUtils.instance.updateWheelPro();
     //全部完了
     if(_checkAllPlayFinish()){
       _allPlayFinish(refreshCallback: refreshCallback,resetPlayGame: resetPlayGame);
@@ -130,13 +158,13 @@ class MsP2PlayUtils {
       var handsNum=currentHandsNum;
       MsEventUtils.instance.sendMsg(code: MsP2EventCode.handleHandsCard);
       await Future.delayed(Duration(milliseconds: handsNum*400));
-      _showPlayWinDialog(handsNum*100,resetPlayGame);
+      _showPlayWinDialog(handsNum*MsP2ValueUtils.instance.getRemoveCardReward(),resetPlayGame);
     }else{
       _showPlayWinDialog(0,resetPlayGame);
     }
   }
 
-  _showPlayWinDialog(int reward,Function() resetPlayGame){
+  _showPlayWinDialog(double reward,Function() resetPlayGame){
     var routerName = P2UserInfoUtils.instance.updateLevel();
     MsVoiceUtils.instance.playMusic(MusicType.playwin);
     MsRouterUtils.instance.showDialog(
@@ -239,6 +267,9 @@ class MsP2PlayUtils {
     List<MsP2CardBean> list=[];
     for (var value in cardList) {
       for (var value1 in value) {
+        if(value1.isMoneyCard){
+          return false;
+        }
         if(!value1.isCoveredCard&&value1.canShow){
           list.add(value1);
         }
@@ -567,4 +598,19 @@ class MsP2PlayUtils {
     return Random().nextInt(100)<30;
   }
 
+  //随机设置其中3个是现金卡
+  setRandomMoneyCards(List<List<MsP2CardBean>> cardGrid) {
+    final rand = Random();
+    final flatList = cardGrid.expand((row) => row).where((card) => !card.isTopCard).toList();
+    if (flatList.length <= 3) {
+      for (var card in flatList) {
+        card.isMoneyCard = true;
+      }
+      return;
+    }
+    flatList.shuffle(rand);
+    for (int i = 0; i < 3; i++) {
+      flatList[i].isMoneyCard = true;
+    }
+  }
 }
