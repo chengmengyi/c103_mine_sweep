@@ -3,6 +3,7 @@ import 'package:c103_mine_sweep/mine_sweep_routers/ms_p1_pages.dart';
 import 'package:c103_mine_sweep/mine_sweep_routers/ms_p2_pages.dart';
 import 'package:c103_mine_sweep/mine_sweep_routers/ms_routers_name.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_ad_utils.dart';
+import 'package:c103_mine_sweep/mine_sweep_utils/ms_sql_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,6 +14,7 @@ import 'package:spine_flutter/spine_flutter.dart';
 void main() async{
   await initMs();
   await initMsP1();
+  await initMsP2();
   runApp(const MyApp());
 }
 
@@ -34,6 +36,10 @@ initMs()async{
 
 initMsP1()async{
   await MsAdUtils.instance.initAd();
+}
+
+initMsP2()async{
+  await MsSqlUtils.instance.initSql();
 }
 
 class MyApp extends StatelessWidget {

@@ -1,4 +1,6 @@
 import 'package:c103_mine_sweep/mine_sweep_base/ms_base_con.dart';
+import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/ms_p2_card_game/ms_p2_card_game_dialog.dart';
+import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_cash_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_event_code.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/p2_user_info_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_routers/ms_routers_name.dart';
@@ -61,6 +63,9 @@ class HomeChildCon extends MsBaseCon{
     // P1UserInfoUtils.instance.updateDiamond(20);
     // MsVoiceUtils.instance.playMusic(MusicType.feng1);
     // P1UserInfoUtils.instance.updateDiamond(-60);
-    P2UserInfoUtils.instance.updateCoinsNum(20);
+    // P2UserInfoUtils.instance.updateCoinsNum(200);
+    // MsP2CashUtils.instance.updateCashTask(CashTaskName.task3Use20Tomado);
+
+    MsRouterUtils.instance.showDialog(child: MsP2CardGameDialog());
   }
 }

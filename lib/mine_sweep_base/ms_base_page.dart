@@ -15,6 +15,7 @@ abstract class MsBasePage<C extends MsBaseCon> extends StatelessWidget{
         height: double.infinity,
         child: buildMsWidget(),
       ),
+      resizeToAvoidBottomInset: false,
     );
   }
 

@@ -80,7 +80,7 @@ class P2UserInfoUtils{
     }
     var current = p2CoinsNum.getData();
     var result = (Decimal.parse("$current")+Decimal.parse("$add")).toDouble();
-    p2CoinsNum.saveData(result+add);
+    p2CoinsNum.saveData(result);
     MsEventUtils.instance.sendMsg(code: MsP2EventCode.updateCoins,anyValue: add);
   }
 }

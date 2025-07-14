@@ -1,4 +1,6 @@
 import 'package:c103_mine_sweep/mine_sweep_base/ms_base_child.dart';
+import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_bean/ms_p2_cash_list_bean.dart';
+import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_bean/ms_p2_cash_task_bean.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_home/cash_child/cash_child_con.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_value_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_storage/p2/p2_storage.dart';
@@ -179,54 +181,150 @@ class CashChild extends MsBaseChild<CashChildCon>{
           context: msCon.context,
           removeTop: true,
           removeBottom: true,
-          child: ListView.builder(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: MsP2ValueUtils.instance.getCashList().length,
-            itemBuilder: (context,index){
-              var money = MsP2ValueUtils.instance.getCashList()[index];
-              return Container(
-                width: double.infinity,
-                height: 87.h,
-                margin: EdgeInsets.only(top: 12.h),
-                decoration: BoxDecoration(
-                  color: "#EFF6FF".toColor(),
-                  borderRadius: BorderRadius.circular(16.w),
-                ),
-                child: Stack(
-                  alignment: Alignment.centerLeft,
-                  children: [
-                    MsImages(imagesName: "cash3",width: 87.w,height: 87.h,),
-                    Row(
-                      children: [
-                        SizedBox(width: 26.w,),
-                        MsText(text: "\$$money", size: 29.sp, color: "#060B43",useFontFamily: false,fontWeight: FontWeight.bold,),
-                        Spacer(),
-                        MsClick(
-                          onTap: (){
-                            msCon.clickCash();
-                          },
-                          child: Container(
-                            width: 93.w,
-                            height: 38.h,
+          child: GetBuilder<CashChildCon>(
+            id: "cash_list",
+            builder: (_)=>ListView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: msCon.cashList.length,
+              itemBuilder: (context,index){
+                var bean = msCon.cashList[index];
+                return Container(
+                  width: double.infinity,
+                  height: 87.h,
+                  margin: EdgeInsets.only(top: 12.h),
+                  decoration: BoxDecoration(
+                    color: "#EFF6FF".toColor(),
+                    borderRadius: BorderRadius.circular(16.w),
+                  ),
+                  child: Stack(
+                    alignment: Alignment.centerLeft,
+                    children: [
+                      MsImages(imagesName: msCon.cashTypeIndex==0?"cash3":"cash5",height: 87.h,boxFit: BoxFit.fitHeight,),
+                      null==bean.cashTaskBean?
+                      _noCashTaskWidget(bean):
+                      _hasCashTaskWidget(bean),
+                      Positioned(
+                        top: 0,
+                        right: 0,
+                        child: Visibility(
+                          visible: msCon.getTopRightStr(bean).isNotEmpty,
+                          child: Stack(
                             alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: "#3168B9".toColor(),
-                              borderRadius: BorderRadius.circular(18.w),
-                            ),
-                            child: MsText(text: "Withdraw", size: 14.sp, color: "#FFFFFF",useFontFamily: false,fontWeight: FontWeight.bold,),
+                            children: [
+                              MsImages(imagesName: "cash6",width: 66.w,height: 22.h,),
+                              MsText(text: msCon.getTopRightStr(bean), size: 10.sp, color: "#FFFFFF",useFontFamily: false,fontWeight: FontWeight.bold,)
+                            ],
                           ),
                         ),
-                        SizedBox(width: 26.w,),
-                      ],
-                    )
-                  ],
-                ),
-              );
-            },
+                      )
+                    ],
+                  ),
+                );
+              },
+            ),
           ),
         ),
       ],
     ),
+  );
+
+  _hasCashTaskWidget(MsP2CashListBean bean)=>MsClick(
+    onTap: (){
+      msCon.clickCash(bean);
+    },
+    child: Row(
+      children: [
+        SizedBox(width: 26.w,),
+        Expanded(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              RichText(
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text: msCon.getCashTaskLeftStr(bean.cashTaskBean),
+                      style: TextStyle(
+                        color: "#000000".toColor(),
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    TextSpan(
+                      text: msCon.getCashTaskCenterStr(bean.cashTaskBean),
+                      style: TextStyle(
+                        color: "#F95700".toColor(),
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    TextSpan(
+                      text: msCon.getCashTaskRightStr(bean.cashTaskBean),
+                      style: TextStyle(
+                        color: "#000000".toColor(),
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ]
+                ),
+              ),
+              SizedBox(height: 10.h,),
+              LayoutBuilder(
+                builder: (context,bc){
+                  var maxWidth = bc.maxWidth;
+                  return Container(
+                    width: maxWidth,
+                    height: 9.h,
+                    alignment: Alignment.centerLeft,
+                    decoration: BoxDecoration(
+                      color: "#D8DCE2".toColor(),
+                      borderRadius: BorderRadius.circular(10.w),
+                    ),
+                    child: Container(
+                      width: maxWidth*msCon.getPro(bean.cashTaskBean),
+                      height: 9.h,
+                      decoration: BoxDecoration(
+                        color: "#1FAB26".toColor(),
+                        borderRadius: BorderRadius.circular(10.w),
+                      ),
+                    ),
+                  );
+                },
+              )
+            ],
+          ),
+        ),
+        SizedBox(width: 10.w,),
+        MsText(text: "\$${bean.cashAmount}", size: 29.sp, color: "#060B43",useFontFamily: false,fontWeight: FontWeight.bold,),
+        SizedBox(width: 10.w,),
+      ],
+    ),
+  );
+
+  _noCashTaskWidget(MsP2CashListBean bean)=>Row(
+    children: [
+      SizedBox(width: 26.w,),
+      MsText(text: "\$${bean.cashAmount}", size: 29.sp, color: "#060B43",useFontFamily: false,fontWeight: FontWeight.bold,),
+      Spacer(),
+      MsClick(
+        onTap: (){
+          msCon.clickCash(bean);
+        },
+        child: Container(
+          width: 93.w,
+          height: 38.h,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: "#3168B9".toColor(),
+            borderRadius: BorderRadius.circular(18.w),
+          ),
+          child: MsText(text: "Withdraw", size: 14.sp, color: "#FFFFFF",useFontFamily: false,fontWeight: FontWeight.bold,),
+        ),
+      ),
+      SizedBox(width: 26.w,),
+    ],
   );
 }

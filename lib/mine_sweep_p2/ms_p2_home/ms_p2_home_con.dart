@@ -23,4 +23,16 @@ class MsP2HomeCon extends MsBaseCon{
     chooseIndex=index;
     update(["page"]);
   }
+
+  @override
+  bool registerEvent() => true;
+
+  @override
+  handleEventMessage(MsEventBean event) {
+    switch(event.code){
+      case MsP2EventCode.showHomeIndex:
+        clickItem(event.intValue??0);
+        break;
+    }
+  }
 }

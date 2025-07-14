@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:c103_mine_sweep/mine_sweep_base/ms_base_statefull.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/ms_p2_tomado/ms_p2_tornado_dialog.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/ms_p2_wild/ms_p2_wild_dialog.dart';
+import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_cash_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_event_code.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_play_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/p2_user_info_utils.dart';
@@ -277,6 +278,7 @@ class MsP2BottomWidgetState extends MsBaseStatefulState<MsP2BottomWidget> with T
     MsRouterUtils.instance.showDialog(
       child: MsP2TornadoDialog(
         getWildCallback: (){
+          MsP2CashUtils.instance.updateCashTask(CashTaskName.task3Use20Tomado);
           var result = widget.p1playUtils.cardList.expand((row) => row).where((card) => card.canShow&&!card.isCoveredCard&&!card.isMoneyCard).toList();
           MsEventUtils.instance.sendMsg(code: MsP2EventCode.startBaozhaLottie,anyValue: result);
         },

@@ -43,3 +43,13 @@ extension StringBase64 on String{
 }
 
 double valuex2(value)=>(Decimal.parse("$value")*Decimal.fromInt(2)).toDouble();
+
+extension String2Double on String{
+  double toDouble(){
+    try{
+      return double.parse(this);
+    }catch(e){
+      return 0.0;
+    }
+  }
+}

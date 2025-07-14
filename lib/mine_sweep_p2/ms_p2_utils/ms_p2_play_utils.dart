@@ -6,6 +6,7 @@ import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/get_coins/get_coins_d
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/ms_p2_play_fail/ms_p2_play_fail_has_money/ms_p2_play_fail_has_money_dialog.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/ms_p2_play_fail/ms_p2_play_fail_no_money/ms_p2_play_fail_no_money_dialog.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/ms_p2_play_win/ms_p2_play_win_dialog.dart';
+import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_cash_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_event_code.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_value_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/p2_user_info_utils.dart';
@@ -117,6 +118,7 @@ class MsP2PlayUtils {
     }
     if(hasWildCard){
       hasWildCard=false;
+      MsP2CashUtils.instance.updateCashTask(CashTaskName.task2Use20Wild);
       MsVoiceUtils.instance.playMusic(MusicType.wild);
       _checkClickResult(bean: bean, refreshCallback: refreshCallback,resetPlayGame: resetPlay);
       return;
@@ -167,6 +169,7 @@ class MsP2PlayUtils {
   _showPlayWinDialog(double reward,Function() resetPlayGame){
     var routerName = P2UserInfoUtils.instance.updateLevel();
     MsVoiceUtils.instance.playMusic(MusicType.playwin);
+    MsP2CashUtils.instance.updateCashTask(CashTaskName.task1Pass5);
     MsRouterUtils.instance.showDialog(
       child: MsP2PlayWinDialog(
         rewards: reward,

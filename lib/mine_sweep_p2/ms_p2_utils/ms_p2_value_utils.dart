@@ -8,4 +8,6 @@ class MsP2ValueUtils{
   double getMoneyCardReward()=>0.5;
   //卡牌消除
   double getRemoveCardReward()=>0.5;
+  //翻卡增加
+  double getCardGamesReward()=>0.5;
 }

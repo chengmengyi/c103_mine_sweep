@@ -27,4 +27,12 @@ class MsP2EventCode{
   static const startBaozhaLottie=113;
   //更新转盘进度
   static const updateWheelPro=114;
+  //显示首页tab
+  static const showHomeIndex=115;
+  //更新体现列表
+  static const updateCashList=116;
+  //翻开卡牌游戏弹窗的其他牌
+  static const flipOtherCards=117;
+  //开始翻开点击的牌
+  static const startFlipClickCard=118;
 }
