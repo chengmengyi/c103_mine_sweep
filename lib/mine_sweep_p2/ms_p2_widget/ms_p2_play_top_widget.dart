@@ -16,9 +16,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class MsP2PlayTopWidget extends MsBaseStateful{
   Function()? clickHome;
   Function()? clickResume;
+  GlobalKey? topMoneyGlobalKey;
   MsP2PlayTopWidget({
     this.clickHome,
     this.clickResume,
+    this.topMoneyGlobalKey,
   });
 
   @override
@@ -42,16 +44,28 @@ class MsP2PlayTopWidgetState extends MsBaseStatefulState<MsP2PlayTopWidget> with
     height: MediaQuery.of(context).padding.top+104.h,
     child: Stack(
       children: [
-        MsImages(imagesName: "home2",width: double.infinity,height: double.infinity,),
+        MsImages(imagesName: "play_top1",width: double.infinity,height: double.infinity,),
         _boxWidget(),
         _progressWidget(),
         _setWidget(),
+        _backWidget(),
       ],
     ),
   );
 
+  _backWidget()=>Positioned(
+    left: 9.w,
+    bottom: 41.h,
+    child: MsClick(
+      onTap: (){
+        MsRouterUtils.instance.back();
+      },
+      child: MsImages(imagesName: "icon_close3",width: 36.w,height: 36.w,),
+    ),
+  );
+
   _boxWidget()=>Positioned(
-    left: 0,
+    left: 36.w,
     bottom: 0,
     child: MsClick(
       onTap: (){
@@ -70,30 +84,17 @@ class MsP2PlayTopWidgetState extends MsBaseStatefulState<MsP2PlayTopWidget> with
     ),
   );
 
-  _progressWidget()=>SafeArea(
-    top: true,
-    child: Align(
-      alignment: Alignment.topCenter,
-      child: Container(
-        width: double.infinity,
-        margin: EdgeInsets.only(left: 100.w,right: 14.w),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            MsImages(imagesName: "home11",height: 21.h,boxFit: BoxFit.fitHeight,),
-            SizedBox(height: 4.h,),
-            Row(
-              children: [
-                _coinsWidget(),
-                SizedBox(width: 4.w,),
-                _diamondWidget(),
-                SizedBox(width: 40.w,),
-              ],
-            )
-          ],
-        ),
-      ),
+  _progressWidget()=> Positioned(
+    left: 130.w,
+    bottom: 46.h,
+    child: Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        _coinsWidget(),
+        SizedBox(width: 4.w,),
+        _diamondWidget(),
+        SizedBox(width: 40.w,),
+      ],
     ),
   );
 
@@ -117,6 +118,7 @@ class MsP2PlayTopWidgetState extends MsBaseStatefulState<MsP2PlayTopWidget> with
   _coinsWidget()=>SizedBox(
     width: 108.w,
     height: 24.h,
+    key: widget.topMoneyGlobalKey,
     child: Stack(
       children: [
         MsImages(imagesName: "home6",width: 108.w,height: 24.h,),
@@ -139,7 +141,7 @@ class MsP2PlayTopWidgetState extends MsBaseStatefulState<MsP2PlayTopWidget> with
   );
 
   _diamondWidget()=>SizedBox(
-    width: 108.w,
+    width: 74.w,
     height: 24.h,
     child: Stack(
       children: [

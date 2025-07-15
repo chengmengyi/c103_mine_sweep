@@ -4,6 +4,7 @@ import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_bean/ms_p2_cash_task_bean.da
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/cash/cash_success/cash_success_dialog.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/cash/cash_task/cash_task_dialog.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/cash/no_money/no_money_dialog.dart';
+import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/guide/ms_p2_guide_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_cash_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_event_code.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_value_utils.dart';
@@ -11,10 +12,12 @@ import 'package:c103_mine_sweep/mine_sweep_routers/ms_routers_name.dart';
 import 'package:c103_mine_sweep/mine_sweep_routers/ms_routers_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_storage/p2/p2_storage.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_event/ms_event_bean.dart';
+import 'package:flutter/material.dart';
 
 class CashChildCon extends MsBaseCon{
   var cashTypeIndex=0;
   List<MsP2CashListBean> cashList=[];
+  GlobalKey firstAmountGlobalKey=GlobalKey();
 
   @override
   void onReady() {
@@ -115,7 +118,20 @@ class CashChildCon extends MsBaseCon{
       case MsP2EventCode.updateCashList:
         _initList();
         break;
+      case MsP2EventCode.showCashGuide:
+        _showCashGuide();
+        break;
     }
+  }
+
+  _showCashGuide(){
+    MsP2GuideUtils.instance.showStep5Guide(
+      context: context,
+      amountGlobalKey: firstAmountGlobalKey,
+      dismissCallback: (){
+        clickCash(cashList.first);
+      },
+    );
   }
 
   _initList()async{

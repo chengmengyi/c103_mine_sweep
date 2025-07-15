@@ -10,4 +10,6 @@ class MsP2ValueUtils{
   double getRemoveCardReward()=>0.5;
   //翻卡增加
   double getCardGamesReward()=>0.5;
+  //转盘增加
+  int getWheelReward()=>5;
 }

@@ -35,7 +35,11 @@ class MsP2CardItemWidgetState extends MsBaseStatefulState<MsP2CardItemWidget> wi
       return SizedBox(width: 53.w,height: 79.h,);
     }
     if(widget.cardBean.isMoneyCard){
-      return Container(width: 53.w,height: 79.h,color: Colors.red,);
+      return MsImages(
+        imagesName: "card_money",
+        width: 53.w,
+        height: 79.h,
+      );
     }
     return AnimatedBuilder(
       animation: _cardItemController,

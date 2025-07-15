@@ -20,7 +20,7 @@ class MsLaunchCon extends MsBaseCon with GetSingleTickerProviderStateMixin{
       })
       ..addStatusListener((status) {
         if(status==AnimationStatus.completed){
-          toHome();
+          checkUserType();
         }
       });
     if(p2UserId.getData()==0){
@@ -36,8 +36,17 @@ class MsLaunchCon extends MsBaseCon with GetSingleTickerProviderStateMixin{
     }
   }
 
-  toHome(){
+  checkUserType(){
     launchShowBtnCommon.saveData(false);
+    if(showOpenAd.getData()){
+      _toHome();
+    }else{
+      _toHome();
+    }
+  }
+
+  _toHome(){
+    showOpenAd.saveData(true);
     MsRouterUtils.instance.offNamed(routersName: MsP2RoutersName.home);
   }
 

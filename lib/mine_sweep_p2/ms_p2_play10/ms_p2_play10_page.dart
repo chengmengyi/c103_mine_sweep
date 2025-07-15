@@ -14,6 +14,7 @@ class MsP2Play10Page extends MsBasePage<MsP2Play10Con>{
   @override
   Widget buildMsWidget() => MsP2BasePlay(
     p1playUtils: msCon.p1playUtils,
+    topMoneyGlobalKey: msCon.topMoneyGlobalKey,
     clickHome: (){
       msCon.clickHome();
     },
@@ -59,7 +60,7 @@ class MsP2Play10Page extends MsBasePage<MsP2Play10Con>{
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   _cardWidget(0,8),
-                  _cardWidget(0,9).marginOnly(left: 12.w),
+                  _cardWidget(0,9).marginOnly(left: 27.w),
                 ],
               ),
             ],

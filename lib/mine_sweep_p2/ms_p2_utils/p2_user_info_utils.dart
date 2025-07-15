@@ -1,9 +1,9 @@
+import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/ms_p2_card_game/ms_p2_card_game_dialog.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_event_code.dart';
 import 'package:c103_mine_sweep/mine_sweep_routers/ms_routers_name.dart';
 import 'package:c103_mine_sweep/mine_sweep_storage/p2/p2_storage.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_event/ms_event_utils.dart';
 import 'package:decimal/decimal.dart';
-import 'package:flutter/material.dart';
 
 class P2UserInfoUtils{
   static final P2UserInfoUtils _utils = P2UserInfoUtils();
@@ -12,14 +12,14 @@ class P2UserInfoUtils{
   updateWheelPro(){
     p2WheelPro.saveData(p2WheelPro.getData()+1);
     MsEventUtils.instance.sendMsg(code: MsP2EventCode.updateWheelPro);
-
   }
 
-  Widget? checkShowWheelDialog(){
-    if(p2WheelPro.getData()>=5){
+  bool checkShowWheelDialog()=>p2WheelPro.getData()>=5;
 
-    }
-    return null;
+  updateLastWheelShowType(){
+    p2WheelPro.saveData(0);
+    p2LastShowWheel.saveData(!p2LastShowWheel.getData());
+    MsEventUtils.instance.sendMsg(code: MsP2EventCode.updateWheelPro);
   }
 
   int getCurrentLevelNum(){

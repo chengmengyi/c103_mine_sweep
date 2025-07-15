@@ -35,4 +35,6 @@ class MsP2EventCode{
   static const flipOtherCards=117;
   //开始翻开点击的牌
   static const startFlipClickCard=118;
+  //显示提现引导
+  static const showCashGuide=119;
 }

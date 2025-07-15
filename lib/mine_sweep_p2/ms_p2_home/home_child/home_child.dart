@@ -87,7 +87,10 @@ class HomeChild extends MsBaseChild<HomeChildCon>{
     onTap: (){
       msCon.toPlay();
     },
-    child: MsImages(imagesName: "home8",width: 211.w,height: 82.h,),
+    child: SizedBox(
+      key: msCon.playBtnGlobalKey,
+      child: MsImages(imagesName: "home8",width: 211.w,height: 82.h,),
+    ),
   ).marginOnly(bottom: 72.h);
 
 }

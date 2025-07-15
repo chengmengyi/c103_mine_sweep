@@ -10,6 +10,8 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 
 class MsP2CardGameDialog extends MsBaseDialog<MsP2CardGameCon>{
+  Function(double addNum) dismissDialog;
+  MsP2CardGameDialog({required this.dismissDialog});
 
   @override
   MsP2CardGameCon initMsCon() => MsP2CardGameCon();
@@ -38,7 +40,7 @@ class MsP2CardGameDialog extends MsBaseDialog<MsP2CardGameCon>{
         index: index,
         addNum: msCon.addNum,
         clickCardCallback: (){
-          msCon.clickCardCallback();
+          msCon.clickCardCallback(dismissDialog);
         },
       ),
     ),
@@ -53,7 +55,7 @@ class MsP2CardGameDialog extends MsBaseDialog<MsP2CardGameCon>{
         children: [
           MsClick(
             onTap: (){
-              msCon.clickClose();
+              msCon.clickClose(dismissDialog);
             },
             child: MsImages(imagesName: "icon_close",width: 34.w,height: 34.w,),
           ),

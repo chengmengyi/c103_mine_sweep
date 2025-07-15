@@ -192,6 +192,7 @@ class CashChild extends MsBaseChild<CashChildCon>{
                 return Container(
                   width: double.infinity,
                   height: 87.h,
+                  key: index==0?msCon.firstAmountGlobalKey:null,
                   margin: EdgeInsets.only(top: 12.h),
                   decoration: BoxDecoration(
                     color: "#EFF6FF".toColor(),

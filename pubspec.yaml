@@ -49,6 +49,7 @@ dependencies:
   shake_animation_widget: 3.0.4
   spine_flutter: 4.2.36
   decimal: 3.2.4
+  animated_text_kit: 4.2.3
 
 
 dev_dependencies:

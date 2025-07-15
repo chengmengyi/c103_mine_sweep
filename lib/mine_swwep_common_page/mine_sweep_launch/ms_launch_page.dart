@@ -39,7 +39,7 @@ class MsLaunchPage extends MsBasePage<MsLaunchCon>{
     alignment: Alignment.bottomCenter,
     child: MsClick(
       onTap: (){
-        msCon.toHome();
+        msCon.checkUserType();
       },
       child: MsImages(imagesName: "home8",width: 211.w,height: 82.h,),
     ).marginOnly(bottom: 120.h),

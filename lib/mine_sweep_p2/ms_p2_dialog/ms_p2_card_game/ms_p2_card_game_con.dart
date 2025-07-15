@@ -7,24 +7,18 @@ class MsP2CardGameCon extends MsBaseCon{
   var cakClick=true;
   var addNum=MsP2ValueUtils.instance.getCardGamesReward();
 
-  clickClose(){
+  clickClose(Function(double addNum) dismissDialog){
     if(!cakClick){
       return;
     }
     MsRouterUtils.instance.back();
+    dismissDialog.call(0);
   }
 
-  clickCardCallback()async{
+  clickCardCallback(Function(double addNum) dismissDialog)async{
     cakClick=false;
     await Future.delayed(Duration(milliseconds: 3000));
     MsRouterUtils.instance.back();
-    MsRouterUtils.instance.showDialog(
-      child: GetCoinsDialog(
-        addNum: addNum,
-        success: (){
-
-        },
-      ),
-    );
+    dismissDialog.call(addNum);
   }
 }

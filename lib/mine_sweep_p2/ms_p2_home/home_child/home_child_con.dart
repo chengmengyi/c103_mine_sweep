@@ -1,5 +1,7 @@
 import 'package:c103_mine_sweep/mine_sweep_base/ms_base_con.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/ms_p2_card_game/ms_p2_card_game_dialog.dart';
+import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/ms_p2_wheel/ms_p2_wheel_dialog.dart';
+import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/guide/ms_p2_guide_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_cash_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_event_code.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/p2_user_info_utils.dart';
@@ -7,9 +9,12 @@ import 'package:c103_mine_sweep/mine_sweep_routers/ms_routers_name.dart';
 import 'package:c103_mine_sweep/mine_sweep_routers/ms_routers_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_event/ms_event_bean.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomeChildCon extends MsBaseCon{
+  GlobalKey playBtnGlobalKey=GlobalKey();
+
   toPlay(){
     var levelNum = P2UserInfoUtils.instance.getCurrentLevelNum();
     var routersName="";
@@ -66,6 +71,9 @@ class HomeChildCon extends MsBaseCon{
     // P2UserInfoUtils.instance.updateCoinsNum(200);
     // MsP2CashUtils.instance.updateCashTask(CashTaskName.task3Use20Tomado);
 
-    MsRouterUtils.instance.showDialog(child: MsP2CardGameDialog());
+    // MsRouterUtils.instance.showDialog(child: MsP2WheelDialog());
+
+    MsP2GuideUtils.instance.showStep1Guide(context, playBtnGlobalKey);
+
   }
 }

@@ -4,3 +4,4 @@ import 'package:flutter_ad_ios_plugins/data/storage_data.dart';
 StorageData<bool> launchShowBtnCommon=StorageData<bool>(key: CommonStorageName.launchShowBtnCommon, defaultValue: true);
 StorageData<bool> bgMusicSwitch=StorageData<bool>(key: CommonStorageName.bgMusicSwitch, defaultValue: true);
 StorageData<bool> voiceMusicSwitch=StorageData<bool>(key: CommonStorageName.voiceMusicSwitch, defaultValue: true);
+StorageData<bool> showOpenAd=StorageData<bool>(key: CommonStorageName.showOpenAd, defaultValue: false);

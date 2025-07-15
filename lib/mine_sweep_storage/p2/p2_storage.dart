@@ -7,4 +7,6 @@ StorageData<int> p2WheelPro=StorageData<int>(key: P2StorageName.p2WheelPro, defa
 StorageData<int> p2UserId=StorageData<int>(key: P2StorageName.p2UserId, defaultValue: 0);
 
 StorageData<bool> p2LastShowWheel=StorageData<bool>(key: P2StorageName.p2LastShowWheel, defaultValue: true);
+StorageData<bool> p2ShowGuideUser=StorageData<bool>(key: P2StorageName.p2ShowGuideUser, defaultValue: true);
+
 StorageData<double> p2CoinsNum=StorageData<double>(key: P2StorageName.p2CoinsNum, defaultValue: 0.0);

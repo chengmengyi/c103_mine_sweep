@@ -3,9 +3,11 @@ import 'package:c103_mine_sweep/mine_sweep_p1/ms_p1_utils/ms_p1_play_utils.dart'
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_bean/ms_p2_card_bean.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_bean/ms_p2_point_bean.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/get_coins/get_coins_dialog.dart';
+import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/ms_p2_card_game/ms_p2_card_game_dialog.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/ms_p2_play_fail/ms_p2_play_fail_has_money/ms_p2_play_fail_has_money_dialog.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/ms_p2_play_fail/ms_p2_play_fail_no_money/ms_p2_play_fail_no_money_dialog.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/ms_p2_play_win/ms_p2_play_win_dialog.dart';
+import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/ms_p2_wheel/ms_p2_wheel_dialog.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_cash_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_event_code.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_value_utils.dart';
@@ -84,6 +86,7 @@ class MsP2PlayUtils {
     required MsP2CardBean bean,
     required Function() refreshCallback,
     required Function() resetPlay,
+    Function()? fromStep2Callback,
   }){
     if(!canClick||bean.isCoveredCard||!bean.canShow||null==_pointCardGlobalKey){
       return;
@@ -95,17 +98,13 @@ class MsP2PlayUtils {
         child: GetCoinsDialog(
           addNum: MsP2ValueUtils.instance.getMoneyCardReward(),
           success: (){
+            fromStep2Callback?.call();
             P2UserInfoUtils.instance.updateWheelPro();
-            var dialog = P2UserInfoUtils.instance.checkShowWheelDialog();
-            if(null!=dialog){
-
+            var showWheelDialog = P2UserInfoUtils.instance.checkShowWheelDialog();
+            if(showWheelDialog){
+              _showCardGameOrWheelDialog(refreshCallback,resetPlay,bean);
             }else{
-              //全部完了
-              if(_checkAllPlayFinish()){
-                _allPlayFinish(refreshCallback: refreshCallback,resetPlayGame: resetPlay);
-              }else{  //还有牌可以玩
-                _hasCardCanPlay(bean: bean, refreshCallback: refreshCallback);
-              }
+              _checkPlayFinishOrHasCardPlay(refreshCallback,resetPlay,bean);
             }
           },
         ),
@@ -143,6 +142,15 @@ class MsP2PlayUtils {
     await _startCardMoveAnimator(bean);
     P2UserInfoUtils.instance.updateCoinsNum(MsP2ValueUtils.instance.getRemoveCardReward());
     P2UserInfoUtils.instance.updateWheelPro();
+    var showWheelDialog = P2UserInfoUtils.instance.checkShowWheelDialog();
+    if(showWheelDialog){
+      _showCardGameOrWheelDialog(refreshCallback,resetPlayGame,bean);
+    }else{
+      _checkPlayFinishOrHasCardPlay(refreshCallback,resetPlayGame,bean);
+    }
+  }
+
+  _checkPlayFinishOrHasCardPlay(Function() refreshCallback, Function() resetPlayGame, MsP2CardBean bean,){
     //全部完了
     if(_checkAllPlayFinish()){
       _allPlayFinish(refreshCallback: refreshCallback,resetPlayGame: resetPlayGame);
@@ -182,6 +190,44 @@ class MsP2PlayUtils {
         },
         clickHome: (){
           MsRouterUtils.instance.back();
+        },
+      ),
+    );
+  }
+
+  //显示翻卡游戏或转盘弹窗
+  _showCardGameOrWheelDialog(Function() refreshCallback, Function() resetPlayGame, MsP2CardBean bean,){
+    if(p2LastShowWheel.getData()){
+      MsRouterUtils.instance.showDialog(
+        child: MsP2CardGameDialog(
+          dismissDialog: (addNum){
+            _showCardGameOrWheelGetCoinsDialog(addNum,refreshCallback,resetPlayGame,bean);
+          },
+        ),
+      );
+    }else{
+      MsRouterUtils.instance.showDialog(
+        child: MsP2WheelDialog(
+          dismissDialog: (addNum){
+            _showCardGameOrWheelGetCoinsDialog(addNum,refreshCallback,resetPlayGame,bean);
+          },
+        ),
+      );
+    }
+  }
+
+  //翻卡游戏或转盘弹窗结束后显示获得弹窗
+  _showCardGameOrWheelGetCoinsDialog(addNum,Function() refreshCallback, Function() resetPlayGame, MsP2CardBean bean,){
+    P2UserInfoUtils.instance.updateLastWheelShowType();
+    if(addNum<=0){
+      _checkPlayFinishOrHasCardPlay(refreshCallback,resetPlayGame,bean);
+      return;
+    }
+    MsRouterUtils.instance.showDialog(
+      child: GetCoinsDialog(
+        addNum: addNum,
+        success: (){
+          _checkPlayFinishOrHasCardPlay(refreshCallback,resetPlayGame,bean);
         },
       ),
     );

@@ -17,12 +17,14 @@ class MsP2BasePlay extends StatelessWidget{
   Widget child;
   Function()? clickHome;
   Function()? clickResume;
+  GlobalKey? topMoneyGlobalKey;
 
   MsP2BasePlay({
     required this.p1playUtils,
     required this.child,
     this.clickHome,
     this.clickResume,
+    this.topMoneyGlobalKey,
   });
   @override
   Widget build(BuildContext context) => Stack(
@@ -30,7 +32,7 @@ class MsP2BasePlay extends StatelessWidget{
       MsImages(imagesName: "play_bg",width: double.infinity,height: double.infinity,),
       Column(
         children: [
-          MsP2PlayTopWidget(clickHome: clickHome,clickResume: clickResume,),
+          MsP2PlayTopWidget(clickHome: clickHome,clickResume: clickResume,topMoneyGlobalKey: topMoneyGlobalKey,),
           MsP2WheelProWidget(),
           Expanded(
             child: Center(
