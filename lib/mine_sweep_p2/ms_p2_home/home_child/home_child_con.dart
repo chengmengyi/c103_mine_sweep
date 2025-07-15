@@ -4,6 +4,7 @@ import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/ms_p2_wheel/ms_p2_whe
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/guide/ms_p2_guide_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_cash_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_event_code.dart';
+import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_value_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/p2_user_info_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_routers/ms_routers_name.dart';
 import 'package:c103_mine_sweep/mine_sweep_routers/ms_routers_utils.dart';
@@ -73,7 +74,6 @@ class HomeChildCon extends MsBaseCon{
 
     // MsRouterUtils.instance.showDialog(child: MsP2WheelDialog());
 
-    MsP2GuideUtils.instance.showStep1Guide(context, playBtnGlobalKey);
-
+    // MsP2GuideUtils.instance.showStep1Guide(context, playBtnGlobalKey);
   }
 }

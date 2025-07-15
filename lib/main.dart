@@ -1,3 +1,4 @@
+import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_value_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_routers/ms_common_pages.dart';
 import 'package:c103_mine_sweep/mine_sweep_routers/ms_p1_pages.dart';
 import 'package:c103_mine_sweep/mine_sweep_routers/ms_p2_pages.dart';
@@ -40,6 +41,7 @@ initMsP1()async{
 
 initMsP2()async{
   await MsSqlUtils.instance.initSql();
+  MsP2ValueUtils.instance.initValue();
 }
 
 class MyApp extends StatelessWidget {
