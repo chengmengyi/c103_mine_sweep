@@ -1,13 +1,17 @@
 import 'package:c103_mine_sweep/mine_sweep_base/ms_base_con.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/ms_p2_card_game/ms_p2_card_game_dialog.dart';
+import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/ms_p2_good_comment/ms_p2_good_comment_dialog.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/ms_p2_wheel/ms_p2_wheel_dialog.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/guide/ms_p2_guide_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_cash_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_event_code.dart';
+import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_good_comment_utils.dart';
+import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_local_notification_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_value_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/p2_user_info_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_routers/ms_routers_name.dart';
 import 'package:c103_mine_sweep/mine_sweep_routers/ms_routers_utils.dart';
+import 'package:c103_mine_sweep/mine_sweep_storage/p2/p2_storage.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_event/ms_event_bean.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +27,18 @@ class HomeChildCon extends MsBaseCon{
       routersName = MsP2RoutersName.play10;
     }else if(levelNum<=20){
       routersName = MsP2RoutersName.play20;
+    }else if(levelNum<=30){
+      routersName = MsP2RoutersName.play30;
+    }else if(levelNum<=40){
+      routersName = MsP2RoutersName.play40;
+    }else if(levelNum<=50){
+      routersName = MsP2RoutersName.play50;
+    }else if(levelNum<=60){
+      routersName = MsP2RoutersName.play60;
+    }else if(levelNum<=70){
+      routersName = MsP2RoutersName.play70;
+    }else if(levelNum<=80){
+      routersName = MsP2RoutersName.play80;
     }
     if(routersName.isEmpty){
       return;
@@ -75,5 +91,19 @@ class HomeChildCon extends MsBaseCon{
     // MsRouterUtils.instance.showDialog(child: MsP2WheelDialog());
 
     // MsP2GuideUtils.instance.showStep1Guide(context, playBtnGlobalKey);
+
+    // P2UserInfoUtils.instance.updateCoinsNum(-6492);
+
+    // MsP2LocalNotificationUtils.instance.init();
+    // P2UserInfoUtils.instance.updateDiamond(2);
+    // P2UserInfoUtils.instance.updateLevel(1);
+
+    // p2Level12PlayCardNum.saveData(0);
+    // print("kk===${p2LevelNum.getData()}====${p2Level12PlayCardNum.getData()}");
+
+    // MsP2GoodCommentUtils.instance.checkShowGoodGuide();
+    // p2LevelNum.saveData(10);
+    P2UserInfoUtils.instance.updateLevel(1);
+    // print(P2UserInfoUtils.instance.getCurrentLevelNum());
   }
 }

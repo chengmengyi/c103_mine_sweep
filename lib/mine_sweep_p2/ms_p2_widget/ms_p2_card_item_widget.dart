@@ -11,8 +11,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MsP2CardItemWidget extends MsBaseStateful{
   MsP2CardBean cardBean;
+  double? width;
+  double? height;
   MsP2CardItemWidget({
     required this.cardBean,
+    this.width,
+    this.height,
 });
 
   @override
@@ -32,13 +36,13 @@ class MsP2CardItemWidgetState extends MsBaseStatefulState<MsP2CardItemWidget> wi
   @override
   Widget build(BuildContext context){
     if(!widget.cardBean.canShow){
-      return SizedBox(width: 53.w,height: 79.h,);
+      return SizedBox(width: widget.width??53.w,height: widget.height??79.h,);
     }
     if(widget.cardBean.isMoneyCard){
       return MsImages(
         imagesName: "card_money",
-        width: 53.w,
-        height: 79.h,
+        width: widget.width??53.w,
+        height: widget.height??79.h,
       );
     }
     return AnimatedBuilder(
@@ -62,13 +66,13 @@ class MsP2CardItemWidgetState extends MsBaseStatefulState<MsP2CardItemWidget> wi
   _backgroundCardWidget()=> Transform(
     alignment: Alignment.center,
     transform: _getRotationY(),
-    child: MsImages(imagesName: "card_background",width: 53.w,height: 79.h,),
+    child: MsImages(imagesName: "card_background",width: widget.width??53.w,height: widget.height??79.h,),
   );
 
   _frontCardWidget()=>MsImages(
     imagesName: getCardIcon(cardText: widget.cardBean.cardText, cardTypeEnum: widget.cardBean.cardType),
-    width: 53.w,
-    height: 79.h,
+    width: widget.width??53.w,
+    height: widget.height??79.h,
   );
 
   _initAnimator(){

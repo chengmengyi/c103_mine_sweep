@@ -36,7 +36,7 @@ class HomeChild extends MsBaseChild<HomeChildCon>{
         children: [
           Positioned(
             right: 120.w,
-            bottom: 32.h,
+            bottom: 22.h,
             child: MsClick(
               onTap: (){
                 msCon.test();
@@ -46,22 +46,22 @@ class HomeChild extends MsBaseChild<HomeChildCon>{
           ),
           Positioned(
             left: 106.w,
-            bottom: 126.h,
+            bottom: 116.h,
             child: _itemWidget(74.w,68.h,1),
           ),
           Positioned(
             left: 88.w,
-            bottom: 226.h,
+            bottom: 216.h,
             child: _itemWidget(58.w,52.h,2),
           ),
           Positioned(
             left: 149.w,
-            bottom: 293.h,
+            bottom: 283.h,
             child: _itemWidget(53.w,45.h,3),
           ),
           Positioned(
             left: 106.w,
-            bottom: 366.h,
+            bottom: 355.h,
             child: _itemWidget(46.w,42.h,4),
           ),
         ],
@@ -91,6 +91,6 @@ class HomeChild extends MsBaseChild<HomeChildCon>{
       key: msCon.playBtnGlobalKey,
       child: MsImages(imagesName: "home8",width: 211.w,height: 82.h,),
     ),
-  ).marginOnly(bottom: 72.h);
+  ).marginOnly(bottom: 90.h);
 
 }

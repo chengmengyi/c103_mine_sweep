@@ -151,6 +151,7 @@ class MsP2PlayUtils {
   }
 
   _checkPlayFinishOrHasCardPlay(Function() refreshCallback, Function() resetPlayGame, MsP2CardBean bean,){
+    P2UserInfoUtils.instance.updateLevel12PlayCardNum();
     //全部完了
     if(_checkAllPlayFinish()){
       _allPlayFinish(refreshCallback: refreshCallback,resetPlayGame: resetPlayGame);
@@ -175,11 +176,13 @@ class MsP2PlayUtils {
   }
 
   _showPlayWinDialog(double reward,Function() resetPlayGame){
-    var routerName = P2UserInfoUtils.instance.updateLevel();
+    var diamondAddNum=MsP2ValueUtils.instance.getDiamondReward();
+    var routerName = P2UserInfoUtils.instance.updateLevel(diamondAddNum);
     MsVoiceUtils.instance.playMusic(MusicType.playwin);
     MsP2CashUtils.instance.updateCashTask(CashTaskName.task1Pass5);
     MsRouterUtils.instance.showDialog(
       child: MsP2PlayWinDialog(
+        diamondAddNum: diamondAddNum,
         rewards: reward,
         clickNext: (){
           if(routerName.isEmpty){
@@ -316,7 +319,7 @@ class MsP2PlayUtils {
     List<MsP2CardBean> list=[];
     for (var value in cardList) {
       for (var value1 in value) {
-        if(value1.isMoneyCard){
+        if(!value1.isCoveredCard&&value1.canShow&&value1.isMoneyCard){
           return false;
         }
         if(!value1.isCoveredCard&&value1.canShow){

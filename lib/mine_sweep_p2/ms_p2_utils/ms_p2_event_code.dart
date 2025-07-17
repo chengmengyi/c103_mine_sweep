@@ -37,4 +37,6 @@ class MsP2EventCode{
   static const startFlipClickCard=118;
   //显示提现引导
   static const showCashGuide=119;
+  //显示龙卷风引导
+  static const showTomadoGuide=120;
 }

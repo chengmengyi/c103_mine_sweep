@@ -6,12 +6,18 @@ PODS:
   - audioplayers_darwin (0.0.1):
     - Flutter
     - FlutterMacOS
+  - connectivity_plus (0.0.1):
+    - Flutter
   - Flutter (1.0.0)
   - flutter_ad_ios_plugins (0.0.1):
     - Flutter
   - flutter_app_lifecycle (0.0.1):
     - Flutter
+  - flutter_local_notifications (0.0.1):
+    - Flutter
   - fluttertoast (0.0.2):
+    - Flutter
+  - in_app_review (2.0.0):
     - Flutter
   - path_provider_foundation (0.0.1):
     - Flutter
@@ -21,6 +27,8 @@ PODS:
   - sqflite_darwin (0.0.4):
     - Flutter
     - FlutterMacOS
+  - url_launcher_ios (0.0.1):
+    - Flutter
   - webview_flutter_wkwebview (0.0.1):
     - Flutter
     - FlutterMacOS
@@ -28,13 +36,17 @@ PODS:
 DEPENDENCIES:
   - applovin_max (from `.symlinks/plugins/applovin_max/ios`)
   - audioplayers_darwin (from `.symlinks/plugins/audioplayers_darwin/darwin`)
+  - connectivity_plus (from `.symlinks/plugins/connectivity_plus/ios`)
   - Flutter (from `Flutter`)
   - flutter_ad_ios_plugins (from `.symlinks/plugins/flutter_ad_ios_plugins/ios`)
   - flutter_app_lifecycle (from `.symlinks/plugins/flutter_app_lifecycle/ios`)
+  - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
+  - in_app_review (from `.symlinks/plugins/in_app_review/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
   - spine_flutter (from `.symlinks/plugins/spine_flutter/ios`)
   - sqflite_darwin (from `.symlinks/plugins/sqflite_darwin/darwin`)
+  - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
   - webview_flutter_wkwebview (from `.symlinks/plugins/webview_flutter_wkwebview/darwin`)
 
 SPEC REPOS:
@@ -46,20 +58,28 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/applovin_max/ios"
   audioplayers_darwin:
     :path: ".symlinks/plugins/audioplayers_darwin/darwin"
+  connectivity_plus:
+    :path: ".symlinks/plugins/connectivity_plus/ios"
   Flutter:
     :path: Flutter
   flutter_ad_ios_plugins:
     :path: ".symlinks/plugins/flutter_ad_ios_plugins/ios"
   flutter_app_lifecycle:
     :path: ".symlinks/plugins/flutter_app_lifecycle/ios"
+  flutter_local_notifications:
+    :path: ".symlinks/plugins/flutter_local_notifications/ios"
   fluttertoast:
     :path: ".symlinks/plugins/fluttertoast/ios"
+  in_app_review:
+    :path: ".symlinks/plugins/in_app_review/ios"
   path_provider_foundation:
     :path: ".symlinks/plugins/path_provider_foundation/darwin"
   spine_flutter:
     :path: ".symlinks/plugins/spine_flutter/ios"
   sqflite_darwin:
     :path: ".symlinks/plugins/sqflite_darwin/darwin"
+  url_launcher_ios:
+    :path: ".symlinks/plugins/url_launcher_ios/ios"
   webview_flutter_wkwebview:
     :path: ".symlinks/plugins/webview_flutter_wkwebview/darwin"
 
@@ -67,13 +87,17 @@ SPEC CHECKSUMS:
   applovin_max: e2274945d7095e662f8e1657ff9cdde6e24df454
   AppLovinSDK: 1eb88a82b4feea9f3696ce9cc1e3343c4997ee12
   audioplayers_darwin: 4f9ca89d92d3d21cec7ec580e78ca888e5fb68bd
+  connectivity_plus: cb623214f4e1f6ef8fe7403d580fdad517d2f7dd
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   flutter_ad_ios_plugins: 39f145153e9fe06753e9b28fb7b43925ae399a71
   flutter_app_lifecycle: 96f63b433a79e643add0fd0a58eabf1a0877e176
+  flutter_local_notifications: a5a732f069baa862e728d839dd2ebb904737effb
   fluttertoast: 2c67e14dce98bbdb200df9e1acf610d7a6264ea1
+  in_app_review: 5596fe56fab799e8edb3561c03d053363ab13457
   path_provider_foundation: 080d55be775b7414fd5a5ef3ac137b97b097e564
   spine_flutter: 946c9b7aa6878d41940d50892f2b55c28ca788aa
   sqflite_darwin: 20b2a3a3b70e43edae938624ce550a3cbf66a3d0
+  url_launcher_ios: 694010445543906933d732453a59da0a173ae33d
   webview_flutter_wkwebview: 1821ceac936eba6f7984d89a9f3bcb4dea99ebb2
 
 PODFILE CHECKSUM: 1959d098c91d8a792531a723c4a9d7e9f6a01e38

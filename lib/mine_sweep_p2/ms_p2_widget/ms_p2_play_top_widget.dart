@@ -2,6 +2,7 @@ import 'package:c103_mine_sweep/mine_sweep_base/ms_base_statefull.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/ms_p2_diamond/ms_p2_diamond_dialog.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/ms_p2_set/ms_p2_set_dialog.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_event_code.dart';
+import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_value_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/p2_user_info_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_routers/ms_routers_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_storage/p2/p2_storage.dart';
@@ -204,7 +205,11 @@ class MsP2PlayTopWidgetState extends MsBaseStatefulState<MsP2PlayTopWidget> with
   }
 
   _updateDiamond(){
-    if(p2DiamondNum.getData()>=9){
+    var list = MsP2ValueUtils.instance.getDiamondList();
+    if(list.isEmpty){
+      return;
+    }
+    if(p2DiamondNum.getData()>=(list.first.num??0)){
       _boxController.repeat(reverse: true);
     }else{
       _boxController.stop();

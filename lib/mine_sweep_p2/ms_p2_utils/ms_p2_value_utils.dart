@@ -23,13 +23,53 @@ class MsP2ValueUtils{
   List<int> getCashList()=>[500,1000];
 
   //现金卡
-  double getMoneyCardReward()=>0.5;
+  double getMoneyCardReward()=>_getReward(_p2valueBean?.cashCardReward??[]);
   //卡牌消除
-  double getRemoveCardReward()=>0.5;
+  double getRemoveCardReward()=>_getReward(_p2valueBean?.cardEliminationReward??[]);
   //翻卡增加
-  double getCardGamesReward()=>0.5;
+  double getCardGamesReward()=>_getReward(_p2valueBean?.cardReward??[]);
   //转盘增加
-  int getWheelReward()=>5;
+  int getWheelReward()=>_getReward(_p2valueBean?.wheelReward??[]).toInt();
+  //宝石增加
+  int getDiamondReward(){
+    var list = _p2valueBean?.gemReward??[];
+    if(list.isEmpty){
+      return 0;
+    }
+    var coinsNum = p2CoinsNum.getData();
+    var last = list.last;
+    if(coinsNum>=(last.endNumber??200)){
+      var reward = last.reward??[];
+      if(reward.isEmpty){
+        return 0;
+      }
+      if(Random().nextInt(100)>=(last.point??50)){
+        return 0;
+      }
+      if(reward.length==1){
+        return reward.first;
+      }
+      return randomIntInRange(reward.first,reward.last);
+    }
+    for (var value in list) {
+      if(coinsNum>=(value.firstNumber??0)&&coinsNum<(value.endNumber??0)){
+        var reward = value.reward??[];
+        if(reward.isEmpty){
+          return 0;
+        }
+        if(Random().nextInt(100)>=(last.point??50)){
+          return 0;
+        }
+        if(reward.length==1){
+          return reward.first;
+        }
+        return randomIntInRange(reward.first,reward.last);
+      }
+    }
+    return 0;
+  }
+
+  List<GemList> getDiamondList()=>_p2valueBean?.gemList??[];
 
   double _getReward(List<CashCardReward> list){
     if(list.isEmpty){
@@ -62,9 +102,14 @@ class MsP2ValueUtils{
     return 0.01;
   }
 
-  double _getRandomDoubleInRange(int min, int max) {
+  double _getRandomDoubleInRange(double min, double max) {
     final random = Random();
     final value = min + (max - min) * random.nextDouble();
     return double.parse(value.toStringAsFixed(2));
+  }
+
+  int randomIntInRange(int min, int max) {
+    final random = Random();
+    return random.nextInt(max - min + 1) + min;
   }
 }

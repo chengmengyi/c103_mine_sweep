@@ -1,5 +1,6 @@
 import 'package:c103_mine_sweep/mine_sweep_base/ms_base_dialog.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/ms_p2_diamond/ms_p2_diamond_con.dart';
+import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_value_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_storage/p2/p2_storage.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_widget/ms_click.dart';
@@ -9,16 +10,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class MsP1DiamondDialog extends MsBaseDialog<MsP1DiamondCon>{
+class MsP1DiamondDialog extends MsBaseDialog<MsP2DiamondCon>{
 
   @override
-  MsP1DiamondCon initMsCon() => MsP1DiamondCon();
+  MsP2DiamondCon initMsCon() => MsP2DiamondCon();
 
   @override
   Widget buildMsWidget() => Stack(
     alignment: Alignment.topCenter,
     children: [
-      MsImages(imagesName: "diamond1",height: 132.h,boxFit: BoxFit.fitHeight,),
+      MsImages(imagesName: "diamond10",height: 132.h,boxFit: BoxFit.fitHeight,),
       _contentWidget(),
       _titleWidget(),
     ],
@@ -55,57 +56,60 @@ class MsP1DiamondDialog extends MsBaseDialog<MsP1DiamondCon>{
     ),
   );
 
-  _contentListWidget()=>ListView.builder(
-    shrinkWrap: true,
-    itemCount: msCon.list.length,
-    physics: NeverScrollableScrollPhysics(),
-    itemBuilder: (context,index){
-      var bean = msCon.list[index];
-      return Container(
-        width: double.infinity,
-        height: 52.h,
-        margin: EdgeInsets.only(left: 20.w,right: 20.w,top: 10.h),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(11.w),
-          color: "#E7D6B1".toColor(),
-        ),
-        child: Row(
-          children: [
-            Stack(
-              alignment: Alignment.center,
-              children: [
-                MsImages(imagesName: "diamond7",width: 57.w,height: 52.h,),
-                Stack(
-                  alignment: Alignment.topRight,
-                  children: [
-                    MsImages(imagesName: bean.icon,height: 28.h,boxFit: BoxFit.fitHeight,),
-                    MsText(text: "x${bean.diamondNum}", size: 18.sp, color: "#FFFFFF",outLineColor: "#000000",).marginOnly(top: 10.h,)
-                  ],
-                )
-              ],
-            ),
-            Expanded(
-              child: Center(
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    MsImages(imagesName: "icon_coins",width: 21.w,height: 21.w,),
-                    SizedBox(width: 4.w,),
-                    MsText(text: "${bean.coinsNum}", size: 16.sp, color: "#4D280D"),
-                  ],
+  _contentListWidget()=>GetBuilder<MsP2DiamondCon>(
+    id: "list",
+    builder: (_)=>ListView.builder(
+      shrinkWrap: true,
+      itemCount: MsP2ValueUtils.instance.getDiamondList().length,
+      physics: NeverScrollableScrollPhysics(),
+      itemBuilder: (context,index){
+        var bean = MsP2ValueUtils.instance.getDiamondList()[index];
+        return Container(
+          width: double.infinity,
+          height: 52.h,
+          margin: EdgeInsets.only(left: 20.w,right: 20.w,top: 10.h),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(11.w),
+            color: "#E7D6B1".toColor(),
+          ),
+          child: Row(
+            children: [
+              Stack(
+                alignment: Alignment.center,
+                children: [
+                  MsImages(imagesName: "diamond7",width: 57.w,height: 52.h,),
+                  Stack(
+                    alignment: Alignment.topRight,
+                    children: [
+                      MsImages(imagesName: msCon.getIcon(bean),height: 28.h,boxFit: BoxFit.fitHeight,),
+                      MsText(text: "x${bean.num}", size: 18.sp, color: "#FFFFFF",outLineColor: "#000000",).marginOnly(top: 10.h,)
+                    ],
+                  )
+                ],
+              ),
+              Expanded(
+                child: Center(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      MsImages(imagesName: "icon_money",width: 21.w,height: 21.w,),
+                      SizedBox(width: 4.w,),
+                      MsText(text: "${bean.money}", size: 16.sp, color: "#4D280D"),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            MsClick(
-              onTap: (){
-                msCon.clickCollect(bean);
-              },
-              child: MsImages(imagesName: p2DiamondNum.getData()>=bean.diamondNum?"diamond8":"diamond9",height: 28.h,boxFit: BoxFit.fitHeight,),
-            ),
-            SizedBox(width: 8.w,),
-          ],
-        ),
-      );
-    },
-  ).marginOnly(bottom: 58.h);
+              MsClick(
+                onTap: (){
+                  msCon.clickCollect(bean);
+                },
+                child: MsImages(imagesName: msCon.checkBtnStatus(bean)?"diamond8":"diamond9",height: 28.h,boxFit: BoxFit.fitHeight,),
+              ),
+              SizedBox(width: 8.w,),
+            ],
+          ),
+        );
+      },
+    ).marginOnly(bottom: 58.h),
+  );
 }

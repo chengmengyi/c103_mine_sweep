@@ -129,6 +129,7 @@ class CashChildCon extends MsBaseCon{
       context: context,
       amountGlobalKey: firstAmountGlobalKey,
       dismissCallback: (){
+        p2ShowGuideUser.saveData(false);
         clickCash(cashList.first);
       },
     );

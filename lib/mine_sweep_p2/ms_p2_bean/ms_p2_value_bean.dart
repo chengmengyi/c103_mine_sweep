@@ -1,3 +1,5 @@
+import 'package:c103_mine_sweep/mine_sweep_utils/utils.dart';
+
 class MsP2ValueBean {
   MsP2ValueBean({
       this.intAd, 
@@ -48,7 +50,7 @@ class MsP2ValueBean {
     if (json['gem_reward'] != null) {
       gemReward = [];
       json['gem_reward'].forEach((v) {
-        gemReward?.add(CashCardReward.fromJson(v));
+        gemReward?.add(GemReward.fromJson(v));
       });
     }
   }
@@ -58,7 +60,7 @@ class MsP2ValueBean {
   List<CashCardReward>? wheelReward;
   List<CashCardReward>? cardReward;
   List<GemList>? gemList;
-  List<CashCardReward>? gemReward;
+  List<GemReward>? gemReward;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -117,11 +119,16 @@ class CashCardReward {
 
   CashCardReward.fromJson(dynamic json) {
     firstNumber = json['first_number'];
-    reward = json['reward'] != null ? json['reward'].cast<int>() : [];
+    if(null!=json['reward']){
+      reward=[];
+      for(var value in json['reward']){
+        reward?.add(value.toString().toDouble());
+      }
+    }
     endNumber = json['end_number'];
   }
   int? firstNumber;
-  List<int>? reward;
+  List<double>? reward;
   int? endNumber;
 
   Map<String, dynamic> toJson() {
@@ -153,6 +160,35 @@ class IntAd {
     final map = <String, dynamic>{};
     map['first_number'] = firstNumber;
     map['point'] = point;
+    map['end_number'] = endNumber;
+    return map;
+  }
+
+}
+
+class GemReward {
+  GemReward({
+    this.firstNumber,
+    this.point,
+    this.reward,
+    this.endNumber,});
+
+  GemReward.fromJson(dynamic json) {
+    firstNumber = json['first_number'];
+    point = json['point'];
+    reward = json['reward'] != null ? json['reward'].cast<int>() : [];
+    endNumber = json['end_number'];
+  }
+  int? firstNumber;
+  int? point;
+  List<int>? reward;
+  int? endNumber;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['first_number'] = firstNumber;
+    map['point'] = point;
+    map['reward'] = reward;
     map['end_number'] = endNumber;
     return map;
   }

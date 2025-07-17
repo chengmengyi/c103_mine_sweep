@@ -7,10 +7,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MsP2PlayWinDialog extends MsBaseDialog<MsP2PlayWinCon>{
+  int diamondAddNum;
   double rewards;
   Function() clickNext;
   Function() clickHome;
   MsP2PlayWinDialog({
+    required this.diamondAddNum,
     required this.rewards,
     required this.clickNext,
     required this.clickHome,
@@ -46,7 +48,7 @@ class MsP2PlayWinDialog extends MsBaseDialog<MsP2PlayWinCon>{
         children: [
           MsImages(imagesName: "win4",width: 44.w,height: 44.w,),
           SizedBox(width: 2.w,),
-          MsText(text: "+1", size: 33.sp, color: "#FFFFFF"),
+          MsText(text: "+$diamondAddNum", size: 33.sp, color: "#FFFFFF"),
         ],
       ),
       SizedBox(height: 20.h,),

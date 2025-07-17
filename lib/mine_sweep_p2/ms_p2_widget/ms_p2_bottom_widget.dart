@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:c103_mine_sweep/mine_sweep_base/ms_base_statefull.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/ms_p2_tomado/ms_p2_tornado_dialog.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/ms_p2_wild/ms_p2_wild_dialog.dart';
+import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/guide/ms_p2_guide_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_cash_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_event_code.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_play_utils.dart';
@@ -33,6 +34,8 @@ class MsP2BottomWidgetState extends MsBaseStatefulState<MsP2BottomWidget> with T
   late AnimationController _pointCardController;
   GlobalKey handCardGlobalKey=GlobalKey();
   GlobalKey pointCardGlobalKey=GlobalKey();
+  GlobalKey tomadoGlobalKey=GlobalKey();
+  GlobalKey wildGlobalKey=GlobalKey();
 
   @override
   void initState() {
@@ -120,14 +123,20 @@ class MsP2BottomWidgetState extends MsBaseStatefulState<MsP2BottomWidget> with T
     onTap: (){
       _showWildDialog();
     },
-    child: MsImages(imagesName: "bottom1",width: 59.w,height: 63.h,),
+    child: SizedBox(
+      key: wildGlobalKey,
+      child: MsImages(imagesName: "bottom1",width: 59.w,height: 63.h,),
+    ),
   );
   
   _longjuanfengWidget()=>MsClick(
     onTap: (){
       _showTornadoDialog();
     },
-    child: MsImages(imagesName: "bottom2",width: 59.w,height: 65.h,),
+    child: SizedBox(
+      key: tomadoGlobalKey,
+      child: MsImages(imagesName: "bottom2",width: 59.w,height: 65.h,),
+    ),
   );
 
   _handsCardWidget()=>MsClick(
@@ -278,14 +287,17 @@ class MsP2BottomWidgetState extends MsBaseStatefulState<MsP2BottomWidget> with T
     MsRouterUtils.instance.showDialog(
       child: MsP2TornadoDialog(
         getWildCallback: (){
-          MsP2CashUtils.instance.updateCashTask(CashTaskName.task3Use20Tomado);
-          var result = widget.p1playUtils.cardList.expand((row) => row).where((card) => card.canShow&&!card.isCoveredCard&&!card.isMoneyCard).toList();
-          MsEventUtils.instance.sendMsg(code: MsP2EventCode.startBaozhaLottie,anyValue: result);
+          _useTornado();
         },
       ),
     );
   }
 
+  _useTornado(){
+    MsP2CashUtils.instance.updateCashTask(CashTaskName.task3Use20Tomado);
+    var result = widget.p1playUtils.cardList.expand((row) => row).where((card) => card.canShow&&!card.isCoveredCard&&!card.isMoneyCard).toList();
+    MsEventUtils.instance.sendMsg(code: MsP2EventCode.startBaozhaLottie,anyValue: result);
+  }
 
   @override
   bool registerEvent() => true;
@@ -316,6 +328,9 @@ class MsP2BottomWidgetState extends MsBaseStatefulState<MsP2BottomWidget> with T
       case MsP2EventCode.startInitHandsCard:
         _initHandsCard();
         break;
+      case MsP2EventCode.showTomadoGuide:
+        _showTomadoGuide();
+        break;
     }
   }
 
@@ -340,6 +355,30 @@ class MsP2BottomWidgetState extends MsBaseStatefulState<MsP2BottomWidget> with T
       _pointCardController.reverse();
     }
     pointCardShowFront = !pointCardShowFront;
+  }
+
+  _showTomadoGuide(){
+    MsP2GuideUtils.instance.showStep7Guide(
+      context: context,
+      tomadoGlobalKey: tomadoGlobalKey,
+      dismissCallback: (){
+        _useTornado();
+        _showWildGuide();
+      },
+    );
+  }
+
+  _showWildGuide()async{
+    await Future.delayed(Duration(milliseconds: 1500));
+    MsP2GuideUtils.instance.showStep8Guide(
+      context: context,
+      wildGlobalKey: wildGlobalKey,
+      dismissCallback: (){
+        setState(() {
+          widget.p1playUtils.hasWildCard=true;
+        });
+      },
+    );
   }
 
   @override

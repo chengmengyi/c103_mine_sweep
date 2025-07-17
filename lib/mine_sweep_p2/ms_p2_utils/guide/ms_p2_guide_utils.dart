@@ -3,6 +3,8 @@ import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/guide/step1_guide_widg
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/guide/step2_guide_widget.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/guide/step4_guide_widget.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/guide/step5_guide_widget.dart';
+import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/guide/step7_guide_widget.dart';
+import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/guide/step8_guide_widget.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_event_code.dart';
 import 'package:c103_mine_sweep/mine_sweep_routers/ms_routers_name.dart';
 import 'package:c103_mine_sweep/mine_sweep_routers/ms_routers_utils.dart';
@@ -18,9 +20,9 @@ class MsP2GuideUtils {
   var _currentGuideStep=1;
 
   showStep1Guide(BuildContext context,GlobalKey btnGlobalKey){
-    // if(!p2ShowGuideUser.getData()||_currentGuideStep!=1){
-    //   return;
-    // }
+    if(!p2ShowGuideUser.getData()||_currentGuideStep!=1){
+      return;
+    }
     var renderBox = btnGlobalKey.currentContext!.findRenderObject() as RenderBox;
     var offset = renderBox.localToGlobal(Offset.zero);
     showOverlay(
@@ -40,9 +42,9 @@ class MsP2GuideUtils {
     required List<List<MsP2CardBean>> cardList,
     required Function(MsP2CardBean bean) dismissCallback,
   }){
-    // if(!p2ShowGuideUser.getData()||_currentGuideStep!=2){
-    //   return;
-    // }
+    if(!p2ShowGuideUser.getData()||_currentGuideStep!=2){
+      return;
+    }
     MsP2CardBean? p2cardBean = cardList.expand((row) => row).where((c) => !c.isCoveredCard && c.canShow && c.cardText.isNotEmpty && c.isMoneyCard).cast<MsP2CardBean?>().firstOrNull;
     if(null!=p2cardBean){
       var renderBox = p2cardBean.globalKey.currentContext!.findRenderObject() as RenderBox;
@@ -61,9 +63,9 @@ class MsP2GuideUtils {
   }
 
   showStep4Guide(BuildContext context, GlobalKey topMoneyGlobalKey){
-    // if(!p2ShowGuideUser.getData()||_currentGuideStep!=4){
-    //   return;
-    // }
+    if(!p2ShowGuideUser.getData()||_currentGuideStep!=4){
+      return;
+    }
     var renderBox = topMoneyGlobalKey.currentContext!.findRenderObject() as RenderBox;
     var offset = renderBox.localToGlobal(Offset.zero);
     showOverlay(
@@ -85,9 +87,9 @@ class MsP2GuideUtils {
     required GlobalKey amountGlobalKey,
     required Function() dismissCallback,
   }){
-    // if(!p2ShowGuideUser.getData()||_currentGuideStep!=5){
-    //   return;
-    // }
+    if(!p2ShowGuideUser.getData()||_currentGuideStep!=5){
+      return;
+    }
     var renderBox = amountGlobalKey.currentContext!.findRenderObject() as RenderBox;
     var offset = renderBox.localToGlobal(Offset.zero);
     showOverlay(
@@ -101,6 +103,44 @@ class MsP2GuideUtils {
       ),
     );
   }
+
+  showStep7Guide({
+    required BuildContext context,
+    required GlobalKey tomadoGlobalKey,
+    required Function() dismissCallback,
+  }){
+    var renderBox = tomadoGlobalKey.currentContext!.findRenderObject() as RenderBox;
+    var offset = renderBox.localToGlobal(Offset.zero);
+    showOverlay(
+      context: context,
+      widget: Step7GuideWidget(
+        offset: offset,
+        dismissCallback: (){
+          dismissCallback.call();
+        },
+      ),
+    );
+  }
+
+
+  showStep8Guide({
+    required BuildContext context,
+    required GlobalKey wildGlobalKey,
+    required Function() dismissCallback,
+  }){
+    var renderBox = wildGlobalKey.currentContext!.findRenderObject() as RenderBox;
+    var offset = renderBox.localToGlobal(Offset.zero);
+    showOverlay(
+      context: context,
+      widget: Step8GuideWidget(
+        offset: offset,
+        dismissCallback: (){
+          dismissCallback.call();
+        },
+      ),
+    );
+  }
+
 
   showOverlay({
     required BuildContext context,

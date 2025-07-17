@@ -1,4 +1,6 @@
 import 'package:c103_mine_sweep/mine_sweep_base/ms_base_con.dart';
+import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/ms_p2_no_network/ms_p2_no_network_dialog.dart';
+import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_network_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/p2_user_info_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_routers/ms_routers_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_ad_utils.dart';
@@ -7,7 +9,10 @@ import 'package:flutter_ad_ios_plugins/hep/ad_type.dart';
 
 class GetCoinsController extends MsBaseCon{
 
-  clickDouble(double addNum,Function() success){
+  clickDouble(double addNum,Function() success)async{
+    if(!(await _checkHasNetwork())){
+      return;
+    }
     MsAdUtils.instance.showP2222Ad(
       adType: AdType.reward,
       close: (){
@@ -18,7 +23,10 @@ class GetCoinsController extends MsBaseCon{
     );
   }
 
-  clickSingle(double addNum,Function() success){
+  clickSingle(double addNum,Function() success)async{
+    if(!(await _checkHasNetwork())){
+      return;
+    }
     MsAdUtils.instance.showP2222Ad(
       adType: AdType.interstitial,
       close: (){
@@ -27,5 +35,13 @@ class GetCoinsController extends MsBaseCon{
         success.call();
       },
     );
+  }
+
+  Future<bool> _checkHasNetwork()async{
+    var result = await MsP2NetworkUtils.instance.checkHasNetwork();
+    if(!result){
+      MsRouterUtils.instance.showDialog(child: MsP2NoNetworkDialog());
+    }
+    return result;
   }
 }

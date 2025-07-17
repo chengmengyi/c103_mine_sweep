@@ -13,6 +13,8 @@ class MsText extends StatelessWidget{
   double? withOpacity;
   bool? useFontFamily;
   FontWeight? fontWeight;
+  TextAlign? textAlign;
+  double? height;
 
   MsText({
     required this.text,
@@ -24,18 +26,22 @@ class MsText extends StatelessWidget{
     this.withOpacity,
     this.useFontFamily=true,
     this.fontWeight,
+    this.textAlign,
+    this.height,
 });
 
   @override
   Widget build(BuildContext context) => OutlinedText(
     text: Text(
       text,
+      textAlign: textAlign,
       style: TextStyle(
         fontSize: size,
         color: null==withOpacity?color.toColor():color.toColor().withOpacity(withOpacity!),
         fontFamily: useFontFamily==true?"baloo":null,
         decoration: decoration,
         fontWeight: fontWeight,
+        height: height,
         decorationColor: null==withOpacity?decorationColor?.toColor():decorationColor?.toColor().withOpacity(withOpacity!),
       ),
     ),

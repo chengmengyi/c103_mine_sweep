@@ -45,6 +45,9 @@ class GetCoinsDialog extends MsBaseDialog<GetCoinsController>{
       children: [
         MsImages(imagesName: "wild1",width: 246.w,height: 246.w,),
         Align(
+          child: MsImages(imagesName: "icon_money2",width: 106.w,height: 93.h,),
+        ),
+        Align(
           alignment: Alignment.bottomCenter,
           child: MsText(text: "+\$$addNum", size: 26.sp, color: "#11FF04",),
         )
