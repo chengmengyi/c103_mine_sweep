@@ -2,6 +2,8 @@ import 'package:c103_mine_sweep/mine_sweep_base/ms_base_con.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_cash_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/p2_user_info_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_routers/ms_routers_utils.dart';
+import 'package:c103_mine_sweep/mine_sweep_utils/ms_tba/ms_custom_event_name.dart';
+import 'package:c103_mine_sweep/mine_sweep_utils/ms_tba/ms_tba_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/utils.dart';
 import 'package:flutter/material.dart';
 
@@ -15,6 +17,7 @@ class InputAccountController extends MsBaseCon{
     var map = MsRouterUtils.instance.getArguments();
     cashTypeIndex=map["cashTypeIndex"];
     cashAmount=map["cashAmount"];
+    MsTbaUtils.instance.customEvent(eventName: MsCustomEventName.cash_form_page,params: {"form_type":cashTypeIndex==0?"paypal":"cash"});
   }
 
   clickBtn()async{
@@ -33,6 +36,7 @@ class InputAccountController extends MsBaseCon{
         return;
       }
     }
+    MsTbaUtils.instance.customEvent(eventName: MsCustomEventName.cash_form_page_confirm,params: {"form_type":cashTypeIndex==0?"paypal":"cash"});
     hideKeyboard();
     await MsP2CashUtils.instance.createCashTask(cashTypeIndex, cashAmount, content);
     P2UserInfoUtils.instance.updateCoinsNum(-cashAmount);

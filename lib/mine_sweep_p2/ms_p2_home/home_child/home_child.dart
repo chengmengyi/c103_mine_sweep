@@ -2,6 +2,8 @@ import 'package:c103_mine_sweep/mine_sweep_base/ms_base_child.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_home/home_child/home_child_con.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_widget/ms_p2_home_cash_pro_widget.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_widget/ms_p2_top_widget.dart';
+import 'package:c103_mine_sweep/mine_sweep_utils/ms_tba/ms_custom_event_name.dart';
+import 'package:c103_mine_sweep/mine_sweep_utils/ms_tba/ms_tba_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_widget/ms_click.dart';
 import 'package:c103_mine_sweep/mine_sweep_widget/ms_images.dart';
 import 'package:c103_mine_sweep/mine_sweep_widget/ms_text.dart';
@@ -21,7 +23,11 @@ class HomeChild extends MsBaseChild<HomeChildCon>{
       Column(
         children: [
           MsP2TopWidget(showLevel: false,),
-          MsP2HomeCashProWidget(),
+          MsP2HomeCashProWidget(
+            clickPlayCallback: (){
+              msCon.toPlay();
+            },
+          ),
           _levelListWidget(),
           _btnWidget(),
         ],
@@ -85,6 +91,7 @@ class HomeChild extends MsBaseChild<HomeChildCon>{
 
   _btnWidget()=>MsClick(
     onTap: (){
+      MsTbaUtils.instance.customEvent(eventName: MsCustomEventName.home_page_play);
       msCon.toPlay();
     },
     child: SizedBox(

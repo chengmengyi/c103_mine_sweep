@@ -1,5 +1,8 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
+import '../../mine_sweep_utils/ms_tba/ms_custom_event_name.dart';
+import '../../mine_sweep_utils/ms_tba/ms_tba_utils.dart' show MsTbaUtils;
+
 class MsP2NotificationId{
   static const int notification1=1;
   static const int notification2=2;
@@ -26,10 +29,10 @@ class MsP2LocalNotificationUtils {
       onDidReceiveNotificationResponse: (NotificationResponse response) {
         switch (response.notificationResponseType) {
           case NotificationResponseType.selectedNotification:
-            // _clickLocalNotification(notificationResponse.id);
+            _clickNotification(response.id);
             break;
           case NotificationResponseType.selectedNotificationAction:
-            // _clickLocalNotification(notificationResponse.id);
+            _clickNotification(response.id);
             break;
         }
       },
@@ -38,6 +41,11 @@ class MsP2LocalNotificationUtils {
       return;
     }
     _setNotification();
+    var launchDetails = await _plugins.getNotificationAppLaunchDetails();
+    if(launchDetails?.didNotificationLaunchApp==true){
+      _clickNotification(launchDetails?.notificationResponse?.id);
+    }
+
   }
 
   _setNotification(){
@@ -103,5 +111,9 @@ class MsP2LocalNotificationUtils {
       const NotificationDetails(),
       androidScheduleMode: AndroidScheduleMode.alarmClock,
     );
+  }
+
+  _clickNotification(int? id){
+    MsTbaUtils.instance.customEvent(eventName: MsCustomEventName.all_push_c,params: {"push_id":id});
   }
 }

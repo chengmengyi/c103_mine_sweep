@@ -3,13 +3,22 @@ import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_event_code.dart'
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_value_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_storage/p2/p2_storage.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_event/ms_event_bean.dart';
+import 'package:c103_mine_sweep/mine_sweep_utils/ms_event/ms_event_utils.dart';
+import 'package:c103_mine_sweep/mine_sweep_utils/ms_tba/ms_custom_event_name.dart';
+import 'package:c103_mine_sweep/mine_sweep_utils/ms_tba/ms_tba_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/utils.dart';
+import 'package:c103_mine_sweep/mine_sweep_widget/ms_click.dart';
 import 'package:c103_mine_sweep/mine_sweep_widget/ms_images.dart';
 import 'package:c103_mine_sweep/mine_sweep_widget/ms_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MsP2HomeCashProWidget extends MsBaseStateful{
+  Function() clickPlayCallback;
+  MsP2HomeCashProWidget({
+    required this.clickPlayCallback,
+});
+  
   @override
   State<StatefulWidget> createState() => MsP2HomeCashProWidgetState();
 }
@@ -59,7 +68,12 @@ class MsP2HomeCashProWidgetState extends MsBaseStatefulState<MsP2HomeCashProWidg
         ),
       ),
       SizedBox(width: 10.w,),
-      MsImages(imagesName: getPro()>=1?"home16":"home14",height: 33.h,boxFit: BoxFit.fitHeight,)
+      MsClick(
+        onTap: (){
+          _clickBtn();
+        },
+        child: MsImages(imagesName: getPro()>=1?"home16":"home14",height: 33.h,boxFit: BoxFit.fitHeight,),
+      )
     ],
   );
 
@@ -148,6 +162,16 @@ class MsP2HomeCashProWidgetState extends MsBaseStatefulState<MsP2HomeCashProWidg
       return 1;
     }else {
       return d;
+    }
+  }
+  
+  _clickBtn(){
+    if(getPro()>=1){
+      MsTbaUtils.instance.customEvent(eventName: MsCustomEventName.home_page_withdraw);
+      MsEventUtils.instance.sendMsg(code: MsP2EventCode.showHomeIndex,intValue: 1);
+    }else{
+      MsTbaUtils.instance.customEvent(eventName: MsCustomEventName.home_page_start);
+      widget.clickPlayCallback.call();
     }
   }
 

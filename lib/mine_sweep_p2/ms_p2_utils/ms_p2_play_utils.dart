@@ -19,6 +19,9 @@ import 'package:c103_mine_sweep/mine_sweep_utils/ms_voice_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/utils.dart';
 import 'package:flutter/material.dart';
 
+import '../../mine_sweep_utils/ms_tba/ms_custom_event_name.dart';
+import '../../mine_sweep_utils/ms_tba/ms_tba_utils.dart';
+
 class MsP2PlayUtils {
   var canClick=false,currentHandsNum=0,hasWildCard=false;
   List<List<MsP2CardBean>> cardList=[];
@@ -97,8 +100,12 @@ class MsP2PlayUtils {
       MsRouterUtils.instance.showDialog(
         child: GetCoinsDialog(
           addNum: MsP2ValueUtils.instance.getMoneyCardReward(),
+          getCoinsFrom: GetCoinsFrom.cash_card,
           success: (){
-            fromStep2Callback?.call();
+            if(null!=fromStep2Callback){
+              MsTbaUtils.instance.customEvent(eventName: MsCustomEventName.newuser_guide,params: {"pop_step":"pop2"});
+              fromStep2Callback.call();
+            }
             P2UserInfoUtils.instance.updateWheelPro();
             var showWheelDialog = P2UserInfoUtils.instance.checkShowWheelDialog();
             if(showWheelDialog){
@@ -204,7 +211,7 @@ class MsP2PlayUtils {
       MsRouterUtils.instance.showDialog(
         child: MsP2CardGameDialog(
           dismissDialog: (addNum){
-            _showCardGameOrWheelGetCoinsDialog(addNum,refreshCallback,resetPlayGame,bean);
+            _showCardGameOrWheelGetCoinsDialog(false,addNum,refreshCallback,resetPlayGame,bean);
           },
         ),
       );
@@ -212,7 +219,7 @@ class MsP2PlayUtils {
       MsRouterUtils.instance.showDialog(
         child: MsP2WheelDialog(
           dismissDialog: (addNum){
-            _showCardGameOrWheelGetCoinsDialog(addNum,refreshCallback,resetPlayGame,bean);
+            _showCardGameOrWheelGetCoinsDialog(true,addNum,refreshCallback,resetPlayGame,bean);
           },
         ),
       );
@@ -220,7 +227,7 @@ class MsP2PlayUtils {
   }
 
   //翻卡游戏或转盘弹窗结束后显示获得弹窗
-  _showCardGameOrWheelGetCoinsDialog(addNum,Function() refreshCallback, Function() resetPlayGame, MsP2CardBean bean,){
+  _showCardGameOrWheelGetCoinsDialog(bool wheel,addNum,Function() refreshCallback, Function() resetPlayGame, MsP2CardBean bean,){
     P2UserInfoUtils.instance.updateLastWheelShowType();
     if(addNum<=0){
       _checkPlayFinishOrHasCardPlay(refreshCallback,resetPlayGame,bean);
@@ -229,6 +236,7 @@ class MsP2PlayUtils {
     MsRouterUtils.instance.showDialog(
       child: GetCoinsDialog(
         addNum: addNum,
+        getCoinsFrom: wheel?GetCoinsFrom.wheel:GetCoinsFrom.card,
         success: (){
           _checkPlayFinishOrHasCardPlay(refreshCallback,resetPlayGame,bean);
         },

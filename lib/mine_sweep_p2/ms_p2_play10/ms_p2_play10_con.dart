@@ -5,8 +5,11 @@ import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/guide/ms_p2_guide_util
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_event_code.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_play_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_routers/ms_routers_utils.dart';
+import 'package:c103_mine_sweep/mine_sweep_storage/p2/p2_storage.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_event/ms_event_bean.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_event/ms_event_utils.dart';
+import 'package:c103_mine_sweep/mine_sweep_utils/ms_tba/ms_custom_event_name.dart';
+import 'package:c103_mine_sweep/mine_sweep_utils/ms_tba/ms_tba_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_voice_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +17,12 @@ import 'package:flutter/material.dart';
 class MsP2Play10Con extends MsBaseCon{
   MsP2PlayUtils p1playUtils=MsP2PlayUtils();
   GlobalKey topMoneyGlobalKey=GlobalKey();
+
+  @override
+  void onInit() {
+    super.onInit();
+    MsTbaUtils.instance.customEvent(eventName: MsCustomEventName.game_page,params: {"level":p2LevelNum.getData()});
+  }
 
   @override
   void onReady() {

@@ -6,6 +6,10 @@ import 'package:c103_mine_sweep/mine_sweep_routers/ms_routers_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../mine_sweep_storage/p2/p2_storage.dart';
+import '../../../mine_sweep_utils/ms_tba/ms_custom_event_name.dart';
+import '../../../mine_sweep_utils/ms_tba/ms_tba_utils.dart';
+
 class MsP2WheelCon extends MsBaseCon with GetSingleTickerProviderStateMixin{
   var canClick=true;
   var addNum=MsP2ValueUtils.instance.getWheelReward();
@@ -18,6 +22,7 @@ class MsP2WheelCon extends MsBaseCon with GetSingleTickerProviderStateMixin{
   @override
   void onInit() {
     super.onInit();
+    MsTbaUtils.instance.customEvent(eventName: MsCustomEventName.wheel_page,params: {"level":p2LevelNum.getData()});
     _initNumList();
   }
 
@@ -70,6 +75,7 @@ class MsP2WheelCon extends MsBaseCon with GetSingleTickerProviderStateMixin{
     if(!canClick){
       return;
     }
+    MsTbaUtils.instance.customEvent(eventName: MsCustomEventName.wheel_page_c,params: {"level":p2LevelNum.getData()});
     canClick=false;
     this.dismissDialog=dismissDialog;
     _animationController.forward();

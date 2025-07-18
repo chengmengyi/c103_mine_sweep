@@ -8,6 +8,9 @@ import 'package:flutter_ad_ios_plugins/hep/ad_type.dart';
 import 'package:get/get.dart';
 import 'package:shake_animation_widget/shake_animation_widget.dart';
 
+import '../../../mine_sweep_utils/ms_tba/ms_custom_event_name.dart';
+import '../../../mine_sweep_utils/ms_tba/ms_tba_utils.dart';
+
 class MsP2TornadoCon extends MsBaseCon with GetSingleTickerProviderStateMixin{
   late AnimationController _boxController;
   late Animation<double> boxScaleAnimation;
@@ -17,6 +20,7 @@ class MsP2TornadoCon extends MsBaseCon with GetSingleTickerProviderStateMixin{
   void onInit() {
     super.onInit();
     _initAnimator();
+    MsTbaUtils.instance.customEvent(eventName: MsCustomEventName.tomato_page,);
   }
 
   @override
@@ -36,6 +40,7 @@ class MsP2TornadoCon extends MsBaseCon with GetSingleTickerProviderStateMixin{
   }
 
   clickVideo(Function() getWildCallback){
+    MsTbaUtils.instance.customEvent(eventName: MsCustomEventName.tomato_collect_c,);
     MsAdUtils.instance.showP2222Ad(
       adType: AdType.reward,
       close: (){

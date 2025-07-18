@@ -13,12 +13,19 @@ import 'package:c103_mine_sweep/mine_sweep_routers/ms_routers_name.dart';
 import 'package:c103_mine_sweep/mine_sweep_routers/ms_routers_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_storage/p2/p2_storage.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_event/ms_event_bean.dart';
+import 'package:c103_mine_sweep/mine_sweep_utils/ms_tba/ms_tba_utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomeChildCon extends MsBaseCon{
   GlobalKey playBtnGlobalKey=GlobalKey();
+
+  @override
+  void onReady() {
+    super.onReady();
+    MsP2GuideUtils.instance.showStep1Guide(context, playBtnGlobalKey);
+  }
 
   toPlay(){
     var levelNum = P2UserInfoUtils.instance.getCurrentLevelNum();
@@ -103,7 +110,9 @@ class HomeChildCon extends MsBaseCon{
 
     // MsP2GoodCommentUtils.instance.checkShowGoodGuide();
     // p2LevelNum.saveData(10);
-    P2UserInfoUtils.instance.updateLevel(1);
+    // P2UserInfoUtils.instance.updateLevel(1);
     // print(P2UserInfoUtils.instance.getCurrentLevelNum());
+
+    MsTbaUtils.instance.sessionEvent();
   }
 }

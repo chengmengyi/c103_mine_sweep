@@ -1,5 +1,7 @@
 import 'package:c103_mine_sweep/mine_sweep_base/ms_base_dialog.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/get_coins/get_coins_controller.dart';
+import 'package:c103_mine_sweep/mine_sweep_utils/ms_tba/ms_custom_event_name.dart';
+import 'package:c103_mine_sweep/mine_sweep_utils/ms_tba/ms_tba_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_widget/ms_btn_widget.dart';
 import 'package:c103_mine_sweep/mine_sweep_widget/ms_click.dart';
 import 'package:c103_mine_sweep/mine_sweep_widget/ms_images.dart';
@@ -8,13 +10,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+enum GetCoinsFrom{
+  wheel,card,cash_card,pop,gem_collection,other,
+}
+
 class GetCoinsDialog extends MsBaseDialog<GetCoinsController>{
   double addNum;
+  GetCoinsFrom getCoinsFrom;
   Function() success;
   GetCoinsDialog({
     required this.addNum,
+    required this.getCoinsFrom,
     required this.success,
 });
+
+  @override
+  init() {
+    MsTbaUtils.instance.customEvent(eventName: MsCustomEventName.claim_pop,params: {"pop_scene":getCoinsFrom.name});
+  }
 
   @override
   GetCoinsController initMsCon() => GetCoinsController();
@@ -30,11 +43,23 @@ class GetCoinsDialog extends MsBaseDialog<GetCoinsController>{
     ],
   );
 
-  _titleWidget()=>Stack(
-    alignment: Alignment.topCenter,
+  _titleWidget()=>Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.end,
     children: [
-      MsImages(imagesName: "diamond2",height: 65.h,boxFit: BoxFit.fitHeight,),
-      MsText(text: "Congratulations", size: 25.sp, color: "#FFFFFF").marginOnly(top: 6.h),
+      MsClick(
+        onTap: (){
+          msCon.clickClose(getCoinsFrom, success);
+        },
+        child: MsImages(imagesName: "icon_close",width: 34.w,height: 34.w,),
+      ),
+      Stack(
+        alignment: Alignment.topCenter,
+        children: [
+          MsImages(imagesName: "diamond2",height: 65.h,boxFit: BoxFit.fitHeight,),
+          MsText(text: "Congratulations", size: 25.sp, color: "#FFFFFF").marginOnly(top: 6.h),
+        ],
+      ),
     ],
   );
 
@@ -65,13 +90,13 @@ class GetCoinsDialog extends MsBaseDialog<GetCoinsController>{
         height: 58.h,
         topRightIcon: "icon_video",
         onTap: (){
-          msCon.clickDouble(addNum,success);
+          msCon.clickDouble(getCoinsFrom,addNum,success);
         },
       ),
       SizedBox(height: 16.h,),
       MsClick(
         onTap: (){
-          msCon.clickSingle(addNum, success);
+          msCon.clickSingle(getCoinsFrom,addNum, success);
         },
         child: MsText(
           text: "Collect",

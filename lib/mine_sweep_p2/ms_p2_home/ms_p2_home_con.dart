@@ -11,6 +11,8 @@ import 'package:c103_mine_sweep/mine_sweep_routers/ms_routers_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_storage/p2/p2_storage.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_ad_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_event/ms_event_bean.dart';
+import 'package:c103_mine_sweep/mine_sweep_utils/ms_tba/ms_custom_event_name.dart';
+import 'package:c103_mine_sweep/mine_sweep_utils/ms_tba/ms_tba_utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -23,6 +25,7 @@ class MsP2HomeCon extends MsBaseCon{
   void onInit() {
     super.onInit();
     MsP2LocalNotificationUtils.instance.init();
+    MsTbaUtils.instance.customEvent(eventName: MsCustomEventName.home_page);
   }
 
   @override
@@ -37,6 +40,10 @@ class MsP2HomeCon extends MsBaseCon{
   clickItem(index){
     if(chooseIndex==index){
       return;
+    }
+    if(index==1){
+      MsTbaUtils.instance.customEvent(eventName: MsCustomEventName.home_page_cash);
+      MsTbaUtils.instance.customEvent(eventName: MsCustomEventName.cash_page);
     }
     chooseIndex=index;
     update(["page"]);

@@ -9,9 +9,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../../mine_sweep_utils/ms_tba/ms_custom_event_name.dart';
+import '../../../../mine_sweep_utils/ms_tba/ms_tba_utils.dart';
+
 class CashSuccessDialog extends MsBaseDialog<CashSuccessCon>{
   MsP2CashTaskBean? bean;
   CashSuccessDialog({required this.bean});
+
+  @override
+  init() {
+    MsTbaUtils.instance.customEvent(eventName: MsCustomEventName.withdraw_task_pop,params: {"withdraw_step":"step4"});
+  }
+
 
   @override
   CashSuccessCon initMsCon() => CashSuccessCon();

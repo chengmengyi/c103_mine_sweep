@@ -11,4 +11,5 @@ class P2StorageName{
   static const String p2FirstGetCoins="p2FirstGetCoins";
   static const String p2FirstLaunchApp="p2FirstLaunchApp";
   static const String p2AlreadyShowGoodCommentDialog="p2AlreadyShowGoodCommentDialog";
+  static const String p2InstallEvent="p2InstallEvent";
 }

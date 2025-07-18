@@ -1,10 +1,14 @@
 import 'package:c103_mine_sweep/mine_sweep_base/ms_base_con.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_bean/ms_p2_diamond_bean.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_bean/ms_p2_value_bean.dart';
+import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/get_coins/get_coins_dialog.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/p2_user_info_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_routers/ms_routers_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_storage/p2/p2_storage.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/utils.dart';
+
+import '../../../mine_sweep_utils/ms_tba/ms_custom_event_name.dart';
+import '../../../mine_sweep_utils/ms_tba/ms_tba_utils.dart';
 
 class MsP2DiamondCon extends MsBaseCon{
   List<String> alreadyExchangeList=[];
@@ -12,6 +16,7 @@ class MsP2DiamondCon extends MsBaseCon{
   @override
   void onInit() {
     super.onInit();
+    MsTbaUtils.instance.customEvent(eventName: MsCustomEventName.gem_page,);
     _getAlreadyExchangeList();
   }
   
@@ -37,6 +42,7 @@ class MsP2DiamondCon extends MsBaseCon{
   }
 
   clickCollect(GemList bean){
+    MsTbaUtils.instance.customEvent(eventName: MsCustomEventName.gem_collect_c,);
     var money = bean.money??0;
     var diamondNum = bean.num??0;
     if(!checkHasDiamond(diamondNum)){
@@ -47,11 +53,18 @@ class MsP2DiamondCon extends MsBaseCon{
       showToast("You have already redeemed");
       return;
     }
-    P2UserInfoUtils.instance.updateDiamond(-diamondNum);
-    P2UserInfoUtils.instance.updateCoinsNum(money);
-    alreadyExchangeList.add("${bean.money}");
-    p2DiamondExchangeRecord.saveData(alreadyExchangeList.join(","));
-    update(["list"]);
+    MsRouterUtils.instance.showDialog(
+      child: GetCoinsDialog(
+        addNum: money.toDouble(),
+        getCoinsFrom: GetCoinsFrom.gem_collection,
+        success: (){
+          P2UserInfoUtils.instance.updateDiamond(-diamondNum);
+          alreadyExchangeList.add("${bean.money}");
+          p2DiamondExchangeRecord.saveData(alreadyExchangeList.join(","));
+          update(["list"]);
+        },
+      ),
+    );
   }
   
   _getAlreadyExchangeList(){

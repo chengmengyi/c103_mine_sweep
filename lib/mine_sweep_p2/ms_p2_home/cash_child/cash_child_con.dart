@@ -12,6 +12,8 @@ import 'package:c103_mine_sweep/mine_sweep_routers/ms_routers_name.dart';
 import 'package:c103_mine_sweep/mine_sweep_routers/ms_routers_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_storage/p2/p2_storage.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_event/ms_event_bean.dart';
+import 'package:c103_mine_sweep/mine_sweep_utils/ms_tba/ms_custom_event_name.dart';
+import 'package:c103_mine_sweep/mine_sweep_utils/ms_tba/ms_tba_utils.dart';
 import 'package:flutter/material.dart';
 
 class CashChildCon extends MsBaseCon{
@@ -29,12 +31,14 @@ class CashChildCon extends MsBaseCon{
     if(cashTypeIndex==index){
       return;
     }
+    MsTbaUtils.instance.customEvent(eventName: MsCustomEventName.cash_page_change_method);
     cashTypeIndex=index;
     update(["page"]);
     _initList();
   }
 
-  clickCash(MsP2CashListBean bean){
+  clickCash(MsP2CashListBean bean,{bool fromGuide6=false}){
+    MsTbaUtils.instance.customEvent(eventName: MsCustomEventName.cash_page_withdraw,params: {"cash_numbers":bean.cashAmount});
     if(null!=bean.cashTaskBean){
       var cashTaskBean = bean.cashTaskBean;
       if(cashTaskBean?.cashTask==CashTaskName.task3Use20Tomado&&(cashTaskBean?.currentPro??0)>=(cashTaskBean?.totalPro??0)){
@@ -53,6 +57,9 @@ class CashChildCon extends MsBaseCon{
       return;
     }
     if(p2CoinsNum.getData()<bean.cashAmount){
+      if(fromGuide6){
+        MsTbaUtils.instance.customEvent(eventName: MsCustomEventName.newuser_guide,params: {"pop_step":"pop6"});
+      }
       MsRouterUtils.instance.showDialog(
         child: NoMoneyDialog(),
       );
@@ -130,7 +137,7 @@ class CashChildCon extends MsBaseCon{
       amountGlobalKey: firstAmountGlobalKey,
       dismissCallback: (){
         p2ShowGuideUser.saveData(false);
-        clickCash(cashList.first);
+        clickCash(cashList.first,fromGuide6: true);
       },
     );
   }

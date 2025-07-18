@@ -5,6 +5,8 @@ import 'package:c103_mine_sweep/mine_sweep_routers/ms_routers_name.dart';
 import 'package:c103_mine_sweep/mine_sweep_routers/ms_routers_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_storage/common/common_storage.dart';
 import 'package:c103_mine_sweep/mine_sweep_storage/p2/p2_storage.dart';
+import 'package:c103_mine_sweep/mine_sweep_utils/ms_tba/ms_custom_event_name.dart';
+import 'package:c103_mine_sweep/mine_sweep_utils/ms_tba/ms_tba_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -26,6 +28,7 @@ class MsLaunchCon extends MsBaseCon with GetSingleTickerProviderStateMixin{
     if(p2UserId.getData()==0){
       p2UserId.saveData(Random().nextInt(100000));
     }
+    MsTbaUtils.instance.customEvent(eventName: MsCustomEventName.launch_page);
   }
 
   @override

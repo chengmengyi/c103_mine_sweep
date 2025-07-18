@@ -5,6 +5,7 @@ import 'package:c103_mine_sweep/mine_sweep_routers/ms_p2_pages.dart';
 import 'package:c103_mine_sweep/mine_sweep_routers/ms_routers_name.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_ad_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_sql_utils.dart';
+import 'package:c103_mine_sweep/mine_sweep_utils/ms_tba/ms_tba_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -42,6 +43,8 @@ initMsP1()async{
 initMsP2()async{
   await MsSqlUtils.instance.initSql();
   MsP2ValueUtils.instance.initValue();
+  MsTbaUtils.instance.installEvent();
+  MsTbaUtils.instance.sessionEvent();
 }
 
 class MyApp extends StatelessWidget {

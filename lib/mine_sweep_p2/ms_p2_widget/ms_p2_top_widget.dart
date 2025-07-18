@@ -7,6 +7,8 @@ import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/p2_user_info_utils.dar
 import 'package:c103_mine_sweep/mine_sweep_routers/ms_routers_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_storage/p2/p2_storage.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_event/ms_event_bean.dart';
+import 'package:c103_mine_sweep/mine_sweep_utils/ms_tba/ms_custom_event_name.dart';
+import 'package:c103_mine_sweep/mine_sweep_utils/ms_tba/ms_tba_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_widget/ms_click.dart';
 import 'package:c103_mine_sweep/mine_sweep_widget/ms_images.dart';
 import 'package:c103_mine_sweep/mine_sweep_widget/ms_text.dart';
@@ -107,6 +109,7 @@ class MsP2TopWidgetState extends MsBaseStatefulState<MsP2TopWidget> with SingleT
     bottom: 26.h,
     child: MsClick(
       onTap: (){
+        MsTbaUtils.instance.customEvent(eventName: MsCustomEventName.home_page_setting);
         MsRouterUtils.instance.showDialog(
           child: MsP2SetDialog(
             fromHome: !widget.showLevel,

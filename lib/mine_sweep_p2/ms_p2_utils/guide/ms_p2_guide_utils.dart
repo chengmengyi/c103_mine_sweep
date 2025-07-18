@@ -12,6 +12,9 @@ import 'package:c103_mine_sweep/mine_sweep_storage/p2/p2_storage.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_event/ms_event_utils.dart';
 import 'package:flutter/material.dart';
 
+import '../../../mine_sweep_utils/ms_tba/ms_custom_event_name.dart';
+import '../../../mine_sweep_utils/ms_tba/ms_tba_utils.dart';
+
 class MsP2GuideUtils {
   static final MsP2GuideUtils _utils=MsP2GuideUtils();
   static MsP2GuideUtils get instance => _utils;
@@ -25,6 +28,7 @@ class MsP2GuideUtils {
     }
     var renderBox = btnGlobalKey.currentContext!.findRenderObject() as RenderBox;
     var offset = renderBox.localToGlobal(Offset.zero);
+    MsTbaUtils.instance.customEvent(eventName: MsCustomEventName.newuser_guide,params: {"pop_step":"pop1"});
     showOverlay(
       context: context,
       widget: Step1GuideWidget(
@@ -47,6 +51,7 @@ class MsP2GuideUtils {
     }
     MsP2CardBean? p2cardBean = cardList.expand((row) => row).where((c) => !c.isCoveredCard && c.canShow && c.cardText.isNotEmpty && c.isMoneyCard).cast<MsP2CardBean?>().firstOrNull;
     if(null!=p2cardBean){
+      MsTbaUtils.instance.customEvent(eventName: MsCustomEventName.newuser_guide,params: {"pop_step":"pop2"});
       var renderBox = p2cardBean.globalKey.currentContext!.findRenderObject() as RenderBox;
       var offset = renderBox.localToGlobal(Offset.zero);
       showOverlay(
@@ -66,6 +71,7 @@ class MsP2GuideUtils {
     if(!p2ShowGuideUser.getData()||_currentGuideStep!=4){
       return;
     }
+    MsTbaUtils.instance.customEvent(eventName: MsCustomEventName.newuser_guide,params: {"pop_step":"pop4"});
     var renderBox = topMoneyGlobalKey.currentContext!.findRenderObject() as RenderBox;
     var offset = renderBox.localToGlobal(Offset.zero);
     showOverlay(
@@ -90,6 +96,7 @@ class MsP2GuideUtils {
     if(!p2ShowGuideUser.getData()||_currentGuideStep!=5){
       return;
     }
+    MsTbaUtils.instance.customEvent(eventName: MsCustomEventName.newuser_guide,params: {"pop_step":"pop5"});
     var renderBox = amountGlobalKey.currentContext!.findRenderObject() as RenderBox;
     var offset = renderBox.localToGlobal(Offset.zero);
     showOverlay(
@@ -109,6 +116,7 @@ class MsP2GuideUtils {
     required GlobalKey tomadoGlobalKey,
     required Function() dismissCallback,
   }){
+    MsTbaUtils.instance.customEvent(eventName: MsCustomEventName.newuser_guide,params: {"pop_step":"pop7"});
     var renderBox = tomadoGlobalKey.currentContext!.findRenderObject() as RenderBox;
     var offset = renderBox.localToGlobal(Offset.zero);
     showOverlay(
@@ -128,6 +136,7 @@ class MsP2GuideUtils {
     required GlobalKey wildGlobalKey,
     required Function() dismissCallback,
   }){
+    MsTbaUtils.instance.customEvent(eventName: MsCustomEventName.newuser_guide,params: {"pop_step":"pop8"});
     var renderBox = wildGlobalKey.currentContext!.findRenderObject() as RenderBox;
     var offset = renderBox.localToGlobal(Offset.zero);
     showOverlay(
