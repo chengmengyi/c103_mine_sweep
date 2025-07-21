@@ -18,10 +18,12 @@ class GetCoinsDialog extends MsBaseDialog<GetCoinsController>{
   double addNum;
   GetCoinsFrom getCoinsFrom;
   Function() success;
+  bool fromDiamond;
   GetCoinsDialog({
     required this.addNum,
     required this.getCoinsFrom,
     required this.success,
+    this.fromDiamond=false,
 });
 
   @override
@@ -70,11 +72,11 @@ class GetCoinsDialog extends MsBaseDialog<GetCoinsController>{
       children: [
         MsImages(imagesName: "wild1",width: 246.w,height: 246.w,),
         Align(
-          child: MsImages(imagesName: "icon_money2",width: 106.w,height: 93.h,),
+          child: MsImages(imagesName: fromDiamond?"get1":"icon_money2",width: 106.w,height: 93.h,),
         ),
         Align(
           alignment: Alignment.bottomCenter,
-          child: MsText(text: "+\$$addNum", size: 26.sp, color: "#11FF04",),
+          child: MsText(text: fromDiamond?"x${addNum.toInt()}":"+\$$addNum", size: 26.sp, color: "#11FF04",),
         )
       ],
     ),
@@ -90,13 +92,13 @@ class GetCoinsDialog extends MsBaseDialog<GetCoinsController>{
         height: 58.h,
         topRightIcon: "icon_video",
         onTap: (){
-          msCon.clickDouble(getCoinsFrom,addNum,success);
+          msCon.clickDouble(getCoinsFrom,addNum,success,fromDiamond);
         },
       ),
       SizedBox(height: 16.h,),
       MsClick(
         onTap: (){
-          msCon.clickSingle(getCoinsFrom,addNum, success);
+          msCon.clickSingle(getCoinsFrom,addNum, success,fromDiamond);
         },
         child: MsText(
           text: "Collect",

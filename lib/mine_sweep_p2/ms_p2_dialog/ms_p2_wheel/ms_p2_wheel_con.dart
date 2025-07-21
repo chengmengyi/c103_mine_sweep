@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:c103_mine_sweep/mine_sweep_base/ms_base_con.dart';
+import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_bean/ms_wheel_bean.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/get_coins/get_coins_dialog.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_value_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_routers/ms_routers_utils.dart';
@@ -13,11 +14,11 @@ import '../../../mine_sweep_utils/ms_tba/ms_tba_utils.dart';
 class MsP2WheelCon extends MsBaseCon with GetSingleTickerProviderStateMixin{
   var canClick=true;
   var addNum=MsP2ValueUtils.instance.getWheelReward();
-  List<int> numList=[];
+  List<MsWheelBean> numList=[];
   late AnimationController _animationController;
   late Animation<double> animation;
   late AnimationStatusListener _statusListener;
-  Function(double addNum)? dismissDialog;
+  Function(MsWheelBean? bean)? dismissDialog;
 
   @override
   void onInit() {
@@ -28,13 +29,22 @@ class MsP2WheelCon extends MsBaseCon with GetSingleTickerProviderStateMixin{
 
   _initNumList(){
     numList.clear();
-    numList.add(addNum);
-    numList.add(500);
+    numList.add(MsWheelBean(rewardNum: addNum, rewardType: WheelReardType.money));
+    numList.add(MsWheelBean(rewardNum: 500, rewardType: WheelReardType.money));
+    var diamondReward = MsP2ValueUtils.instance.getDiamondReward();
+    if(diamondReward>0){
+      numList.add(MsWheelBean(rewardNum: diamondReward, rewardType: WheelReardType.diamond));
+    }
     while(numList.length<8){
-      numList.add(randomAroundNum(addNum));
+      numList.add(MsWheelBean(rewardNum: randomAroundNum(addNum), rewardType: WheelReardType.money));
     }
     numList.shuffle();
-    var indexWhere = numList.indexWhere((value)=>value==addNum);
+    var diamondIndex = numList.indexWhere((value)=>value.rewardType==WheelReardType.diamond);
+    if(diamondIndex>=0){
+      _initAnimator(360-diamondIndex*45);
+      return;
+    }
+    var indexWhere = numList.indexWhere((value)=>value.rewardNum==addNum);
     if(indexWhere>=0){
       _initAnimator(360-indexWhere*45);
     }else{
@@ -68,10 +78,15 @@ class MsP2WheelCon extends MsBaseCon with GetSingleTickerProviderStateMixin{
   _animatorCompleted()async{
     await Future.delayed(Duration(milliseconds: 1000));
     MsRouterUtils.instance.back();
-    dismissDialog?.call(addNum.toDouble());
+    var diamondIndex = numList.indexWhere((value)=>value.rewardType==WheelReardType.diamond);
+    if(diamondIndex>=0){
+      dismissDialog?.call(numList[diamondIndex]);
+    }else{
+      dismissDialog?.call(MsWheelBean(rewardNum: addNum, rewardType: WheelReardType.money));
+    }
   }
 
-  startWheel(Function(double addNum) dismissDialog){
+  startWheel(Function(MsWheelBean? bean) dismissDialog){
     if(!canClick){
       return;
     }
@@ -81,12 +96,12 @@ class MsP2WheelCon extends MsBaseCon with GetSingleTickerProviderStateMixin{
     _animationController.forward();
   }
 
-  clickClose(Function(double addNum) dismissDialog){
+  clickClose(Function(MsWheelBean? bean) dismissDialog){
     if(!canClick){
       return;
     }
     MsRouterUtils.instance.back();
-    dismissDialog.call(0);
+    dismissDialog.call(null);
   }
 
   @override

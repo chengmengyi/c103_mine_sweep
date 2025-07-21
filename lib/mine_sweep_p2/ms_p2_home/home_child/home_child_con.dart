@@ -1,6 +1,7 @@
 import 'package:c103_mine_sweep/mine_sweep_base/ms_base_con.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/ms_p2_card_game/ms_p2_card_game_dialog.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/ms_p2_good_comment/ms_p2_good_comment_dialog.dart';
+import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/ms_p2_play_fail/ms_p2_play_fail_dialog.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/ms_p2_wheel/ms_p2_wheel_dialog.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/guide/ms_p2_guide_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_cash_utils.dart';
@@ -114,7 +115,8 @@ class HomeChildCon extends MsBaseCon{
     // print(P2UserInfoUtils.instance.getCurrentLevelNum());
 
     // MsTbaUtils.instance.sessionEvent();
+    // print(MsP2ValueUtils.instance.getDiamondReward());
+    // P2UserInfoUtils.instance.updateCoinsNum(2000);
 
-    MsP2ValueUtils.instance.initValue();
   }
 }

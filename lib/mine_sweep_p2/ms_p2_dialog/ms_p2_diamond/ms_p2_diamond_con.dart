@@ -53,18 +53,10 @@ class MsP2DiamondCon extends MsBaseCon{
       showToast("You have already redeemed");
       return;
     }
-    MsRouterUtils.instance.showDialog(
-      child: GetCoinsDialog(
-        addNum: money.toDouble(),
-        getCoinsFrom: GetCoinsFrom.gem_collection,
-        success: (){
-          P2UserInfoUtils.instance.updateDiamond(-diamondNum);
-          alreadyExchangeList.add("${bean.money}");
-          p2DiamondExchangeRecord.saveData(alreadyExchangeList.join(","));
-          update(["list"]);
-        },
-      ),
-    );
+    P2UserInfoUtils.instance.updateDiamond(-diamondNum);
+    alreadyExchangeList.add("${bean.money}");
+    p2DiamondExchangeRecord.saveData(alreadyExchangeList.join(","));
+    update(["list"]);
   }
   
   _getAlreadyExchangeList(){

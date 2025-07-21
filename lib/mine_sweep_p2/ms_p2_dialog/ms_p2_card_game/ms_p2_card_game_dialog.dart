@@ -10,8 +10,10 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 
 class MsP2CardGameDialog extends MsBaseDialog<MsP2CardGameCon>{
-  Function(double addNum) dismissDialog;
-  MsP2CardGameDialog({required this.dismissDialog});
+  Function(double addNum,bool isDiamondReward) dismissDialog;
+  MsP2CardGameDialog({
+    required this.dismissDialog,
+  });
 
   @override
   MsP2CardGameCon initMsCon() => MsP2CardGameCon();
@@ -39,6 +41,7 @@ class MsP2CardGameDialog extends MsBaseDialog<MsP2CardGameCon>{
       itemBuilder: (context,index) => MsP2CardGameItemWidget(
         index: index,
         addNum: msCon.addNum,
+        isDiamondReward: msCon.isDiamondReward,
         clickCardCallback: (){
           msCon.clickCardCallback(dismissDialog);
         },

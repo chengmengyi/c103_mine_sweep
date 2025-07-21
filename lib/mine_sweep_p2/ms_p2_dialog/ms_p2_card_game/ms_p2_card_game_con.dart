@@ -8,28 +8,40 @@ import '../../../mine_sweep_utils/ms_tba/ms_custom_event_name.dart';
 import '../../../mine_sweep_utils/ms_tba/ms_tba_utils.dart';
 
 class MsP2CardGameCon extends MsBaseCon{
-  var cakClick=true;
-  var addNum=MsP2ValueUtils.instance.getCardGamesReward();
+  var cakClick=true,isDiamondReward=false;
+  var addNum=0.0;
 
   @override
   void onInit() {
     super.onInit();
+    setInfo();
     MsTbaUtils.instance.customEvent(eventName: MsCustomEventName.card_view,params: {"level":p2LevelNum.getData()});
   }
 
-  clickClose(Function(double addNum) dismissDialog){
+  setInfo(){
+    var diamondReward = MsP2ValueUtils.instance.getDiamondReward();
+    if(diamondReward>0){
+      isDiamondReward=true;
+      addNum=diamondReward.toDouble();
+    }else{
+      isDiamondReward=false;
+      addNum=MsP2ValueUtils.instance.getCardGamesReward();
+    }
+  }
+
+  clickClose(Function(double addNum,bool isDiamondReward) dismissDialog){
     if(!cakClick){
       return;
     }
     MsRouterUtils.instance.back();
-    dismissDialog.call(0);
+    dismissDialog.call(0,false);
   }
 
-  clickCardCallback(Function(double addNum) dismissDialog)async{
+  clickCardCallback(Function(double addNum,bool isDiamondReward) dismissDialog)async{
     MsTbaUtils.instance.customEvent(eventName: MsCustomEventName.card_click,params: {"level":p2LevelNum.getData()});
     cakClick=false;
     await Future.delayed(Duration(milliseconds: 3000));
     MsRouterUtils.instance.back();
-    dismissDialog.call(addNum);
+    dismissDialog.call(addNum,isDiamondReward);
   }
 }

@@ -1,5 +1,5 @@
 import 'package:c103_mine_sweep/mine_sweep_base/ms_base_dialog.dart';
-import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/ms_p2_play_fail/ms_p2_play_fail_has_money/ms_p2_play_fail_has_money_con.dart';
+import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/ms_p2_play_fail/ms_p2_play_fail_con.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_widget/ms_btn_widget.dart';
 import 'package:c103_mine_sweep/mine_sweep_widget/ms_click.dart';
@@ -8,18 +8,18 @@ import 'package:c103_mine_sweep/mine_sweep_widget/ms_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class MsP2PlayFailHasMoneyDialog extends MsBaseDialog<MsP2PlayFailHasMoneyCon>{
+class MsP2PlayFailDialog extends MsBaseDialog<MsP2PlayFailCon>{
   Function() clickGetCards;
   Function() clickReplay;
   Function() clickHome;
-  MsP2PlayFailHasMoneyDialog({
+  MsP2PlayFailDialog({
     required this.clickGetCards,
     required this.clickReplay,
     required this.clickHome,
 });
   
   @override
-  MsP2PlayFailHasMoneyCon initMsCon() => MsP2PlayFailHasMoneyCon();
+  MsP2PlayFailCon initMsCon() => MsP2PlayFailCon();
 
   @override
   Widget buildMsWidget() => Container(
@@ -70,54 +70,19 @@ class MsP2PlayFailHasMoneyDialog extends MsBaseDialog<MsP2PlayFailHasMoneyCon>{
               height: 138.h,
               alignment: Alignment.center,
               margin: EdgeInsets.all(15.w),
+              padding: EdgeInsets.all(15.w),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30.w),
                 color: "#E7D6B1".toColor(),
               ),
-              child: RichText(
-                textAlign: TextAlign.center,
-                text: TextSpan(
-                  children: [
-                    //Spend 2000 Magic Crystalsto get extra 5 cards!
-                    TextSpan(
-                      text: "Spend ",
-                      style: TextStyle(
-                        fontFamily: "baloo",
-                        fontSize: 20.sp,
-                        height: 1.0,
-                        color: "#5D0000".toColor(),
-                        fontWeight: FontWeight.bold,
-                      )
-                    ),
-                    TextSpan(
-                        text: "2000",
-                        style: TextStyle(
-                          fontFamily: "baloo",
-                          fontSize: 20.sp,
-                          height: 1.0,
-                          color: "#0A9500".toColor(),
-                          fontWeight: FontWeight.bold,
-                        )
-                    ),
-                    TextSpan(
-                        text: " Magic Crystalsto get extra 5 cards!",
-                        style: TextStyle(
-                          fontFamily: "baloo",
-                          fontSize: 20.sp,
-                          height: 1.0,
-                          color: "#5D0000".toColor(),
-                          fontWeight: FontWeight.bold,
-                        )
-                    ),
-                  ]
-                ),
-              ),
+              child: MsText(text: "Watch a short video to get extra 5 cards!", size: 20.sp, color: "#5D0000"),
             ),
             MsBtnWidget(
               btnText: "Get Cards",
               btnBg: "btn_green",
               width: 160.w,
               height: 58.h,
+              topRightIcon: "icon_video",
               onTap: (){
                 msCon.clickGetCards(clickGetCards);
               },

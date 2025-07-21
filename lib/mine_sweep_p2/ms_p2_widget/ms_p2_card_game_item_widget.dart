@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:c103_mine_sweep/mine_sweep_base/ms_base_statefull.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_event_code.dart';
+import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_value_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_event/ms_event_bean.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_event/ms_event_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/utils.dart';
@@ -14,10 +15,12 @@ import 'package:get/get.dart';
 class MsP2CardGameItemWidget extends MsBaseStateful{
   int index;
   double addNum;
+  bool isDiamondReward;
   Function() clickCardCallback;
   MsP2CardGameItemWidget({
     required this.index,
     required this.addNum,
+    required this.isDiamondReward,
     required this.clickCardCallback,
   });
 
@@ -34,7 +37,11 @@ class MsP2CardGameItemWidgetState extends MsBaseStatefulState<MsP2CardGameItemWi
   @override
   void initState() {
     super.initState();
-    otherAddNum = _randomReduce(widget.addNum);
+    if(widget.isDiamondReward){
+      otherAddNum = _randomReduce(MsP2ValueUtils.instance.getCardGamesReward());
+    }else{
+      otherAddNum = _randomReduce(widget.addNum);
+    }
     _initAnimator();
   }
 
@@ -81,8 +88,14 @@ class MsP2CardGameItemWidgetState extends MsBaseStatefulState<MsP2CardGameItemWi
   _frontWidget()=>Stack(
     alignment: Alignment.bottomCenter,
     children: [
-      MsImages(imagesName: "card_game3",width: double.infinity,height: 106.h,),
-      MsText(text: "+\$${widget.index==clickIndex?widget.addNum:otherAddNum}", size: 16.sp, color: "#009407",useFontFamily: false,fontWeight: FontWeight.bold,).marginOnly(bottom: 20.h),
+      MsImages(imagesName: widget.isDiamondReward&&widget.index==clickIndex?"card_game4":"card_game3",width: double.infinity,height: 106.h,),
+      MsText(
+        text: _getRewardStr(),
+        size: 14.sp,
+        color: "#009407",
+        useFontFamily: false,
+        fontWeight: FontWeight.bold,
+      ).marginOnly(bottom: 20.h),
     ],
   );
 
@@ -116,6 +129,18 @@ class MsP2CardGameItemWidgetState extends MsBaseStatefulState<MsP2CardGameItemWi
         }
       }
     });
+  }
+
+  String _getRewardStr(){
+    if(widget.index==clickIndex){
+      if(widget.isDiamondReward){
+        return "x${widget.addNum.toInt()}";
+      }else{
+        return "+\$${widget.addNum}";
+      }
+    }else{
+      return "+\$${otherAddNum}";
+    }
   }
 
   @override

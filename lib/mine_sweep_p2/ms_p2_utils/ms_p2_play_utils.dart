@@ -2,10 +2,10 @@ import 'dart:math';
 import 'package:c103_mine_sweep/mine_sweep_p1/ms_p1_utils/ms_p1_play_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_bean/ms_p2_card_bean.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_bean/ms_p2_point_bean.dart';
+import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_bean/ms_wheel_bean.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/get_coins/get_coins_dialog.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/ms_p2_card_game/ms_p2_card_game_dialog.dart';
-import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/ms_p2_play_fail/ms_p2_play_fail_has_money/ms_p2_play_fail_has_money_dialog.dart';
-import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/ms_p2_play_fail/ms_p2_play_fail_no_money/ms_p2_play_fail_no_money_dialog.dart';
+import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/ms_p2_play_fail/ms_p2_play_fail_dialog.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/ms_p2_play_win/ms_p2_play_win_dialog.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/ms_p2_wheel/ms_p2_wheel_dialog.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_cash_utils.dart';
@@ -183,13 +183,12 @@ class MsP2PlayUtils {
   }
 
   _showPlayWinDialog(double reward,Function() resetPlayGame){
-    var diamondAddNum=MsP2ValueUtils.instance.getDiamondReward();
-    var routerName = P2UserInfoUtils.instance.updateLevel(diamondAddNum);
+    var routerName = P2UserInfoUtils.instance.updateLevel(1);
     MsVoiceUtils.instance.playMusic(MusicType.playwin);
     MsP2CashUtils.instance.updateCashTask(CashTaskName.task1Pass5);
     MsRouterUtils.instance.showDialog(
       child: MsP2PlayWinDialog(
-        diamondAddNum: diamondAddNum,
+        diamondAddNum: 1,
         rewards: reward,
         clickNext: (){
           if(routerName.isEmpty){
@@ -210,16 +209,20 @@ class MsP2PlayUtils {
     if(p2LastShowWheel.getData()){
       MsRouterUtils.instance.showDialog(
         child: MsP2CardGameDialog(
-          dismissDialog: (addNum){
-            _showCardGameOrWheelGetCoinsDialog(false,addNum,refreshCallback,resetPlayGame,bean);
+          dismissDialog: (double addNum,bool isDiamondReward){
+            _showCardGameOrWheelGetCoinsDialog(false,addNum,isDiamondReward,refreshCallback,resetPlayGame,bean);
           },
         ),
       );
     }else{
       MsRouterUtils.instance.showDialog(
         child: MsP2WheelDialog(
-          dismissDialog: (addNum){
-            _showCardGameOrWheelGetCoinsDialog(true,addNum,refreshCallback,resetPlayGame,bean);
+          dismissDialog: (MsWheelBean? wheelRewardBean){
+            if(null==wheelRewardBean){
+              _showCardGameOrWheelGetCoinsDialog(true,0,false,refreshCallback,resetPlayGame,bean);
+            }else{
+              _showCardGameOrWheelGetCoinsDialog(true,wheelRewardBean.rewardNum.toDouble(),wheelRewardBean.rewardType==WheelReardType.diamond,refreshCallback,resetPlayGame,bean);
+            }
           },
         ),
       );
@@ -227,7 +230,7 @@ class MsP2PlayUtils {
   }
 
   //翻卡游戏或转盘弹窗结束后显示获得弹窗
-  _showCardGameOrWheelGetCoinsDialog(bool wheel,addNum,Function() refreshCallback, Function() resetPlayGame, MsP2CardBean bean,){
+  _showCardGameOrWheelGetCoinsDialog(bool wheel,double addNum,bool fromDiamond,Function() refreshCallback, Function() resetPlayGame, MsP2CardBean bean,){
     P2UserInfoUtils.instance.updateLastWheelShowType();
     if(addNum<=0){
       _checkPlayFinishOrHasCardPlay(refreshCallback,resetPlayGame,bean);
@@ -237,6 +240,7 @@ class MsP2PlayUtils {
       child: GetCoinsDialog(
         addNum: addNum,
         getCoinsFrom: wheel?GetCoinsFrom.wheel:GetCoinsFrom.card,
+        fromDiamond: fromDiamond,
         success: (){
           _checkPlayFinishOrHasCardPlay(refreshCallback,resetPlayGame,bean);
         },
@@ -291,33 +295,20 @@ class MsP2PlayUtils {
 
   _showFailDialog(Function() resetPlay){
     MsVoiceUtils.instance.playMusic(MusicType.playfail);
-    if(p2CoinsNum.getData()>=2000){
-      MsRouterUtils.instance.showDialog(
-        child: MsP2PlayFailHasMoneyDialog(
-          clickGetCards: (){
-            updateHandsNum(5);
-            MsEventUtils.instance.sendMsg(code: MsP2EventCode.addHandCardsNum);
-          },
-          clickReplay: (){
-            _resetPlay(resetPlay);
-          },
-          clickHome: (){
-            MsRouterUtils.instance.back();
-          },
-        ),
-      );
-    }else{
-      MsRouterUtils.instance.showDialog(
-        child: MsP2PlayFailNoMoneyDialog(
-          clickHome: (){
-            MsRouterUtils.instance.back();
-          },
-          clickReplay: (){
-            _resetPlay(resetPlay);
-          },
-        ),
-      );
-    }
+    MsRouterUtils.instance.showDialog(
+      child: MsP2PlayFailDialog(
+        clickGetCards: (){
+          updateHandsNum(5);
+          MsEventUtils.instance.sendMsg(code: MsP2EventCode.addHandCardsNum);
+        },
+        clickReplay: (){
+          _resetPlay(resetPlay);
+        },
+        clickHome: (){
+          MsRouterUtils.instance.back();
+        },
+      ),
+    );
   }
 
   bool _checkPlayFail(){

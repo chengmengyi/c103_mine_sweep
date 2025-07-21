@@ -41,6 +41,9 @@ class MsP2ValueUtils{
   int getWheelReward()=>_getReward(_p2valueBean?.wheelReward??[]).toInt();
   //宝石增加
   int getDiamondReward(){
+    if(kDebugMode){
+      return 1;
+    }
     var list = _p2valueBean?.gemReward??[];
     if(list.isEmpty){
       return 0;

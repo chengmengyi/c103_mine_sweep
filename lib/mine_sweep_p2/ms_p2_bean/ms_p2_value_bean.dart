@@ -193,4 +193,8 @@ class GemReward {
     return map;
   }
 
+  @override
+  String toString() {
+    return 'GemReward{firstNumber: $firstNumber, point: $point, reward: $reward, endNumber: $endNumber}';
+  }
 }

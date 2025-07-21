@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:c103_mine_sweep/mine_sweep_base/ms_base_dialog.dart';
+import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_bean/ms_wheel_bean.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/ms_p2_wheel/ms_p2_wheel_con.dart';
 import 'package:c103_mine_sweep/mine_sweep_widget/ms_click.dart';
 import 'package:c103_mine_sweep/mine_sweep_widget/ms_images.dart';
@@ -11,7 +12,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class MsP2WheelDialog extends MsBaseDialog<MsP2WheelCon>{
-  Function(double addNum) dismissDialog;
+  Function(MsWheelBean? bean) dismissDialog;
   MsP2WheelDialog({required this.dismissDialog});
 
   @override
@@ -56,9 +57,10 @@ class MsP2WheelDialog extends MsBaseDialog<MsP2WheelCon>{
                               MsImages(imagesName: "wheel2",width: double.infinity,height: double.infinity,),
                               for (int i = 0; i < msCon.numList.length; i++)
                                 _buildRotatedText(
-                                  text: msCon.numList[i],
+                                  text: msCon.numList[i].rewardNum,
                                   angleDeg: i * 45.0 - 90,
                                   radius: radius,
+                                  rewardType: msCon.numList[i].rewardType
                                 )
                             ],
                           ),
@@ -86,6 +88,7 @@ class MsP2WheelDialog extends MsBaseDialog<MsP2WheelCon>{
     required int text,
     required double angleDeg,
     required double radius,
+    required WheelReardType rewardType,
   }) {
     final angleRad = angleDeg * pi / 180;
     final offset = Offset(
@@ -102,7 +105,7 @@ class MsP2WheelDialog extends MsBaseDialog<MsP2WheelCon>{
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            MsImages(imagesName: "wheel4",width: 48.w,height: 32.h,),
+            MsImages(imagesName: rewardType==WheelReardType.money?"wheel4":"wheel5",width: 48.w,height: 32.h,),
             MsText(text: "\$$text", size: 16.sp, color: "#FFFFFF",outLineColor: "#000000",useFontFamily: false,fontWeight: FontWeight.bold,)
           ],
         ),
@@ -128,7 +131,7 @@ class MsP2WheelDialog extends MsBaseDialog<MsP2WheelCon>{
             alignment: Alignment.topCenter,
             children: [
               MsImages(imagesName: "diamond2",height: 65.h,boxFit: BoxFit.fitHeight,),
-              MsText(text: "Wealth Card", size: 25.sp, color: "#FFFFFF").marginOnly(top: 6.h),
+              MsText(text: "WHEEL CASH", size: 25.sp, color: "#FFFFFF").marginOnly(top: 6.h),
             ],
           )
         ],

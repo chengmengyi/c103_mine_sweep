@@ -19,7 +19,7 @@ class GetCoinsController extends MsBaseCon{
     success.call();
   }
 
-  clickDouble(GetCoinsFrom getCoinsFrom,double addNum,Function() success)async{
+  clickDouble(GetCoinsFrom getCoinsFrom,double addNum,Function() success, bool fromDiamond)async{
     MsTbaUtils.instance.customEvent(eventName: MsCustomEventName.claim_pop_claim,params: {"pop_scene":getCoinsFrom.name});
     if(!(await _checkHasNetwork(getCoinsFrom))){
       return;
@@ -27,21 +27,29 @@ class GetCoinsController extends MsBaseCon{
     MsAdUtils.instance.showP2222Ad(
       adType: AdType.reward,
       close: (){
-        P2UserInfoUtils.instance.updateCoinsNum(valuex2(addNum));
+        if(fromDiamond){
+          P2UserInfoUtils.instance.updateDiamond(addNum.toInt()*2);
+        }else{
+          P2UserInfoUtils.instance.updateCoinsNum(valuex2(addNum));
+        }
         MsRouterUtils.instance.back();
         success.call();
       },
     );
   }
 
-  clickSingle(GetCoinsFrom getCoinsFrom,double addNum,Function() success)async{
+  clickSingle(GetCoinsFrom getCoinsFrom,double addNum,Function() success, bool fromDiamond)async{
     if(!(await _checkHasNetwork(getCoinsFrom))){
       return;
     }
     MsAdUtils.instance.showP2222Ad(
       adType: AdType.interstitial,
       close: (){
-        P2UserInfoUtils.instance.updateCoinsNum(addNum);
+        if(fromDiamond){
+          P2UserInfoUtils.instance.updateDiamond(addNum.toInt());
+        }else{
+          P2UserInfoUtils.instance.updateCoinsNum(addNum);
+        }
         MsRouterUtils.instance.back();
         success.call();
       },
