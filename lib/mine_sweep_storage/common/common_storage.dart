@@ -5,3 +5,5 @@ StorageData<bool> launchShowBtnCommon=StorageData<bool>(key: CommonStorageName.l
 StorageData<bool> bgMusicSwitch=StorageData<bool>(key: CommonStorageName.bgMusicSwitch, defaultValue: true);
 StorageData<bool> voiceMusicSwitch=StorageData<bool>(key: CommonStorageName.voiceMusicSwitch, defaultValue: true);
 StorageData<bool> showOpenAd=StorageData<bool>(key: CommonStorageName.showOpenAd, defaultValue: false);
+
+StorageData<String> valueFirebaseConfig=StorageData<String>(key: CommonStorageName.valueFirebaseConfig, defaultValue: "");

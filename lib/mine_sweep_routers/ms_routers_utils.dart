@@ -20,6 +20,11 @@ class MsRouterUtils{
     Get.offNamed(routersName);
   }
 
+  offAllNamed({required String routersName}){
+    Get.offAllNamed(routersName);
+  }
+
+
   offAllUnit({required String routersName}){
     Get.until((route) => route.settings.name==routersName);
   }

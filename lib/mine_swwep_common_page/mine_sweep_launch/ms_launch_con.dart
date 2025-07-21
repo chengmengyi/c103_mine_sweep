@@ -8,6 +8,7 @@ import 'package:c103_mine_sweep/mine_sweep_storage/p2/p2_storage.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_tba/ms_custom_event_name.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_tba/ms_tba_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_check_af/flutter_check_af.dart';
 import 'package:get/get.dart';
 
 class MsLaunchCon extends MsBaseCon with GetSingleTickerProviderStateMixin{
@@ -41,16 +42,21 @@ class MsLaunchCon extends MsBaseCon with GetSingleTickerProviderStateMixin{
 
   checkUserType(){
     launchShowBtnCommon.saveData(false);
-    if(showOpenAd.getData()){
-      _toHome();
+    var user = FlutterCheckAf.instance.checkUser();
+    if(user){
+      if(showOpenAd.getData()){
+        _toHome(user);
+      }else{
+        _toHome(user);
+      }
     }else{
-      _toHome();
+      _toHome(user);
     }
   }
 
-  _toHome(){
+  _toHome(bool user){
     showOpenAd.saveData(true);
-    MsRouterUtils.instance.offNamed(routersName: MsP2RoutersName.home);
+    MsRouterUtils.instance.offNamed(routersName: user?MsP2RoutersName.home:MsP1RoutersName.home);
   }
 
   @override

@@ -59,24 +59,24 @@ class MsP2LocalNotificationUtils {
   _notification1(){
     _showNotification(
       id: MsP2NotificationId.notification1,
-      title: "Tripeak Cash Boost!",
-      content: "Ace a Tripeak round, bag extra cash! Grab it now!",
+      title: "Tripeak Win Bonus!",
+      content: "Every Tripeak win today gives extra cash. Play more!",
       duration: Duration(minutes: 30),
     );
   }
   _notification2(){
     _showNotification(
       id: MsP2NotificationId.notification2,
-      title: "Solitaire Lucky Spin!",
-      content: "Nail a solitaire game, unlock a lucky spin for cash! Tap in!",
+      title: "Flip to Win Big!",
+      content: "Today’s flip goal—get loads of cash. You’re close!",
       duration: Duration(minutes: 60),
     );
   }
   _notification3(){
     _showNotification(
       id: MsP2NotificationId.notification3,
-      title: "Double Rewards Alert!",
-      content: "Play both Tripeak and solitaire, earn double cash today!",
+      title: "Spin & Win More!",
+      content: "Next spin gives double cash—get loads with one turn!",
       duration: Duration(minutes: 90),
     );
   }
@@ -84,15 +84,15 @@ class MsP2LocalNotificationUtils {
     _showNotification(
       id: MsP2NotificationId.notification4,
       title: "Cash Streak Builder!",
-      content: "wins in Tripeak + solitaire = massive cash streak! Keep going!",
+      content: "5 wins in Tripeak + solitaire = massive cash streak! Keep going!",
       duration: Duration(hours: 3),
     );
   }
   _notification5(){
     _showNotification(
       id: MsP2NotificationId.notification5,
-      title: "Top Gamers Cash Out!",
-      content: "Top Gamers Earn Huge! Instant Cash Rewards!",
+      title: "Tripeak Daily Gift!",
+      content: "Log in, play 1 Tripeak game, get piles of cash. No catch!",
       duration: Duration(hours: 5),
     );
   }

@@ -1,3 +1,4 @@
+import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_network_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_value_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_routers/ms_common_pages.dart';
 import 'package:c103_mine_sweep/mine_sweep_routers/ms_p1_pages.dart';
@@ -45,6 +46,7 @@ initMsP2()async{
   MsP2ValueUtils.instance.initValue();
   MsTbaUtils.instance.installEvent();
   MsTbaUtils.instance.sessionEvent();
+  MsP2NetworkUtils.instance.setNetworkListener();
 }
 
 class MyApp extends StatelessWidget {

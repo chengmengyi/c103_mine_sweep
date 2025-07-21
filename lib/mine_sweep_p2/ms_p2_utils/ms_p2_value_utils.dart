@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_bean/ms_p2_value_bean.dart';
+import 'package:c103_mine_sweep/mine_sweep_storage/common/common_storage.dart';
 import 'package:c103_mine_sweep/mine_sweep_storage/p2/p2_storage.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_local_info.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/utils.dart';
@@ -14,7 +15,11 @@ class MsP2ValueUtils{
 
   initValue(){
     try{
-      _p2valueBean=MsP2ValueBean.fromJson(jsonDecode(MsLocalInfo.valueStr.base64()));
+      var value=MsLocalInfo.valueStr.base64();
+      if(valueFirebaseConfig.getData().isNotEmpty){
+        value=valueFirebaseConfig.getData();
+      }
+      _p2valueBean=MsP2ValueBean.fromJson(jsonDecode(value));
     }catch(e){
       _p2valueBean=MsP2ValueBean.fromJson(jsonDecode(MsLocalInfo.valueStr.base64()));
     }

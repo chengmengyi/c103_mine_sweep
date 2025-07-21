@@ -7,6 +7,7 @@ import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/p2_user_info_utils.dar
 import 'package:c103_mine_sweep/mine_sweep_routers/ms_routers_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_storage/p2/p2_storage.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_event/ms_event_bean.dart';
+import 'package:c103_mine_sweep/mine_sweep_utils/ms_event/ms_event_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_tba/ms_custom_event_name.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_tba/ms_tba_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_widget/ms_click.dart';
@@ -122,27 +123,32 @@ class MsP2TopWidgetState extends MsBaseStatefulState<MsP2TopWidget> with SingleT
     ),
   );
 
-  _coinsWidget()=>SizedBox(
-    width: 108.w,
-    height: 24.h,
-    child: Stack(
-      children: [
-        MsImages(imagesName: "home6",width: 108.w,height: 24.h,),
-        Align(
-          alignment: Alignment.centerRight,
-          child: MsImages(imagesName: "icon_money",width: 38.w,boxFit: BoxFit.fitWidth,),
-        ),
-        Align(
-          alignment: Alignment.centerLeft,
-          child: Container(
-            width: 108.w, 
-            height: 24.h,
-            alignment: Alignment.center,
-            margin: EdgeInsets.only(right: 20.w,top: 3.h),
-            child: MsText(text: "${p2CoinsNum.getData()}", size: 17.sp, color: "#FFFFFF",outLineColor: "#3F0000",),
+  _coinsWidget()=>MsClick(
+    onTap: (){
+      _clickCoins();
+    },
+    child: SizedBox(
+      width: 108.w,
+      height: 24.h,
+      child: Stack(
+        children: [
+          MsImages(imagesName: "home6",width: 108.w,height: 24.h,),
+          Align(
+            alignment: Alignment.centerRight,
+            child: MsImages(imagesName: "icon_money",width: 38.w,boxFit: BoxFit.fitWidth,),
           ),
-        )
-      ],
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Container(
+              width: 108.w,
+              height: 24.h,
+              alignment: Alignment.center,
+              margin: EdgeInsets.only(right: 20.w,top: 3.h),
+              child: MsText(text: "${p2CoinsNum.getData()}", size: 17.sp, color: "#FFFFFF",outLineColor: "#3F0000",),
+            ),
+          )
+        ],
+      ),
     ),
   );
 
@@ -190,6 +196,11 @@ class MsP2TopWidgetState extends MsBaseStatefulState<MsP2TopWidget> with SingleT
     _boxScaleAnimation = Tween<double>(begin: 1.0, end: 1.2).animate(
       CurvedAnimation(parent: _boxController, curve: Curves.easeInOut),
     );
+  }
+
+  _clickCoins(){
+    MsRouterUtils.instance.back();
+    MsEventUtils.instance.sendMsg(code: MsP2EventCode.showHomeIndex,intValue: 1);
   }
 
   @override

@@ -9,12 +9,21 @@ import 'package:c103_mine_sweep/mine_sweep_routers/ms_routers_name.dart';
 import 'package:c103_mine_sweep/mine_sweep_routers/ms_routers_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_storage/p1/p1_storage.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_ad_utils.dart';
+import 'package:c103_mine_sweep/mine_sweep_utils/ms_check_af_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_event/ms_event_bean.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_voice_utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MsP1HomeCon extends MsBaseCon{
+
+  @override
+  void onInit() {
+    super.onInit();
+    MsCheckAfUtils.instance.setP1PageCallback((){
+      MsRouterUtils.instance.offAllNamed(routersName: MsP2RoutersName.home);
+    });
+  }
 
   toPlay(){
     var levelNum = P1UserInfoUtils.instance.getCurrentLevelNum();
