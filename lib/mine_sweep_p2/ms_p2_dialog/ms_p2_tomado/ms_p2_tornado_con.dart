@@ -29,15 +29,15 @@ class MsP2TornadoCon extends MsBaseCon with GetSingleTickerProviderStateMixin{
     _boxController.repeat(reverse: true);
   }
 
-  clickCoins(Function() getWildCallback){
-    if(p2CoinsNum.getData()<2000){
-      shakeAnimationController.start();
-      return;
-    }
-    P2UserInfoUtils.instance.updateCoinsNum(-2000);
-    MsRouterUtils.instance.back();
-    getWildCallback.call();
-  }
+  // clickCoins(Function() getWildCallback){
+  //   if(p2CoinsNum.getData()<2000){
+  //     shakeAnimationController.start();
+  //     return;
+  //   }
+  //   P2UserInfoUtils.instance.updateCoinsNum(-2000);
+  //   MsRouterUtils.instance.back();
+  //   getWildCallback.call();
+  // }
 
   clickVideo(Function() getWildCallback){
     MsTbaUtils.instance.customEvent(eventName: MsCustomEventName.tomato_collect_c,);

@@ -33,29 +33,29 @@ class MsP2TornadoDialog extends MsBaseDialog<MsP2TornadoCon>{
         ],
       ),
       _contentWidget(),
-      SizedBox(height: 16.h,),
-      ShakeAnimationWidget(
-        randomValue: 10,
-        isForward: false,
-        shakeCount: 0,
-        shakeAnimationController: msCon.shakeAnimationController,
-        shakeAnimationType: ShakeAnimationType.LeftRightShake,
-        child: MsBtnWidget(
-          btnText: "2000",
-          btnBg: "btn_green",
-          width: 160.w,
-          height: 58.h,
-          leftIcon: "icon_coins",
-          textColor: p2CoinsNum.getData()>=2000?"#FFFFFF":"#C62828",
-          onTap: (){
-            msCon.clickCoins(getWildCallback);
-          },
-        ),
-      ),
+      // SizedBox(height: 16.h,),
+      // ShakeAnimationWidget(
+      //   randomValue: 10,
+      //   isForward: false,
+      //   shakeCount: 0,
+      //   shakeAnimationController: msCon.shakeAnimationController,
+      //   shakeAnimationType: ShakeAnimationType.LeftRightShake,
+      //   child: MsBtnWidget(
+      //     btnText: "2000",
+      //     btnBg: "btn_green",
+      //     width: 160.w,
+      //     height: 58.h,
+      //     leftIcon: "icon_coins",
+      //     textColor: p2CoinsNum.getData()>=2000?"#FFFFFF":"#C62828",
+      //     onTap: (){
+      //       msCon.clickCoins(getWildCallback);
+      //     },
+      //   ),
+      // ),
       SizedBox(height: 16.h,),
       MsBtnWidget(
         btnText: "Collect",
-        btnBg: "btn_blue",
+        btnBg: "btn_green",
         width: 160.w,
         height: 58.h,
         topRightIcon: "icon_video",
@@ -63,6 +63,19 @@ class MsP2TornadoDialog extends MsBaseDialog<MsP2TornadoCon>{
           msCon.clickVideo(getWildCallback);
         },
       ),
+      SizedBox(height: 16.h,),
+      MsClick(
+        onTap: (){
+          msCon.clickClose();
+        },
+        child: MsText(
+          text: "No Thanks",
+          size: 14.sp,
+          color: "#AAAAAA",
+          decoration: TextDecoration.underline,
+          decorationColor: "#AAAAAA",
+        ),
+      )
     ],
   );
 

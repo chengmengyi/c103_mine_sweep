@@ -7,6 +7,7 @@ import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/guide/ms_p2_guide_util
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_cash_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_event_code.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_play_utils.dart';
+import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_value_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/p2_user_info_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_routers/ms_routers_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_event/ms_event_bean.dart';
@@ -338,7 +339,7 @@ class MsP2BottomWidgetState extends MsBaseStatefulState<MsP2BottomWidget> with T
     if(widget.p1playUtils.currentHandsNum<=0){
       return;
     }
-    P2UserInfoUtils.instance.updateCoinsNum(100);
+    P2UserInfoUtils.instance.updateCoinsNum(MsP2ValueUtils.instance.getRemoveCardReward());
     setState(() {
       widget.p1playUtils.updateHandsNum(-1);
     });

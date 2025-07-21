@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:c103_mine_sweep/mine_sweep_base/ms_base_statefull.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_bean/ms_p2_card_bean.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_event_code.dart';
+import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_value_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/p2_user_info_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_event/ms_event_bean.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/utils.dart';
@@ -119,7 +120,7 @@ class MsP2TornadoAnimatorWidgetState extends MsBaseStatefulState<MsP2TornadoAnim
   _initStatus(){
     _statusListener=(status){
       if(status==AnimationStatus.completed){
-        P2UserInfoUtils.instance.updateCoinsNum(100*list.length);
+        P2UserInfoUtils.instance.updateCoinsNum(MsP2ValueUtils.instance.getRemoveCardReward()*list.length);
         setState(() {
           list.clear();
         });

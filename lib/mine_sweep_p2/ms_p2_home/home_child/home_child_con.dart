@@ -113,6 +113,8 @@ class HomeChildCon extends MsBaseCon{
     // P2UserInfoUtils.instance.updateLevel(1);
     // print(P2UserInfoUtils.instance.getCurrentLevelNum());
 
-    MsTbaUtils.instance.sessionEvent();
+    // MsTbaUtils.instance.sessionEvent();
+
+    MsP2ValueUtils.instance.initValue();
   }
 }

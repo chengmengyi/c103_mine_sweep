@@ -29,15 +29,15 @@ class MsP2WildCon extends MsBaseCon with GetSingleTickerProviderStateMixin{
     _boxController.repeat(reverse: true);
   }
 
-  clickCoins(Function() getWildCallback){
-    if(p2CoinsNum.getData()<1000){
-      shakeAnimationController.start();
-      return;
-    }
-    P2UserInfoUtils.instance.updateCoinsNum(-1000);
-    MsRouterUtils.instance.back();
-    getWildCallback.call();
-  }
+  // clickCoins(Function() getWildCallback){
+  //   if(p2CoinsNum.getData()<1000){
+  //     shakeAnimationController.start();
+  //     return;
+  //   }
+  //   P2UserInfoUtils.instance.updateCoinsNum(-1000);
+  //   MsRouterUtils.instance.back();
+  //   getWildCallback.call();
+  // }
 
   clickVideo(Function() getWildCallback){
     MsTbaUtils.instance.customEvent(eventName: MsCustomEventName.wild_collect_c,);

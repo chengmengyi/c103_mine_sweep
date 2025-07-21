@@ -6,6 +6,7 @@ import 'package:c103_mine_sweep/mine_sweep_storage/common/common_storage.dart';
 import 'package:c103_mine_sweep/mine_sweep_storage/p2/p2_storage.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_local_info.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/utils.dart';
+import 'package:flutter/foundation.dart';
 
 class MsP2ValueUtils{
   static final MsP2ValueUtils _utils=MsP2ValueUtils();
@@ -18,6 +19,9 @@ class MsP2ValueUtils{
       var value=MsLocalInfo.valueStr.base64();
       if(valueFirebaseConfig.getData().isNotEmpty){
         value=valueFirebaseConfig.getData();
+      }
+      if(kDebugMode){
+        value=MsLocalInfo.valueStr.base64();
       }
       _p2valueBean=MsP2ValueBean.fromJson(jsonDecode(value));
     }catch(e){

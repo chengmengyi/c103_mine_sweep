@@ -31,7 +31,7 @@ class MsGetCoinsLottieWidgetState extends MsBaseStatefulState<MsGetCoinsLottieWi
       return Container();
     }
     return MsLottieWidget(
-      lottieName: "coins",
+      lottieName: "money",
       ext: "zip",
       repeat: false,
       animationController: lottieController,
