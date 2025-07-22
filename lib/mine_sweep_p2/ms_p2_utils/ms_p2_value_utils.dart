@@ -7,6 +7,7 @@ import 'package:c103_mine_sweep/mine_sweep_storage/p2/p2_storage.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_local_info.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/utils.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_ad_ios_plugins/hep/ad_type.dart';
 
 class MsP2ValueUtils{
   static final MsP2ValueUtils _utils=MsP2ValueUtils();
@@ -42,7 +43,7 @@ class MsP2ValueUtils{
   //宝石增加
   int getDiamondReward(){
     if(kDebugMode){
-      return 1;
+    return 1;
     }
     var list = _p2valueBean?.gemReward??[];
     if(list.isEmpty){
@@ -82,6 +83,30 @@ class MsP2ValueUtils{
   }
 
   List<GemList> getDiamondList()=>_p2valueBean?.gemList??[];
+
+  bool showAd(AdType adType){
+    if(kDebugMode){
+      return false;
+    }
+    if(adType==AdType.reward){
+      return true;
+    }
+    var intAd = _p2valueBean?.intAd??[];
+    if(intAd.isEmpty){
+      return false;
+    }
+    var coinsNum = p2CoinsNum.getData();
+    var last = intAd.last;
+    if(coinsNum>=(last.endNumber??200)){
+      return Random().nextInt(100)<(last.point??100);
+    }
+    for (var value in intAd) {
+      if(coinsNum>=(value.firstNumber??0)&&coinsNum<(value.endNumber??0)){
+        return Random().nextInt(100)<(value.point??50);
+      }
+    }
+    return false;
+  }
 
   double _getReward(List<CashCardReward> list){
     if(list.isEmpty){

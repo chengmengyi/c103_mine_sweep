@@ -47,6 +47,7 @@ initMsP2()async{
   MsTbaUtils.instance.installEvent();
   MsTbaUtils.instance.sessionEvent();
   MsP2NetworkUtils.instance.setNetworkListener();
+  MsTbaUtils.instance.queryHasFailTbaJson();
 }
 
 class MyApp extends StatelessWidget {

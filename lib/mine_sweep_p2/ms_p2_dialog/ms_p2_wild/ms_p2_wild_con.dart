@@ -3,6 +3,7 @@ import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/p2_user_info_utils.dar
 import 'package:c103_mine_sweep/mine_sweep_routers/ms_routers_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_storage/p2/p2_storage.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_ad_utils.dart';
+import 'package:c103_mine_sweep/mine_sweep_utils/ms_tba/ms_ad_pos_id.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ad_ios_plugins/hep/ad_type.dart';
 import 'package:get/get.dart';
@@ -43,6 +44,7 @@ class MsP2WildCon extends MsBaseCon with GetSingleTickerProviderStateMixin{
     MsTbaUtils.instance.customEvent(eventName: MsCustomEventName.wild_collect_c,);
     MsAdUtils.instance.showP2222Ad(
       adType: AdType.reward,
+      msAdPosId: MsAdPosId.ohqxn_wildcar_rv,
       close: (){
         MsRouterUtils.instance.back();
         getWildCallback.call();

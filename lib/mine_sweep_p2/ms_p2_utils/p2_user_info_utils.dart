@@ -4,6 +4,8 @@ import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_good_comment_uti
 import 'package:c103_mine_sweep/mine_sweep_routers/ms_routers_name.dart';
 import 'package:c103_mine_sweep/mine_sweep_storage/p2/p2_storage.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_event/ms_event_utils.dart';
+import 'package:c103_mine_sweep/mine_sweep_utils/ms_tba/ms_custom_event_name.dart';
+import 'package:c103_mine_sweep/mine_sweep_utils/ms_tba/ms_tba_utils.dart';
 import 'package:decimal/decimal.dart';
 
 class P2UserInfoUtils{
@@ -107,5 +109,12 @@ class P2UserInfoUtils{
     var result = (Decimal.parse("$current")+Decimal.parse("$add")).toDouble();
     p2CoinsNum.saveData(result);
     MsEventUtils.instance.sendMsg(code: MsP2EventCode.updateCoins,anyValue: add);
+    if(add>0){
+      var moneyLevel = p2LastMoneyLevel.getData()+100;
+      if(p2CoinsNum.getData()>=moneyLevel){
+        MsTbaUtils.instance.customEvent(eventName: MsCustomEventName.cash_dall,params: {"cash_numbers":moneyLevel});
+        p2LastMoneyLevel.saveData(moneyLevel);
+      }
+    }
   }
 }

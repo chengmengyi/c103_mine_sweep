@@ -13,6 +13,7 @@ import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/p2_user_info_utils.dar
 import 'package:c103_mine_sweep/mine_sweep_routers/ms_routers_name.dart';
 import 'package:c103_mine_sweep/mine_sweep_routers/ms_routers_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_storage/p2/p2_storage.dart';
+import 'package:c103_mine_sweep/mine_sweep_utils/ms_ad_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_event/ms_event_bean.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_tba/ms_tba_utils.dart';
 import 'package:flutter/foundation.dart';
@@ -118,5 +119,6 @@ class HomeChildCon extends MsBaseCon{
     // print(MsP2ValueUtils.instance.getDiamondReward());
     // P2UserInfoUtils.instance.updateCoinsNum(2000);
 
+    MsAdUtils.instance.initAd();
   }
 }

@@ -5,10 +5,13 @@ import 'package:c103_mine_sweep/mine_sweep_routers/ms_routers_name.dart';
 import 'package:c103_mine_sweep/mine_sweep_routers/ms_routers_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_storage/common/common_storage.dart';
 import 'package:c103_mine_sweep/mine_sweep_storage/p2/p2_storage.dart';
+import 'package:c103_mine_sweep/mine_sweep_utils/ms_ad_utils.dart';
+import 'package:c103_mine_sweep/mine_sweep_utils/ms_tba/ms_ad_pos_id.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_tba/ms_custom_event_name.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_tba/ms_tba_utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ad_ios_plugins/hep/ad_type.dart';
 import 'package:flutter_check_af/flutter_check_af.dart';
 import 'package:get/get.dart';
 
@@ -49,7 +52,13 @@ class MsLaunchCon extends MsBaseCon with GetSingleTickerProviderStateMixin{
     }
     if(user){
       if(showOpenAd.getData()){
-        _toHome(user);
+        MsAdUtils.instance.showOpennnnAd(
+          adType: AdType.interstitial,
+          msAdPosId: MsAdPosId.ohqxn_launch,
+          close: (){
+            _toHome(user);
+          },
+        );
       }else{
         _toHome(user);
       }

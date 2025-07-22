@@ -5,6 +5,7 @@ import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_network_utils.da
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/p2_user_info_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_routers/ms_routers_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_ad_utils.dart';
+import 'package:c103_mine_sweep/mine_sweep_utils/ms_tba/ms_ad_pos_id.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/utils.dart';
 import 'package:flutter_ad_ios_plugins/hep/ad_type.dart';
 
@@ -26,6 +27,7 @@ class GetCoinsController extends MsBaseCon{
     }
     MsAdUtils.instance.showP2222Ad(
       adType: AdType.reward,
+      msAdPosId: MsAdPosId.ohqxn_obtainpop_rv,
       close: (){
         if(fromDiamond){
           P2UserInfoUtils.instance.updateDiamond(addNum.toInt()*2);
@@ -44,6 +46,7 @@ class GetCoinsController extends MsBaseCon{
     }
     MsAdUtils.instance.showP2222Ad(
       adType: AdType.interstitial,
+      msAdPosId: MsAdPosId.ohqxn_obtainpopclose_int,
       close: (){
         if(fromDiamond){
           P2UserInfoUtils.instance.updateDiamond(addNum.toInt());

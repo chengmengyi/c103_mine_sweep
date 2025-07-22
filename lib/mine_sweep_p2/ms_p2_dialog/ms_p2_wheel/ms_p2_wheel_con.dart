@@ -4,7 +4,10 @@ import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_bean/ms_wheel_bean.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/get_coins/get_coins_dialog.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_value_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_routers/ms_routers_utils.dart';
+import 'package:c103_mine_sweep/mine_sweep_utils/ms_ad_utils.dart';
+import 'package:c103_mine_sweep/mine_sweep_utils/ms_tba/ms_ad_pos_id.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ad_ios_plugins/hep/ad_type.dart';
 import 'package:get/get.dart';
 
 import '../../../mine_sweep_storage/p2/p2_storage.dart';
@@ -100,8 +103,14 @@ class MsP2WheelCon extends MsBaseCon with GetSingleTickerProviderStateMixin{
     if(!canClick){
       return;
     }
-    MsRouterUtils.instance.back();
-    dismissDialog.call(null);
+    MsAdUtils.instance.showP2222Ad(
+      adType: AdType.interstitial,
+      msAdPosId: MsAdPosId.ohqxn_turntablepopclose_int,
+      close: (){
+        MsRouterUtils.instance.back();
+        dismissDialog.call(null);
+      },
+    );
   }
 
   @override

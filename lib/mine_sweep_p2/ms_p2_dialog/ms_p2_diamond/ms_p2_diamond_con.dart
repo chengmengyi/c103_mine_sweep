@@ -55,6 +55,7 @@ class MsP2DiamondCon extends MsBaseCon{
     }
     P2UserInfoUtils.instance.updateDiamond(-diamondNum);
     alreadyExchangeList.add("${bean.money}");
+    P2UserInfoUtils.instance.updateCoinsNum(money.toDouble());
     p2DiamondExchangeRecord.saveData(alreadyExchangeList.join(","));
     update(["list"]);
   }

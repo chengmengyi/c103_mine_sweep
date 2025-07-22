@@ -6,6 +6,7 @@ StorageData<int> p2DiamondNum=StorageData<int>(key: P2StorageName.p2DiamondNum, 
 StorageData<int> p2WheelPro=StorageData<int>(key: P2StorageName.p2WheelPro, defaultValue: 0);
 StorageData<int> p2UserId=StorageData<int>(key: P2StorageName.p2UserId, defaultValue: 0);
 StorageData<int> p2Level12PlayCardNum=StorageData<int>(key: P2StorageName.p2Level12PlayCardNum, defaultValue: 0);
+StorageData<int> p2LastMoneyLevel=StorageData<int>(key: P2StorageName.p2LastMoneyLevel, defaultValue: 0);
 
 StorageData<bool> p2LastShowWheel=StorageData<bool>(key: P2StorageName.p2LastShowWheel, defaultValue: true);
 StorageData<bool> p2ShowGuideUser=StorageData<bool>(key: P2StorageName.p2ShowGuideUser, defaultValue: true);

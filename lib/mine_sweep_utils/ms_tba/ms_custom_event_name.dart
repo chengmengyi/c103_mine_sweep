@@ -47,4 +47,7 @@ enum MsCustomEventName {
   all_push_c,
   cash_dall,
   pv_dall,
+  ad_request,
+  ohqxn_ad_chance,
+  ohqxn_ad_impression_fail,
 }

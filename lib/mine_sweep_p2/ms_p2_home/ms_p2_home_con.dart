@@ -41,6 +41,9 @@ class MsP2HomeCon extends MsBaseCon{
     if(chooseIndex==index){
       return;
     }
+    if(index==0){
+      MsTbaUtils.instance.customEvent(eventName: MsCustomEventName.home_page);
+    }
     if(index==1){
       MsTbaUtils.instance.customEvent(eventName: MsCustomEventName.home_page_cash);
       MsTbaUtils.instance.customEvent(eventName: MsCustomEventName.cash_page);

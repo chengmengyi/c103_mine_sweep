@@ -7,3 +7,7 @@ StorageData<bool> voiceMusicSwitch=StorageData<bool>(key: CommonStorageName.voic
 StorageData<bool> showOpenAd=StorageData<bool>(key: CommonStorageName.showOpenAd, defaultValue: false);
 
 StorageData<String> valueFirebaseConfig=StorageData<String>(key: CommonStorageName.valueFirebaseConfig, defaultValue: "");
+StorageData<String> adFirebaseConfig=StorageData<String>(key: CommonStorageName.adFirebaseConfig, defaultValue: "");
+
+StorageData<int> adShowNum=StorageData<int>(key: CommonStorageName.adShowNum, defaultValue: 0);
+StorageData<int> lastAdLevel=StorageData<int>(key: CommonStorageName.lastAdLevel, defaultValue: 0);

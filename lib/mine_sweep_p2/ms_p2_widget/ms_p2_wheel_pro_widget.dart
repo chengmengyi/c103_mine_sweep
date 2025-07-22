@@ -65,7 +65,7 @@ class MsP2WheelProWidgetState extends MsBaseStatefulState<MsP2WheelProWidget>{
           ),
         ),
         SizedBox(width: 6.w,),
-        MsImages(imagesName: "play3",width: 46.w,height: 52.h,),
+        MsImages(imagesName: p2LastShowWheel.getData()?"play5":"play3",width: 46.w,height: 52.h,),
         SizedBox(width: 6.w,),
       ],
     ).marginOnly(top: 6.h),
