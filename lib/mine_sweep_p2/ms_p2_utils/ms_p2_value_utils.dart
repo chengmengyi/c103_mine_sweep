@@ -42,9 +42,6 @@ class MsP2ValueUtils{
   int getWheelReward()=>_getReward(_p2valueBean?.wheelReward??[]).toInt();
   //宝石增加
   int getDiamondReward(){
-    if(kDebugMode){
-    return 1;
-    }
     var list = _p2valueBean?.gemReward??[];
     if(list.isEmpty){
       return 0;
@@ -85,9 +82,9 @@ class MsP2ValueUtils{
   List<GemList> getDiamondList()=>_p2valueBean?.gemList??[];
 
   bool showAd(AdType adType){
-    if(kDebugMode){
-      return false;
-    }
+    // if(kDebugMode){
+    //   return true;
+    // }
     if(adType==AdType.reward){
       return true;
     }

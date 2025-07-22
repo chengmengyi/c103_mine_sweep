@@ -5,6 +5,7 @@ import 'package:c103_mine_sweep/mine_sweep_routers/ms_p1_pages.dart';
 import 'package:c103_mine_sweep/mine_sweep_routers/ms_p2_pages.dart';
 import 'package:c103_mine_sweep/mine_sweep_routers/ms_routers_name.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_ad_utils.dart';
+import 'package:c103_mine_sweep/mine_sweep_utils/ms_app_life_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_sql_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_tba/ms_tba_utils.dart';
 import 'package:flutter/material.dart';
@@ -48,6 +49,7 @@ initMsP2()async{
   MsTbaUtils.instance.sessionEvent();
   MsP2NetworkUtils.instance.setNetworkListener();
   MsTbaUtils.instance.queryHasFailTbaJson();
+  MsAppLifeUtils.instance.setCallObserver();
 }
 
 class MyApp extends StatelessWidget {

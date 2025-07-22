@@ -33,6 +33,7 @@ class MsFirebaseUtils {
       MsP2ValueUtils.instance.initValue();
     }
     var adConfig = _remoteConfig?.getString("ohqxn_ad_config")??"";
+    print("flutter ios ad --->firebase adConfig--->$adConfig");
     if(adConfig.isNotEmpty){
       adFirebaseConfig.saveData(adConfig);
       MsAdUtils.instance.updateAdInfo();
