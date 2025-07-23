@@ -47,9 +47,6 @@ class MsLaunchCon extends MsBaseCon with GetSingleTickerProviderStateMixin{
   checkUserType(){
     launchShowBtnCommon.saveData(false);
     var user = FlutterCheckAf.instance.checkUser();
-    if(kDebugMode){
-      user=true;
-    }
     if(user){
       if(showOpenAd.getData()){
         MsAdUtils.instance.showOpennnnAd(

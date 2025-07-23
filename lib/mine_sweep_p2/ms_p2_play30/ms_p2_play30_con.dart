@@ -165,6 +165,11 @@ class MsP2Play30Con extends MsBaseCon{
           },
         );
         break;
+      case MsP2EventCode.clickHandCards:
+        p1playUtils.autoShowFailDialog((){
+          _initCard();
+        });
+        break;
     }
   }
 

@@ -10,6 +10,7 @@ import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_play_utils.dart'
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_value_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/p2_user_info_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_routers/ms_routers_utils.dart';
+import 'package:c103_mine_sweep/mine_sweep_storage/p2/p2_storage.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_event/ms_event_bean.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_event/ms_event_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_voice_utils.dart';
@@ -17,6 +18,7 @@ import 'package:c103_mine_sweep/mine_sweep_utils/utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_widget/ms_click.dart';
 import 'package:c103_mine_sweep/mine_sweep_widget/ms_images.dart';
 import 'package:c103_mine_sweep/mine_sweep_widget/ms_text.dart';
+import 'package:c103_mine_sweep/mine_sweep_widget/scale_on_tap.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -120,7 +122,7 @@ class MsP2BottomWidgetState extends MsBaseStatefulState<MsP2BottomWidget> with T
     );
   }
 
-  _wannengWidget()=>MsClick(
+  _wannengWidget()=>ScaleOnTap(
     onTap: (){
       _showWildDialog();
     },
@@ -130,7 +132,7 @@ class MsP2BottomWidgetState extends MsBaseStatefulState<MsP2BottomWidget> with T
     ),
   );
   
-  _longjuanfengWidget()=>MsClick(
+  _longjuanfengWidget()=>ScaleOnTap(
     onTap: (){
       _showTornadoDialog();
     },
@@ -140,7 +142,7 @@ class MsP2BottomWidgetState extends MsBaseStatefulState<MsP2BottomWidget> with T
     ),
   );
 
-  _handsCardWidget()=>MsClick(
+  _handsCardWidget()=>ScaleOnTap(
     onTap: (){
       _clickHandCard();
     },
@@ -199,6 +201,7 @@ class MsP2BottomWidgetState extends MsBaseStatefulState<MsP2BottomWidget> with T
     if(widget.p1playUtils.currentHandsNum<=0||_handCardAnimation?.isAnimating==true||!widget.p1playUtils.canClick){
       return;
     }
+    MsEventUtils.instance.sendMsg(code: MsP2EventCode.hideCardAndHandsFingerGuide);
     widget.p1playUtils.canClick=false;
     var handCardRenderBox = handCardGlobalKey.currentContext!.findRenderObject() as RenderBox;
     var handCardOffset = handCardRenderBox.localToGlobal(Offset.zero);
@@ -218,6 +221,7 @@ class MsP2BottomWidgetState extends MsBaseStatefulState<MsP2BottomWidget> with T
       end: pointOffset,
     ).animate(CurvedAnimation(parent: _handCardController, curve: Curves.easeInOut));
     _handCardController..reset()..forward();
+    MsEventUtils.instance.sendMsg(code: MsP2EventCode.clickHandCards);
   }
 
 
@@ -237,6 +241,7 @@ class MsP2BottomWidgetState extends MsBaseStatefulState<MsP2BottomWidget> with T
       setState(() {});
       await Future.delayed(Duration(milliseconds: 200));
     }
+    widget.p1playUtils.startFingerGuideTimer();
   }
 
   _initHandCardAnimator(){
@@ -270,6 +275,18 @@ class MsP2BottomWidgetState extends MsBaseStatefulState<MsP2BottomWidget> with T
     if(!widget.p1playUtils.canClick){
       return;
     }
+    if(!p2AlreadyShowWildGuide.getData()){
+      MsP2GuideUtils.instance.showStep8Guide(
+        context: context,
+        wildGlobalKey: wildGlobalKey,
+        dismissCallback: (){
+          setState(() {
+            widget.p1playUtils.hasWildCard=true;
+          });
+        },
+      );
+      return;
+    }
     MsRouterUtils.instance.showDialog(
       child: MsP2WildDialog(
         getWildCallback: (){
@@ -283,6 +300,16 @@ class MsP2BottomWidgetState extends MsBaseStatefulState<MsP2BottomWidget> with T
 
   _showTornadoDialog(){
     if(!widget.p1playUtils.canClick){
+      return;
+    }
+    if(!p2AlreadyShowTomadoGuide.getData()){
+      MsP2GuideUtils.instance.showStep7Guide(
+        context: context,
+        tomadoGlobalKey: tomadoGlobalKey,
+        dismissCallback: (){
+          _useTornado();
+        },
+      );
       return;
     }
     MsRouterUtils.instance.showDialog(
@@ -331,6 +358,9 @@ class MsP2BottomWidgetState extends MsBaseStatefulState<MsP2BottomWidget> with T
         break;
       case MsP2EventCode.showTomadoGuide:
         _showTomadoGuide();
+        break;
+      case MsP2EventCode.clickHandsCardFingerGuide:
+        _clickHandCard();
         break;
     }
   }

@@ -1,6 +1,7 @@
 import 'package:c103_mine_sweep/mine_sweep_base/ms_base_con.dart';
 import 'package:c103_mine_sweep/mine_sweep_p1/ms_p1_utils/ms_p1_play_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_bean/ms_p2_card_bean.dart';
+import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/guide/ms_p2_guide_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_event_code.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_play_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_routers/ms_routers_utils.dart';
@@ -16,6 +17,8 @@ import '../../mine_sweep_storage/p2/p2_storage.dart';
 
 class MsP2Play20Con extends MsBaseCon{
   MsP2PlayUtils p1playUtils=MsP2PlayUtils();
+  GlobalKey topMoneyGlobalKey=GlobalKey();
+
   @override
   void onInit() {
     super.onInit();
@@ -28,7 +31,7 @@ class MsP2Play20Con extends MsBaseCon{
     _initCard();
   }
 
-  clickCard(MsP2CardBean bean){
+  clickCard(MsP2CardBean bean,{Function()? fromStep2Callback}){
     p1playUtils.clickCard(
       bean: bean,
       refreshCallback: (){
@@ -36,7 +39,8 @@ class MsP2Play20Con extends MsBaseCon{
       },
       resetPlay: (){
         _initCard();
-      }
+      },
+      fromStep2Callback: fromStep2Callback,
     );
   }
 
@@ -164,12 +168,34 @@ class MsP2Play20Con extends MsBaseCon{
         p1playUtils.handleTornadoData(
           refreshCallback: (){
             update(["list"]);
+            _showMoneyCardGuide();
           },
           resetPlayGame: (){
             _initCard();
           },
         );
         break;
+      case MsP2EventCode.clickHandCards:
+        p1playUtils.autoShowFailDialog((){
+          _initCard();
+        });
+        break;
     }
+  }
+
+
+  _showMoneyCardGuide(){
+    MsP2GuideUtils.instance.showStep2Guide(
+      context: context,
+      cardList: p1playUtils.cardList,
+      dismissCallback: (bean){
+        clickCard(
+          bean,
+          fromStep2Callback: (){
+            MsP2GuideUtils.instance.showStep4Guide(context, topMoneyGlobalKey);
+          },
+        );
+      },
+    );
   }
 }

@@ -50,4 +50,6 @@ enum MsCustomEventName {
   ad_request,
   ohqxn_ad_chance,
   ohqxn_ad_impression_fail,
+  withdraw_reach_pop,
+  withdraw_reach_c,
 }

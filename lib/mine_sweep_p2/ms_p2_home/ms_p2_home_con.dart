@@ -26,12 +26,14 @@ class MsP2HomeCon extends MsBaseCon{
     super.onInit();
     MsP2LocalNotificationUtils.instance.init();
     MsTbaUtils.instance.customEvent(eventName: MsCustomEventName.home_page);
+    // FlutterH5.instance.ms2B();
+    // FlutterH5.instance.ms3B();
   }
 
   @override
   void onReady() {
     super.onReady();
-    if(!p2FirstLaunchApp.getData()){
+    if(!p2ShowGuideUser.getData()&&!p2FirstLaunchApp.getData()){
       MsP2GoodCommentUtils.instance.checkShowGoodGuide();
     }
     p2FirstLaunchApp.saveData(false);
@@ -47,6 +49,9 @@ class MsP2HomeCon extends MsBaseCon{
     if(index==1){
       MsTbaUtils.instance.customEvent(eventName: MsCustomEventName.home_page_cash);
       MsTbaUtils.instance.customEvent(eventName: MsCustomEventName.cash_page);
+    }
+    if(index==2){
+      return;
     }
     chooseIndex=index;
     update(["page"]);

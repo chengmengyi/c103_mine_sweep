@@ -3,6 +3,7 @@ import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_play80/ms_p2_play80_con.dart
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_widget/ms_p2_base_play.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_widget/ms_p2_card_item_widget.dart';
 import 'package:c103_mine_sweep/mine_sweep_widget/ms_click.dart';
+import 'package:c103_mine_sweep/mine_sweep_widget/scale_on_tap.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -20,6 +21,9 @@ class MsP2Play80Page extends MsBasePage<MsP2Play80Con>{
     },
     clickResume: (){
       msCon.clickResume();
+    },
+    clickCardCallback: (bean){
+      msCon.clickCard(bean);
     },
     child: _listWidget(),
   );
@@ -108,7 +112,7 @@ class MsP2Play80Page extends MsBasePage<MsP2Play80Con>{
 
   Widget _cardWidget(int fatherIndex,int childIndex){
     var bean = msCon.p1playUtils.cardList[fatherIndex][childIndex];
-    return MsClick(
+    return ScaleOnTap(
       onTap: (){
         msCon.clickCard(bean);
       },

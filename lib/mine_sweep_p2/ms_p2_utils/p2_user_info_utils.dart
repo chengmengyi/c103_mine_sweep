@@ -1,7 +1,10 @@
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/ms_p2_card_game/ms_p2_card_game_dialog.dart';
+import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/ms_p2_reach_cash/ms_p2_reach_cash_dialog.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_event_code.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_good_comment_utils.dart';
+import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_value_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_routers/ms_routers_name.dart';
+import 'package:c103_mine_sweep/mine_sweep_routers/ms_routers_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_storage/p2/p2_storage.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_event/ms_event_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_tba/ms_custom_event_name.dart';
@@ -52,7 +55,7 @@ class P2UserInfoUtils{
   }
 
   updateLevel12PlayCardNum(){
-    if(p2LevelNum.getData()==12){
+    if(p2LevelNum.getData()==12&&!p2AlreadyShowTomadoGuide.getData()){
       p2Level12PlayCardNum.saveData(p2Level12PlayCardNum.getData()+1);
       if(p2Level12PlayCardNum.getData()==4){
         MsEventUtils.instance.sendMsg(code: MsP2EventCode.showTomadoGuide);
@@ -101,13 +104,20 @@ class P2UserInfoUtils{
     if(add==0){
       return;
     }
-    if(add>0&&p2FirstGetCoins.getData()){
+    if(!p2ShowGuideUser.getData()&&add>0&&p2FirstGetCoins.getData()){
       p2FirstGetCoins.saveData(false);
       MsP2GoodCommentUtils.instance.checkShowGoodGuide();
     }
     var current = p2CoinsNum.getData();
     var result = (Decimal.parse("$current")+Decimal.parse("$add")).toDouble();
     p2CoinsNum.saveData(result);
+    if(p2CoinsNum.getData()<MsP2ValueUtils.instance.getCashList().first){
+      p2ShowCoinsFinger.saveData(true);
+    }
+    if(!p2AlreadyShowedReachDialog.getData()&&p2CoinsNum.getData()>=MsP2ValueUtils.instance.getCashList().first){
+      p2AlreadyShowedReachDialog.saveData(true);
+      MsRouterUtils.instance.showDialog(child: MsP2ReachCashDialog());
+    }
     MsEventUtils.instance.sendMsg(code: MsP2EventCode.updateCoins,anyValue: add);
     if(add>0){
       var moneyLevel = p2LastMoneyLevel.getData()+100;

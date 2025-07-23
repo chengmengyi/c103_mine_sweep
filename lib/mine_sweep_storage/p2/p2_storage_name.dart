@@ -13,4 +13,8 @@ class P2StorageName{
   static const String p2AlreadyShowGoodCommentDialog="p2AlreadyShowGoodCommentDialog";
   static const String p2InstallEvent="p2InstallEvent";
   static const String p2LastMoneyLevel="p2LastMoneyLevel";
+  static const String p2ShowCoinsFinger="p2ShowCoinsFinger";
+  static const String p2AlreadyShowWildGuide="p2AlreadyShowWildGuide";
+  static const String p2AlreadyShowTomadoGuide="p2AlreadyShowTomadoGuide";
+  static const String p2AlreadyShowedReachDialog="p2AlreadyShowedReachDialog";
 }

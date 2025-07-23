@@ -59,6 +59,14 @@ class MsP2DiamondCon extends MsBaseCon{
     p2DiamondExchangeRecord.saveData(alreadyExchangeList.join(","));
     update(["list"]);
   }
+
+  String getBtnStr(GemList bean){
+    var money = bean.money??0;
+    if(checkHasExchange(money)){
+      return "Received";
+    }
+    return "Collect";
+  }
   
   _getAlreadyExchangeList(){
     try{

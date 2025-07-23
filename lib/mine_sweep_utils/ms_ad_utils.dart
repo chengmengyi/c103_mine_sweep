@@ -6,6 +6,7 @@ import 'package:c103_mine_sweep/mine_sweep_utils/ms_tba/ms_ad_pos_id.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_tba/ms_custom_event_name.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_tba/ms_tba_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_voice_utils.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_ad_ios_plugins/data/ad_info_data.dart';
 import 'package:flutter_ad_ios_plugins/data/config_ad_data.dart';
 import 'package:flutter_ad_ios_plugins/flutter_ios_ad_hep.dart';
@@ -103,6 +104,10 @@ class MsAdUtils{
     required MsAdPosId msAdPosId,
     required Function() close,
   }){
+    if(kDebugMode){
+      close.call();
+      return;
+    }
     MsTbaUtils.instance.customEvent(eventName: MsCustomEventName.ohqxn_ad_chance,params: {"ad_pos_id":msAdPosId.name,"ad_format":adType.name});
     var resultData = FlutterIosAdHep.instance.getCacheResultData(adType);
     if(null==resultData){

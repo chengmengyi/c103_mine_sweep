@@ -2,6 +2,7 @@ import 'package:c103_mine_sweep/mine_sweep_base/ms_base_con.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/ms_p2_card_game/ms_p2_card_game_dialog.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/ms_p2_good_comment/ms_p2_good_comment_dialog.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/ms_p2_play_fail/ms_p2_play_fail_dialog.dart';
+import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/ms_p2_reach_cash/ms_p2_reach_cash_dialog.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/ms_p2_wheel/ms_p2_wheel_dialog.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/guide/ms_p2_guide_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_cash_utils.dart';
@@ -22,6 +23,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomeChildCon extends MsBaseCon{
   GlobalKey playBtnGlobalKey=GlobalKey();
+  GlobalKey topCoinsGlobalKey=GlobalKey();
 
   @override
   void onReady() {
@@ -119,6 +121,7 @@ class HomeChildCon extends MsBaseCon{
     // print(MsP2ValueUtils.instance.getDiamondReward());
     // P2UserInfoUtils.instance.updateCoinsNum(2000);
 
-    MsAdUtils.instance.initAd();
+    // MsAdUtils.instance.initAd();
+    P2UserInfoUtils.instance.updateCoinsNum(499);
   }
 }

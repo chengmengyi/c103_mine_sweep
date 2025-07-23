@@ -1,0 +1,6 @@
+framework module DynamicController {
+  umbrella header "DynamicController.h"
+  export *
+
+  module * { export * }
+}

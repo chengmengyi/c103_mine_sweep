@@ -8,4 +8,5 @@ enum MsAdPosId{
   ohqxn_turntablepopclose_int,
   ohqxn_victorypop_int,
   ohqxn_failpop_int,
+  ohqxn_failpop_rv,
 }

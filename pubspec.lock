@@ -354,10 +354,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_check_af
-      sha256: "01f027a55b17039703ef9a016f7fc2141a7266f54bcaf0851394260797fde88b"
+      sha256: ac46d3dbb7e23bdd8c70d2f664e5e542f25d9c09dbdb7cd54164732cd47b9b56
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.6"
+    version: "0.0.7"
   flutter_lints:
     dependency: "direct dev"
     description:

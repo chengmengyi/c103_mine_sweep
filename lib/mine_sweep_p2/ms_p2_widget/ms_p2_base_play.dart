@@ -1,15 +1,15 @@
+import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_bean/ms_p2_card_bean.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_utils/ms_p2_play_utils.dart';
+import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_widget/ms_card_finger_guide_widget.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_widget/ms_get_coins_lottie_widget.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_widget/ms_get_tomado_lottie_widget.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_widget/ms_p2_card_move_animator_widget.dart';
+import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_widget/ms_p2_coins_finger_widget.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_widget/ms_p2_play_top_widget.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_widget/ms_p2_tornado_animator_widget.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_widget/ms_p2_wheel_pro_widget.dart';
 import 'package:c103_mine_sweep/mine_sweep_widget/ms_images.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_widget/ms_p2_bottom_widget.dart';
-import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_widget/ms_p2_top_widget.dart';
-import 'package:c103_mine_sweep/mine_sweep_widget/ms_lottie_widget.dart';
-import 'package:c103_mine_sweep/mine_sweep_widget/ms_spine_widget.dart';
 import 'package:flutter/material.dart';
 
 class MsP2BasePlay extends StatelessWidget{
@@ -17,14 +17,16 @@ class MsP2BasePlay extends StatelessWidget{
   Widget child;
   Function()? clickHome;
   Function()? clickResume;
-  GlobalKey? topMoneyGlobalKey;
+  GlobalKey topMoneyGlobalKey;
+  Function(MsP2CardBean bean) clickCardCallback;
 
   MsP2BasePlay({
     required this.p1playUtils,
+    required this.topMoneyGlobalKey,
+    required this.clickCardCallback,
     required this.child,
     this.clickHome,
     this.clickResume,
-    this.topMoneyGlobalKey,
   });
   @override
   Widget build(BuildContext context) => Stack(
@@ -46,6 +48,12 @@ class MsP2BasePlay extends StatelessWidget{
       MsP2TornadoAnimatorWidget(),
       MsGetCoinsLottieWidget(),
       MsGetTomadoLottieWidget(),
+      MsP2CoinsFingerWidget(globalKey: topMoneyGlobalKey,fromHome: false,),
+      MsCardFingerGuideWidget(
+        clickCardCallback: (bean){
+          clickCardCallback.call(bean);
+        },
+      ),
     ],
   );
 }

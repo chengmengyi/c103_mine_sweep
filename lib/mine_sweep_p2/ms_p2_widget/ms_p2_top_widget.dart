@@ -19,9 +19,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MsP2TopWidget extends MsBaseStateful{
   bool showLevel;
+  GlobalKey topCoinsGlobalKey;
   Function()? clickHome;
   Function()? clickResume;
   MsP2TopWidget({
+    required this.topCoinsGlobalKey,
     this.showLevel=true,
     this.clickHome,
     this.clickResume,
@@ -130,6 +132,7 @@ class MsP2TopWidgetState extends MsBaseStatefulState<MsP2TopWidget> with SingleT
     child: SizedBox(
       width: 108.w,
       height: 24.h,
+      key: widget.topCoinsGlobalKey,
       child: Stack(
         children: [
           MsImages(imagesName: "home6",width: 108.w,height: 24.h,),

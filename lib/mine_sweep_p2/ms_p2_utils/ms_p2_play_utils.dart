@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 import 'package:c103_mine_sweep/mine_sweep_p1/ms_p1_utils/ms_p1_play_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_bean/ms_p2_card_bean.dart';
@@ -27,6 +28,7 @@ class MsP2PlayUtils {
   List<List<MsP2CardBean>> cardList=[];
   MsP2PointBean? p1pointBean;
   GlobalKey? _pointCardGlobalKey;
+  Timer? _fingerGuideTimer;
 
   updateHandsNum(int addNum){
     currentHandsNum+=addNum;
@@ -59,6 +61,8 @@ class MsP2PlayUtils {
     required Function() resetPlayGame,
 })async{
     canClick=false;
+    endFingerGuideTimer();
+    MsEventUtils.instance.sendMsg(code: MsP2EventCode.hideCardAndHandsFingerGuide);
     MsVoiceUtils.instance.playMusic(MusicType.feng1);
     var cardsNum=0;
     for (var value in cardList) {
@@ -81,6 +85,7 @@ class MsP2PlayUtils {
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
         _turnOverCard();
         canClick=true;
+        autoShowFailDialog(resetPlayGame);
       });
     }
   }
@@ -94,6 +99,8 @@ class MsP2PlayUtils {
     if(!canClick||bean.isCoveredCard||!bean.canShow||null==_pointCardGlobalKey){
       return;
     }
+    endFingerGuideTimer();
+    MsEventUtils.instance.sendMsg(code: MsP2EventCode.hideCardAndHandsFingerGuide);
     if(bean.isMoneyCard){
       bean.canShow=false;
       refreshCallback.call();
@@ -163,7 +170,7 @@ class MsP2PlayUtils {
     if(_checkAllPlayFinish()){
       _allPlayFinish(refreshCallback: refreshCallback,resetPlayGame: resetPlayGame);
     }else{  //还有牌可以玩
-      _hasCardCanPlay(bean: bean, refreshCallback: refreshCallback);
+      _hasCardCanPlay(bean: bean, refreshCallback: refreshCallback,resetPlayGame: resetPlayGame);
     }
   }
 
@@ -179,6 +186,32 @@ class MsP2PlayUtils {
       _showPlayWinDialog(handsNum*MsP2ValueUtils.instance.getRemoveCardReward(),resetPlayGame);
     }else{
       _showPlayWinDialog(0,resetPlayGame);
+    }
+  }
+
+  startFingerGuideTimer(){
+    if(null!=_fingerGuideTimer){
+      return;
+    }
+    _fingerGuideTimer=Timer(Duration(milliseconds: 5000), (){
+      var cardBean = getFingerGuideCardBean();
+      if(null!=cardBean){
+        MsEventUtils.instance.sendMsg(code: MsP2EventCode.showCardFingerGuide,anyValue: cardBean);
+      }else if(currentHandsNum>0){
+        MsEventUtils.instance.sendMsg(code: MsP2EventCode.showHandsCardFingerGuide);
+      }
+    });
+  }
+
+  endFingerGuideTimer(){
+    _fingerGuideTimer?.cancel();
+    _fingerGuideTimer=null;
+  }
+
+  autoShowFailDialog(Function() resetPlay)async{
+    await Future.delayed(Duration(milliseconds: 650));
+    if(_checkPlayFail()){
+      _showFailDialog(resetPlay);
     }
   }
 
@@ -252,11 +285,14 @@ class MsP2PlayUtils {
   _hasCardCanPlay({
     required MsP2CardBean bean,
     required Function() refreshCallback,
+    required Function() resetPlayGame,
   }){
     _checkAllCovered();
     refreshCallback.call();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       _turnOverCard();
+      autoShowFailDialog(resetPlayGame);
+      startFingerGuideTimer();
     });
     canClick=true;
   }
@@ -334,6 +370,18 @@ class MsP2PlayUtils {
       }
     }
     return true;
+  }
+
+  MsP2CardBean? getFingerGuideCardBean(){
+    var list = cardList.expand((row) => row).where((c) => !c.isCoveredCard&&c.canShow&&c.cardText.isNotEmpty).toList();
+    if(hasWildCard){
+      return list.random();
+    }
+    var indexWhere = list.indexWhere((value)=>_checkTwoCardsDiff1(p1pointBean?.cardText??"",value.cardText));
+    if(indexWhere>=0){
+      return list[indexWhere];
+    }
+    return null;
   }
 
   //设置底部的指示牌

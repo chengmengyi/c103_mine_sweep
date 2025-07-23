@@ -14,6 +14,10 @@ StorageData<bool> p2FirstGetCoins=StorageData<bool>(key: P2StorageName.p2FirstGe
 StorageData<bool> p2FirstLaunchApp=StorageData<bool>(key: P2StorageName.p2FirstLaunchApp, defaultValue: true);
 StorageData<bool> p2AlreadyShowGoodCommentDialog=StorageData<bool>(key: P2StorageName.p2AlreadyShowGoodCommentDialog, defaultValue: false);
 StorageData<bool> p2InstallEvent=StorageData<bool>(key: P2StorageName.p2InstallEvent, defaultValue: false);
+StorageData<bool> p2ShowCoinsFinger=StorageData<bool>(key: P2StorageName.p2ShowCoinsFinger, defaultValue: true);
+StorageData<bool> p2AlreadyShowWildGuide=StorageData<bool>(key: P2StorageName.p2AlreadyShowWildGuide, defaultValue: false);
+StorageData<bool> p2AlreadyShowTomadoGuide=StorageData<bool>(key: P2StorageName.p2AlreadyShowTomadoGuide, defaultValue: false);
+StorageData<bool> p2AlreadyShowedReachDialog=StorageData<bool>(key: P2StorageName.p2AlreadyShowedReachDialog, defaultValue: false);
 
 StorageData<double> p2CoinsNum=StorageData<double>(key: P2StorageName.p2CoinsNum, defaultValue: 0.0);
 

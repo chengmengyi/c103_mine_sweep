@@ -39,4 +39,14 @@ class MsP2EventCode{
   static const showCashGuide=119;
   //显示龙卷风引导
   static const showTomadoGuide=120;
+  //点击手牌
+  static const clickHandCards=121;
+  //显示卡牌手指引导
+  static const showCardFingerGuide=122;
+  //显示手牌引导
+  static const showHandsCardFingerGuide=123;
+  //点击手牌引导
+  static const clickHandsCardFingerGuide=124;
+  //隐藏牌和手牌的引导
+  static const hideCardAndHandsFingerGuide=125;
 }

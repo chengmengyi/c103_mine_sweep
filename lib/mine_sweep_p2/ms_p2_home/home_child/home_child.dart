@@ -1,5 +1,6 @@
 import 'package:c103_mine_sweep/mine_sweep_base/ms_base_child.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_home/home_child/home_child_con.dart';
+import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_widget/ms_p2_coins_finger_widget.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_widget/ms_p2_home_cash_pro_widget.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_widget/ms_p2_top_widget.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_tba/ms_custom_event_name.dart';
@@ -22,7 +23,7 @@ class HomeChild extends MsBaseChild<HomeChildCon>{
       MsImages(imagesName: "home1",width: double.infinity,height: double.infinity,),
       Column(
         children: [
-          MsP2TopWidget(showLevel: false,),
+          MsP2TopWidget(showLevel: false,topCoinsGlobalKey: msCon.topCoinsGlobalKey,),
           MsP2HomeCashProWidget(
             clickPlayCallback: (){
               msCon.toPlay();
@@ -31,7 +32,8 @@ class HomeChild extends MsBaseChild<HomeChildCon>{
           _levelListWidget(),
           _btnWidget(),
         ],
-      )
+      ),
+      MsP2CoinsFingerWidget(globalKey: msCon.topCoinsGlobalKey,fromHome: true,),
     ],
   );
 

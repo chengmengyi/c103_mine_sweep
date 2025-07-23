@@ -17,9 +17,15 @@ class MsP2PlayFailCon extends MsBaseCon{
   }
 
   clickGetCards(Function() clickGetCards){
-    MsTbaUtils.instance.customEvent(eventName: MsCustomEventName.fail_getcards_c,params: {"level":p2LevelNum.getData()});
-    MsRouterUtils.instance.back();
-    clickGetCards.call();
+    MsAdUtils.instance.showP2222Ad(
+      adType: AdType.reward,
+      msAdPosId: MsAdPosId.ohqxn_failpop_rv,
+      close: (){
+        MsTbaUtils.instance.customEvent(eventName: MsCustomEventName.fail_getcards_c,params: {"level":p2LevelNum.getData()});
+        MsRouterUtils.instance.back();
+        clickGetCards.call();
+      },
+    );
   }
 
   clickReplay(Function() clickReplay){
