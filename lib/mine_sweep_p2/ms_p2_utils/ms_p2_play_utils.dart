@@ -85,6 +85,7 @@ class MsP2PlayUtils {
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
         _turnOverCard();
         canClick=true;
+        startFingerGuideTimer();
         autoShowFailDialog(resetPlayGame);
       });
     }
@@ -376,6 +377,10 @@ class MsP2PlayUtils {
     var list = cardList.expand((row) => row).where((c) => !c.isCoveredCard&&c.canShow&&c.cardText.isNotEmpty).toList();
     if(hasWildCard){
       return list.random();
+    }
+    var isMoneyCardIndexWhere = list.indexWhere((value)=>value.isMoneyCard);
+    if(isMoneyCardIndexWhere>=0){
+      return list[isMoneyCardIndexWhere];
     }
     var indexWhere = list.indexWhere((value)=>_checkTwoCardsDiff1(p1pointBean?.cardText??"",value.cardText));
     if(indexWhere>=0){

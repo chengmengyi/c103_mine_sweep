@@ -9,6 +9,7 @@ import 'package:c103_mine_sweep/mine_sweep_widget/ms_click.dart';
 import 'package:c103_mine_sweep/mine_sweep_widget/ms_images.dart';
 import 'package:c103_mine_sweep/mine_sweep_widget/ms_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_h5/flutter_h5.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -34,6 +35,16 @@ class HomeChild extends MsBaseChild<HomeChildCon>{
         ],
       ),
       MsP2CoinsFingerWidget(globalKey: msCon.topCoinsGlobalKey,fromHome: true,),
+      Positioned(
+        top: 260.h,
+        right: 15.w,
+        child: MsClick(
+          onTap: (){
+            FlutterH5.instance.ms4H5();
+          },
+          child: MsImages(imagesName: "icon_game",width: 50.w,height: 50.w,),
+        ),
+      ),
     ],
   );
 

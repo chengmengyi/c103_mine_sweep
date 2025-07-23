@@ -13,7 +13,7 @@ import 'package:c103_mine_sweep/mine_sweep_utils/ms_check_af_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_event/ms_event_bean.dart';
 import 'package:c103_mine_sweep/mine_sweep_utils/ms_voice_utils.dart';
 import 'package:flutter/foundation.dart';
-// import 'package:flutter_h5/flutter_h5.dart';
+import 'package:flutter_h5/flutter_h5.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MsP1HomeCon extends MsBaseCon{
@@ -21,7 +21,7 @@ class MsP1HomeCon extends MsBaseCon{
   @override
   void onInit() {
     super.onInit();
-    // FlutterH5.instance.ms1A();
+    FlutterH5.instance.ms1A();
     MsCheckAfUtils.instance.setP1PageCallback((){
       MsRouterUtils.instance.offAllNamed(routersName: MsP2RoutersName.home);
     });

@@ -119,7 +119,7 @@ class MsP2GuideUtils {
     MsTbaUtils.instance.customEvent(eventName: MsCustomEventName.newuser_guide,params: {"pop_step":"pop7"});
     var renderBox = tomadoGlobalKey.currentContext!.findRenderObject() as RenderBox;
     var offset = renderBox.localToGlobal(Offset.zero);
-    p2AlreadyShowWildGuide.saveData(true);
+    p2AlreadyShowTomadoGuide.saveData(true);
     showOverlay(
       context: context,
       widget: Step7GuideWidget(
@@ -140,7 +140,7 @@ class MsP2GuideUtils {
     MsTbaUtils.instance.customEvent(eventName: MsCustomEventName.newuser_guide,params: {"pop_step":"pop8"});
     var renderBox = wildGlobalKey.currentContext!.findRenderObject() as RenderBox;
     var offset = renderBox.localToGlobal(Offset.zero);
-    p2AlreadyShowTomadoGuide.saveData(true);
+    p2AlreadyShowWildGuide.saveData(true);
     showOverlay(
       context: context,
       widget: Step8GuideWidget(

@@ -35,7 +35,15 @@ class MsP2DiamondCon extends MsBaseCon{
   
   bool checkHasDiamond(int diamond)=>p2DiamondNum.getData()>=diamond;
   
-  bool checkBtnStatus(GemList bean)=>checkHasDiamond(bean.num??0)&&!checkHasExchange(bean.money??0);
+  String checkBtnIcon(GemList bean){
+    if(checkHasExchange(bean.money??0)){
+      return "diamond11";
+    }
+    if(checkHasDiamond(bean.num??0)){
+      return "diamond8";
+    }
+    return "diamond9";
+  }
 
   clickClose(){
     MsRouterUtils.instance.back();

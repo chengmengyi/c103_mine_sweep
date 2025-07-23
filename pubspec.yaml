@@ -59,8 +59,8 @@ dependencies:
   firebase_core: 3.13.1
   firebase_remote_config: 5.4.4
   flutter_check_af: 0.0.7
-#  flutter_h5:
-#    path: flutter_h5
+  flutter_h5:
+    path: flutter_h5
 
 
 dev_dependencies:

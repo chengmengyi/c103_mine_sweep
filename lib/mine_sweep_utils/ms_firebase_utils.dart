@@ -10,6 +10,8 @@ class MsFirebaseUtils {
 
   FirebaseRemoteConfig? _remoteConfig;
 
+  var aPackageShowH5Icon=false;
+
   initFirebase()async{
     try{
       await Firebase.initializeApp();
@@ -33,10 +35,11 @@ class MsFirebaseUtils {
       MsP2ValueUtils.instance.initValue();
     }
     var adConfig = _remoteConfig?.getString("ohqxn_ad_config")??"";
-    print("flutter ios ad --->firebase adConfig--->$adConfig");
     if(adConfig.isNotEmpty){
       adFirebaseConfig.saveData(adConfig);
       MsAdUtils.instance.updateAdInfo();
     }
+    var h5_switch=_remoteConfig?.getString("h5_switch")??"";
+    aPackageShowH5Icon=h5_switch=="1";
   }
 }

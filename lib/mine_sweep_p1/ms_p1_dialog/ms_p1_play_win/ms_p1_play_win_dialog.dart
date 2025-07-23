@@ -31,12 +31,12 @@ class MsP1PlayWinDialog extends MsBaseDialog<MsP1PlayWinCon>{
             alignment: Alignment.center,
             children: [
               MsImages(imagesName: "win2",width: 238.w,height: 238.w,),
-              MsImages(imagesName: "win3",width: 184.w,height: 160.w,),
+              MsImages(imagesName: "win6",width: 184.w,height: 160.w,),
             ],
           ),
           Visibility(
             visible: rewards!=0,
-            child: MsText(text: "+$rewards", size: 33.sp, color: "#F7E40E"),
+            child: MsText(text: "+$rewards", size: 33.sp, color: "#11FF04"),
           ),
         ],
       ),

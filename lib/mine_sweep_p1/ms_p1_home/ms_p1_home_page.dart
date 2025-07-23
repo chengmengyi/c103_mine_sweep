@@ -1,10 +1,12 @@
 import 'package:c103_mine_sweep/mine_sweep_base/ms_base_page.dart';
 import 'package:c103_mine_sweep/mine_sweep_p1/ms_p1_home/ms_p1_home_con.dart';
+import 'package:c103_mine_sweep/mine_sweep_utils/ms_firebase_utils.dart';
 import 'package:c103_mine_sweep/mine_sweep_widget/ms_click.dart';
 import 'package:c103_mine_sweep/mine_sweep_widget/ms_images.dart';
 import 'package:c103_mine_sweep/mine_sweep_p1/ms_p1_widget/ms_p1_top_widget.dart';
 import 'package:c103_mine_sweep/mine_sweep_widget/ms_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_h5/flutter_h5.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -23,7 +25,20 @@ class MsP1HomePage extends MsBasePage<MsP1HomeCon>{
           _levelListWidget(),
           _btnWidget(),
         ],
-      )
+      ),
+      Positioned(
+        top: 260.h,
+        right: 15.w,
+        child: Visibility(
+          visible: MsFirebaseUtils.instance.aPackageShowH5Icon,
+          child: MsClick(
+            onTap: (){
+              FlutterH5.instance.ms4H5();
+            },
+            child: MsImages(imagesName: "icon_game",width: 50.w,height: 50.w,),
+          ),
+        ),
+      ),
     ],
   );
 

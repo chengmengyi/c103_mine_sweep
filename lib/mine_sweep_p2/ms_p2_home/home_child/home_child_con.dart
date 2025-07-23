@@ -1,4 +1,5 @@
 import 'package:c103_mine_sweep/mine_sweep_base/ms_base_con.dart';
+import 'package:c103_mine_sweep/mine_sweep_p1/ms_p1_dialog/ms_p1_play_win/ms_p1_play_win_dialog.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/ms_p2_card_game/ms_p2_card_game_dialog.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/ms_p2_good_comment/ms_p2_good_comment_dialog.dart';
 import 'package:c103_mine_sweep/mine_sweep_p2/ms_p2_dialog/ms_p2_play_fail/ms_p2_play_fail_dialog.dart';
@@ -83,6 +84,9 @@ class HomeChildCon extends MsBaseCon{
       case MsP2EventCode.updateLevel:
         update(["level"]);
         break;
+      case MsP2EventCode.clickBottomTab3:
+        toPlay();
+        break;
     }
   }
 
@@ -122,6 +126,7 @@ class HomeChildCon extends MsBaseCon{
     // P2UserInfoUtils.instance.updateCoinsNum(2000);
 
     // MsAdUtils.instance.initAd();
-    P2UserInfoUtils.instance.updateCoinsNum(499);
+    P2UserInfoUtils.instance.updateCoinsNum(480);
+    // print("kk==+${p2AlreadyShowedReachDialog.getData()}");
   }
 }

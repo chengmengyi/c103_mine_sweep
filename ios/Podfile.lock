@@ -83,6 +83,8 @@ PODS:
     - Flutter
   - flutter_check_af (0.0.1):
     - Flutter
+  - flutter_h5 (0.0.1):
+    - Flutter
   - flutter_local_notifications (0.0.1):
     - Flutter
   - flutter_tba_info (0.0.1):
@@ -170,6 +172,7 @@ DEPENDENCIES:
   - flutter_ad_ios_plugins (from `.symlinks/plugins/flutter_ad_ios_plugins/ios`)
   - flutter_app_lifecycle (from `.symlinks/plugins/flutter_app_lifecycle/ios`)
   - flutter_check_af (from `.symlinks/plugins/flutter_check_af/ios`)
+  - flutter_h5 (from `.symlinks/plugins/flutter_h5/ios`)
   - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
   - flutter_tba_info (from `.symlinks/plugins/flutter_tba_info/ios`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
@@ -221,6 +224,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_app_lifecycle/ios"
   flutter_check_af:
     :path: ".symlinks/plugins/flutter_check_af/ios"
+  flutter_h5:
+    :path: ".symlinks/plugins/flutter_h5/ios"
   flutter_local_notifications:
     :path: ".symlinks/plugins/flutter_local_notifications/ios"
   flutter_tba_info:
@@ -263,6 +268,7 @@ SPEC CHECKSUMS:
   flutter_ad_ios_plugins: 39f145153e9fe06753e9b28fb7b43925ae399a71
   flutter_app_lifecycle: 96f63b433a79e643add0fd0a58eabf1a0877e176
   flutter_check_af: ab214b4ad6ca69873e87e3a13495cf88531d5e9a
+  flutter_h5: f35fdfde0a115edb465cd44713e4c499cda8e087
   flutter_local_notifications: a5a732f069baa862e728d839dd2ebb904737effb
   flutter_tba_info: fce89f2ce0bf3af177f0c88e99b153260bc6a7df
   fluttertoast: 2c67e14dce98bbdb200df9e1acf610d7a6264ea1

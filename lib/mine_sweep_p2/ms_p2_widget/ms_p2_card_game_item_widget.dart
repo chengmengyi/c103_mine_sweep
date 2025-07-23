@@ -139,7 +139,7 @@ class MsP2CardGameItemWidgetState extends MsBaseStatefulState<MsP2CardGameItemWi
         return "+\$${widget.addNum}";
       }
     }else{
-      return "+\$${otherAddNum}";
+      return "+\$${otherAddNum.toStringAsFixed(2)}";
     }
   }
 

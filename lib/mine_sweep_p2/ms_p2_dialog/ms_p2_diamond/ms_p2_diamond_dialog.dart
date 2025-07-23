@@ -103,7 +103,7 @@ class MsP1DiamondDialog extends MsBaseDialog<MsP2DiamondCon>{
                 onTap: (){
                   msCon.clickCollect(bean);
                 },
-                child: MsImages(imagesName: msCon.checkBtnStatus(bean)?"diamond8":"diamond9",height: 28.h,boxFit: BoxFit.fitHeight,),
+                child: MsImages(imagesName: msCon.checkBtnIcon(bean),height: 28.h,boxFit: BoxFit.fitHeight,),
               ),
               SizedBox(width: 8.w,),
             ],

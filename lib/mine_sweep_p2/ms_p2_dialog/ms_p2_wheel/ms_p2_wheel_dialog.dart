@@ -106,7 +106,7 @@ class MsP2WheelDialog extends MsBaseDialog<MsP2WheelCon>{
           mainAxisSize: MainAxisSize.min,
           children: [
             MsImages(imagesName: rewardType==WheelReardType.money?"wheel4":"wheel5",width: 48.w,height: 32.h,),
-            MsText(text: "\$$text", size: 16.sp, color: "#FFFFFF",outLineColor: "#000000",useFontFamily: false,fontWeight: FontWeight.bold,)
+            MsText(text: rewardType==WheelReardType.money?"\$$text":"$text", size: 16.sp, color: "#FFFFFF",outLineColor: "#000000",useFontFamily: false,fontWeight: FontWeight.bold,)
           ],
         ),
       ),

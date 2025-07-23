@@ -49,4 +49,6 @@ class MsP2EventCode{
   static const clickHandsCardFingerGuide=124;
   //隐藏牌和手牌的引导
   static const hideCardAndHandsFingerGuide=125;
+  //点击底部tab第三个
+  static const clickBottomTab3=126;
 }
